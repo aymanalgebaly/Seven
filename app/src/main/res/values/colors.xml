@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2a87c7</color>
+    <color name="colorPrimaryDark">#2a87c7</color>
+    <color name="colorAccent">#2a87c7</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="blue">#04216B</color>
+    <drawable name="orange">#C69017</drawable>
+    <drawable name="yellow">#BFC617</drawable>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_more"
+        android:icon="@drawable/ic_looks_black_24dp"
+        android:title="المزيد" />
+
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="البحث" />
+
+    <item
+        android:id="@+id/navigation_add"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="اعلان جديد" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="الملف الشخصي" />
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_white_24dp"
+        android:title="الرئيسية" />
+
+</menu>

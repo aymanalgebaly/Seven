@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:orientation="vertical">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="5dp"
+        app:cardBackgroundColor="#F0EFF5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="120dp"
+                android:layout_height="120dp">
+
+                <ImageView
+                    android:id="@+id/sales_image"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:scaleType="centerInside"
+                    android:background="#000"
+                    android:src="@drawable/car"/>
+
+                <ImageView
+                    android:id="@+id/videoicon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/play"
+                    android:visibility="invisible"
+                    android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layoutDirection="rtl"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/sales_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:maxLines="2"
+                    android:padding="5dp"
+                    android:text="اعلان جديد"
+                    android:textColor="#008000"
+                    android:textDirection="rtl"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    tools:ignore="NestedWeights" />
+
+                <TextView
+                    android:id="@+id/sales_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:text="22/1/2015"
+                    android:textColor="#008ae6"
+                    android:textSize="12sp"
+                    tools:ignore="RtlHardcoded" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/saller_name"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:padding="3dp"
+                        android:text="احمد ابراهيم"
+                        android:textAlignment="textStart"
+                        android:textColor="#0f0f0a"
+                        android:textDirection="ltr"
+                        android:textSize="14sp"
+                        tools:ignore="RtlCompat,RtlHardcoded" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center_vertical"
+                        android:layoutDirection="rtl"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@drawable/location" />
+
+                        <TextView
+                            android:id="@+id/location_name"
+                            android:layout_width="85dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="5dp"
+                            android:gravity="center_vertical"
+                            android:lines="1"
+                            android:text="المدينة المنورة"
+                            android:textAlignment="textStart"
+                            android:textColor="#0f0f0a"
+                            android:textDirection="rtl"
+                            android:textSize="14sp"
+                            tools:ignore="RtlCompat" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/deletepost"
+            android:layout_width="90dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/orangbutton"
+            android:text="حذف"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/updatepost"
+            android:layout_width="90dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/greenbutton"
+            android:text="تحديث"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/editpost"
+            android:layout_width="90dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/greenbutton"
+            android:text="تعديل"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
