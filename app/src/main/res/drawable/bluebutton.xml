@@ -12,9 +12,9 @@
                 android:topLeftRadius="10dp"
                 android:topRightRadius="10dp"/>
             <gradient
-                android:endColor="#2789CA"
-                android:centerColor="#2789CA"
-                android:startColor="#2789CA"/>
+                android:endColor="@color/orange_new"
+                android:centerColor="@color/orange_new"
+                android:startColor="@color/orange_new"/>
         </shape>
     </item>
 </selector>

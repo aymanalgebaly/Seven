@@ -8,79 +8,79 @@
 
     <!-- TODO: Update blank fragment layout -->
     <!--<androidx.appcompat.widget.Toolbar-->
-        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--style="@style/ToolBarStyle.Event"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="#D3DBE1"-->
-        <!--android:minHeight="@dimen/abc_action_bar_default_height_material">-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--style="@style/ToolBarStyle.Event"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="#D3DBE1"-->
+    <!--android:minHeight="@dimen/abc_action_bar_default_height_material">-->
 
-        <!--<RelativeLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content">-->
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
 
-            <!--<Seven.Helper.TextViewWithFont-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--android:text="حراج الأسبوعية"-->
-                <!--android:textAlignment="center"-->
-                <!--android:textColor="#ffffff"-->
-                <!--android:textSize="22sp" />-->
+    <!--<Seven.Helper.TextViewWithFont-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:text="حراج الأسبوعية"-->
+    <!--android:textAlignment="center"-->
+    <!--android:textColor="#ffffff"-->
+    <!--android:textSize="22sp" />-->
 
-            <!--<ImageButton-->
-                <!--android:layout_width="30dp"-->
-                <!--android:layout_height="30dp"-->
-                <!--android:background="@drawable/add"-->
-                <!--android:layout_alignParentEnd="true"-->
-                <!--android:layout_margin="10dp"-->
-                <!--android:id="@+id/addee"/>-->
+    <!--<ImageButton-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:background="@drawable/add"-->
+    <!--android:layout_alignParentEnd="true"-->
+    <!--android:layout_margin="10dp"-->
+    <!--android:id="@+id/addee"/>-->
 
-        <!--</RelativeLayout>-->
+    <!--</RelativeLayout>-->
 
     <!--</androidx.appcompat.widget.Toolbar>-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:layout_gravity="center"
+        android:layout_margin="8dp"
         android:orientation="horizontal"
         android:weightSum="3">
 
         <Spinner
+            android:id="@+id/categories_spinner"
             android:layout_width="0dp"
+            android:layout_height="30dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/curv_stroke_yellow"
-            android:id="@+id/categories_spinner"
             android:layout_marginBottom="10dp"
-            android:layout_height="25dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@drawable/curv_stroke_yellow">
 
         </Spinner>
 
         <Spinner
-            android:layout_width="0dp"
-            android:layout_margin="10dp"
             android:id="@+id/cities"
-            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
             android:background="@drawable/curv_stroke_orange"
-            android:layout_height="25dp"
-            android:layout_weight="1">
+            android:gravity="center">
 
         </Spinner>
 
         <Spinner
-            android:layout_width="0dp"
-            android:layout_marginEnd="10dp"
             android:id="@+id/countries"
-            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_height="25dp"
+            android:layout_weight="1"
             android:background="@drawable/curv_stroke_blue"
-            android:layout_weight="1">
+            android:gravity="center">
 
         </Spinner>
 
@@ -89,12 +89,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_gravity="center"
-        android:gravity="center">
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
     </LinearLayout>
 
@@ -103,11 +103,9 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="15dp">
+        android:layout_marginBottom="5dp">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/swipeContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -115,7 +113,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/sales_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -124,8 +122,8 @@
             android:id="@+id/progressBar1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 

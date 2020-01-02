@@ -3,8 +3,12 @@ package com.compubase.seven.ui.activity;
 import android.os.Bundle;
 
 import com.compubase.seven.R;
+import com.compubase.seven.profile.ProfileFragmentTest;
+import com.compubase.seven.ui.fragment.AddPostFragment;
 import com.compubase.seven.ui.fragment.HaragFragment;
+import com.compubase.seven.ui.fragment.MoreFragment;
 import com.compubase.seven.ui.fragment.ProfileFragment;
+import com.compubase.seven.ui.fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,19 +35,20 @@ public class HomeActivity extends AppCompatActivity {
 //                    mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_search:
+                    displaySelectedFragment(new SearchFragment());
 //                    mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_more:
-//                    mTextMessage.setText(R.string.title_notifications);
+                    displaySelectedFragment(new MoreFragment());
                     return true;
 
                 case R.id.navigation_profile:
 //                    mTextMessage.setText(R.string.title_notifications);
-                    ProfileFragment profileFragment = new ProfileFragment();
-                    displaySelectedFragment(profileFragment);
+                    displaySelectedFragment(new ProfileFragmentTest());
                     return true;
 
                 case R.id.navigation_add:
+                    displaySelectedFragment(new AddPostFragment());
 //                    mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
@@ -58,9 +63,7 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        HaragFragment haragFragment = new HaragFragment();
-        displaySelectedFragment(haragFragment);
+        navView.setSelectedItemId(R.id.navigation_home);
     }
 
     public void displaySelectedFragment(Fragment fragment) {

@@ -23,6 +23,7 @@ import com.compubase.seven.R;
 import com.compubase.seven.helper.AddButtonClick;
 import com.compubase.seven.helper.RequestHandler;
 import com.compubase.seven.helper.TinyDB;
+import com.compubase.seven.model.CommentsResponse;
 import com.compubase.seven.model.SallesCommentItems;
 import com.compubase.seven.ui.fragment.EditCommentFragment;
 
@@ -36,15 +37,11 @@ import java.util.Map;
 
 public class ProfileCommentsAdapter extends RecyclerView.Adapter<ProfileCommentsAdapter.ProfileCommentsViewHolder> {
 
-    List<SallesCommentItems> commentItems;
+    List<CommentsResponse> commentItems;
 
     Context context;
 
     TinyDB tinyDB;
-
-    public ProfileCommentsAdapter(List<SallesCommentItems> commentItems) {
-        this.commentItems = commentItems;
-    }
 
     @NonNull
     @Override
@@ -54,22 +51,22 @@ public class ProfileCommentsAdapter extends RecyclerView.Adapter<ProfileComments
 
         tinyDB = new TinyDB(context);
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.profile_comments_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.profile_comments_item, parent, false);
         return new ProfileCommentsViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProfileCommentsViewHolder holder, @SuppressLint("RecyclerView") final int position) {
 
-        holder.username.setText(commentItems.get(position).getScommentuser());
-        holder.comment.setText(commentItems.get(position).getScommenttext());
-        holder.date.setText(commentItems.get(position).getScommentdate());
+        holder.username.setText(commentItems.get(position).getName());
+        holder.comment.setText(commentItems.get(position).getComment());
+        holder.date.setText(commentItems.get(position).getDatee());
 
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                deleteComment(commentItems.get(position).getID(),position);
+                deleteComment(String.valueOf(commentItems.get(position).getId()), position);
             }
         });
 
@@ -77,13 +74,13 @@ public class ProfileCommentsAdapter extends RecyclerView.Adapter<ProfileComments
             @Override
             public void onClick(View v) {
 
-                tinyDB.putString("commentID",commentItems.get(position).getID());
-                tinyDB.putString("commentContent",commentItems.get(position).getScommenttext());
+                tinyDB.putString("commentID", String.valueOf(commentItems.get(position).getId()));
+                tinyDB.putString("commentContent", commentItems.get(position).getComment());
 
                 final FragmentManager fm = ((Activity) context).getFragmentManager();
                 EditCommentFragment editCommentFragment = new EditCommentFragment();
 
-                editCommentFragment.show(fm,"TV_tag");
+                editCommentFragment.show(fm, "TV_tag");
             }
         });
 
@@ -91,23 +88,17 @@ public class ProfileCommentsAdapter extends RecyclerView.Adapter<ProfileComments
 
     @Override
     public int getItemCount() {
-        return commentItems.size();
+        return commentItems != null ? commentItems.size() : 0;
     }
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onButtonClick(AddButtonClick addButtonClick)
-    {
-
+    public void onButtonClick(AddButtonClick addButtonClick) {
         notifyDataSetChanged();
-
-
     }
 
 
-
-    private void deleteComment(final String ID, final int position)
-    {
+    private void deleteComment(final String ID, final int position) {
         String GET_JSON_DATA_HTTP_URL = "http://alosboiya.com.sa/wsnew.asmx/delete_comment?";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, GET_JSON_DATA_HTTP_URL,
@@ -116,13 +107,12 @@ public class ProfileCommentsAdapter extends RecyclerView.Adapter<ProfileComments
                     @Override
                     public void onResponse(String response) {
 
-                        if(response.equals("True"))
-                        {
+                        if (response.equals("True")) {
                             showMessage("تم حذف التعليق");
 
                             commentItems.remove(position);
                             notifyItemRemoved(position);
-                            notifyItemRangeChanged(position,commentItems.size());
+                            notifyItemRangeChanged(position, commentItems.size());
 
                         }
                     }
@@ -137,12 +127,11 @@ public class ProfileCommentsAdapter extends RecyclerView.Adapter<ProfileComments
         }) {
 
             @Override
-            protected Map<String, String> getParams(){
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("id_comment", ID);
                 return params;
             }
-
 
 
         };
@@ -154,20 +143,17 @@ public class ProfileCommentsAdapter extends RecyclerView.Adapter<ProfileComments
         Toast.makeText(context, _s, Toast.LENGTH_LONG).show();
     }
 
-
-
-
-
-
-
-
+    public void setdataList(List<CommentsResponse> commentsList) {
+        this.commentItems = commentsList;
+        notifyDataSetChanged();
+    }
 
 
     class ProfileCommentsViewHolder extends RecyclerView.ViewHolder {
 
-        TextView username,comment,date;
+        TextView username, comment, date;
 
-        Button edit,delete;
+        Button edit, delete;
 
         ProfileCommentsViewHolder(View itemView) {
             super(itemView);

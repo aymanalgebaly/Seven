@@ -28,10 +28,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.compubase.seven.API;
 import com.compubase.seven.R;
 import com.compubase.seven.adapter.ProfileCommentsAdapter;
 import com.compubase.seven.adapter.ProfilePostsAdapter;
+import com.compubase.seven.helper.RetrofitClient;
 import com.compubase.seven.helper.TinyDB;
+import com.compubase.seven.model.AdsResponse;
 import com.compubase.seven.model.SalesItems;
 import com.compubase.seven.model.SallesCommentItems;
 import com.compubase.seven.ui.activity.HomeActivity;
@@ -45,6 +48,9 @@ import java.util.List;
 import java.util.Objects;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,9 +59,9 @@ public class ProfileFragment extends Fragment {
 
     public static final String TAG = "ass10";
 
-    TextView username,userbalance,usernameedit,userphoneedit,useremailedit,usercityedit,usercountyedit;
+    TextView username, userbalance, usernameedit, userphoneedit, useremailedit, usercityedit, usercountyedit;
 
-    TextView username2,userbalance2,usernameedit2,userphoneedit2,useremailedit2,usercityedit2,usercountyedit2;
+    TextView username2, usernameedit2, userphoneedit2, useremailedit2, usercityedit2, usercountyedit2;
 
     ImageView userimage2;
 
@@ -67,7 +73,7 @@ public class ProfileFragment extends Fragment {
 
     RequestQueue requestQueue;
 
-    RecyclerView commentsrecycler,postsrecycler;
+    RecyclerView commentsrecycler, postsrecycler;
 
     ProfileCommentsAdapter adapter1;
 
@@ -75,16 +81,20 @@ public class ProfileFragment extends Fragment {
 
     List<SallesCommentItems> commentItems = new ArrayList<>();
 
-    List<SalesItems> postItems = new ArrayList<>();
+    List<AdsResponse> postItems = new ArrayList<>();
 
     String id;
 
-    SegmentedGroup tabsgroup;
+//    SegmentedGroup tabsgroup;
 
-    RadioButton comments,expire,all;
+    Button comments, expire, all;
+    private LinearLayout lin_hesaby;
 
-    private Button btn_log_out,btn_hesaby,btn_settings;
+    private Button btn_log_out, btn_hesaby, btn_settings;
     private Fragment fragment;
+    private LinearLayout lin_settingd;
+    private LinearLayout lin_buttons;
+    private LinearLayout lin_rcv;
 
 
     public ProfileFragment() {
@@ -92,6 +102,7 @@ public class ProfileFragment extends Fragment {
     }
 
 
+    @SuppressLint("WrongConstant")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -100,24 +111,32 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         btn_hesaby = view.findViewById(R.id.btn_hesaby);
+        btn_settings = view.findViewById(R.id.btn_settings);
+
+        lin_buttons = view.findViewById(R.id.lin_buttons);
+        lin_hesaby = view.findViewById(R.id.lin_hesaby);
+        lin_settingd = view.findViewById(R.id.lin_settings);
+        lin_rcv = view.findViewById(R.id.lin_rcv);
+
+
+
         btn_hesaby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                lin_hesaby.setVisibility(View.VISIBLE);
+                lin_settingd.setVisibility(View.GONE);
 
-                FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frame,new HesabyFragment());
-                fragmentTransaction.commit();
-                HomeActivity homeActivity = (HomeActivity) getActivity();
-                HesabyFragment hesabyFragment = new HesabyFragment();
-                assert homeActivity != null;
-                homeActivity.displaySelectedFragment(hesabyFragment);
             }
         });
 
-        HomeActivity homeActivity = (HomeActivity) getActivity();
-        HesabyFragment hesabyFragment = new HesabyFragment();
-        assert homeActivity != null;
-        homeActivity.displaySelectedFragment(hesabyFragment);
+        btn_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lin_settingd.setVisibility(View.VISIBLE);
+                lin_hesaby.setVisibility(View.GONE);
+
+            }
+        });
 
         return view;
     }
@@ -129,10 +148,9 @@ public class ProfileFragment extends Fragment {
         tinyDB = new TinyDB(getContext());
 
         username2 = getActivity().findViewById(R.id.username2);
-        userbalance2 = getActivity().findViewById(R.id.userbalance2);
         usernameedit2 = getActivity().findViewById(R.id.usernameedit2);
         userphoneedit2 = getActivity().findViewById(R.id.userphoneedit2);
-        useremailedit2= getActivity().findViewById(R.id.useremailedit2);
+        useremailedit2 = getActivity().findViewById(R.id.useremailedit2);
         usercityedit2 = getActivity().findViewById(R.id.usercityedit2);
         usercountyedit2 = getActivity().findViewById(R.id.usercountryedit2);
 
@@ -145,21 +163,19 @@ public class ProfileFragment extends Fragment {
         usercityedit2.setText(tinyDB.getString("user_city"));
         usercountyedit2.setText(tinyDB.getString("user_country"));
 
-        userbalance2.setText(tinyDB.getString("user_balance"));
+//        userbalance2.setText(tinyDB.getString("user_balance"));
         username2.setText(tinyDB.getString("user_name"));
 
 
-        if(tinyDB.getString("user_img").equals("images/imgposting.png") || tinyDB.getString("user_img").equals(""))
-        {
+        if (tinyDB.getString("user_img").equals("images/imgposting.png") || tinyDB.getString("user_img").equals("")) {
             Glide.with(this).load(R.drawable.user).into(userimage2);
 
-        }else if (tinyDB.getString("user_img").contains("~")) {
+        } else if (tinyDB.getString("user_img").contains("~")) {
             String replaced = tinyDB.getString("user_img").replace("~", "");
-            String finalstring = "http://alosboiya.com.sa" + replaced;
+            String finalstring = "http://educareua.com/seven.asmx" + replaced;
             Glide.with(this).load(finalstring).into(userimage2);
 
-        }else
-        {
+        } else {
             Glide.with(this).load(tinyDB.getString("user_img")).into(userimage2);
         }
 
@@ -178,21 +194,15 @@ public class ProfileFragment extends Fragment {
 
         noTaps();
 
-        tabsgroup = getActivity().findViewById(R.id.segmented2);
-
         comments = getActivity().findViewById(R.id.button1);
         expire = getActivity().findViewById(R.id.button2);
         all = getActivity().findViewById(R.id.button3);
-
-        comments.setChecked(false);
-        expire.setChecked(false);
-        all.setChecked(false);
 
         commentsrecycler = getActivity().findViewById(R.id.commentsrecycler);
 
         commentsrecycler.setHasFixedSize(false);
 
-        commentsrecycler.setLayoutManager(new LinearLayoutManager(getContext() , LinearLayoutManager.VERTICAL,false));
+        commentsrecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
         JSON_DATA_WEB_CALL();
 
@@ -200,17 +210,19 @@ public class ProfileFragment extends Fragment {
 
         postsrecycler.setHasFixedSize(false);
 
-        postsrecycler.setLayoutManager(new LinearLayoutManager(getContext() , LinearLayoutManager.VERTICAL,false));
-
+        postsrecycler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
 
         comments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                notabslayout.setVisibility(View.GONE);
+//                notabslayout.setVisibility(View.GONE);
+//                postsrecycler.setVisibility(View.GONE);
+                lin_buttons.setVisibility(View.GONE);
+//                lin_hesaby.setVisibility(View.VISIBLE);
+                lin_rcv.setVisibility(View.VISIBLE);
                 commentsrecycler.setVisibility(View.VISIBLE);
-                postsrecycler.setVisibility(View.GONE);
 
 
             }
@@ -226,7 +238,11 @@ public class ProfileFragment extends Fragment {
 
                 notabslayout.setVisibility(View.GONE);
                 commentsrecycler.setVisibility(View.GONE);
+                lin_buttons.setVisibility(View.GONE);
+                lin_hesaby.setVisibility(View.VISIBLE);
+                lin_rcv.setVisibility(View.VISIBLE);
                 postsrecycler.setVisibility(View.VISIBLE);
+
 
 
             }
@@ -242,19 +258,21 @@ public class ProfileFragment extends Fragment {
 
                 notabslayout.setVisibility(View.GONE);
                 commentsrecycler.setVisibility(View.GONE);
+                lin_buttons.setVisibility(View.GONE);
+                lin_hesaby.setVisibility(View.VISIBLE);
+                lin_rcv.setVisibility(View.VISIBLE);
                 postsrecycler.setVisibility(View.VISIBLE);
+
 
             }
         });
-
-
 
     }
 
     private void noTaps() {
 
         username = Objects.requireNonNull(getActivity()).findViewById(R.id.username);
-        userbalance = getActivity().findViewById(R.id.userbalance);
+//        userbalance = getActivity().findViewById(R.id.userbalance);
         usernameedit = getActivity().findViewById(R.id.usernameedit);
         userphoneedit = getActivity().findViewById(R.id.userphoneedit);
         useremailedit = getActivity().findViewById(R.id.useremailedit);
@@ -270,21 +288,19 @@ public class ProfileFragment extends Fragment {
         usercityedit.setText(tinyDB.getString("user_city"));
         usercountyedit.setText(tinyDB.getString("user_country"));
 
-        userbalance.setText(tinyDB.getString("user_balance"));
+//        userbalance.setText(tinyDB.getString("user_balance"));
         username.setText(tinyDB.getString("user_name"));
 
 
-        if(tinyDB.getString("user_img").equals("images/imgposting.png"))
-        {
+        if (tinyDB.getString("user_img").equals("images/imgposting.png")) {
             Glide.with(this).load(R.drawable.user).into(userimage);
 
-        }else if (tinyDB.getString("user_img").contains("~")) {
+        } else if (tinyDB.getString("user_img").contains("~")) {
             String replaced = tinyDB.getString("user_img").replace("~", "");
-            String finalstring = "http://alosboiya.com.sa" + replaced;
+            String finalstring = "http://educareua.com/seven.asmx" + replaced;
             Glide.with(this).load(finalstring).into(userimage);
 
-        }else
-        {
+        } else {
             Glide.with(this).load(tinyDB.getString("user_img")).into(userimage);
         }
 
@@ -293,9 +309,11 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    private void JSON_DATA_WEB_CALL(){
+    // comments
+    private void JSON_DATA_WEB_CALL() {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://alosboiya.com.sa/wsnew.asmx/select_comment_profile?id_member="+id,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                "http://educareua.com/seven.asmx/select_comment_profile?id_member=" + id,
 
                 new Response.Listener<String>() {
                     @Override
@@ -321,7 +339,6 @@ public class ProfileFragment extends Fragment {
 
         requestQueue.add(stringRequest);
     }
-
     public void JSON_PARSE_DATA_AFTER_WEBCALL(String Jobj) {
 
 
@@ -349,8 +366,8 @@ public class ProfileFragment extends Fragment {
 
             }
 
-            adapter1 = new ProfileCommentsAdapter(commentItems);
-            commentsrecycler.setAdapter(adapter1);
+//            adapter1 = new ProfileCommentsAdapter(commentItems);
+//            commentsrecycler.setAdapter(adapter1);
 
             adapter1.notifyDataSetChanged();
 
@@ -361,10 +378,10 @@ public class ProfileFragment extends Fragment {
     }
 
 
+    private void JSON_DATA_WEB_CALL2(String part) {
 
-    private void JSON_DATA_WEB_CALL2(String part){
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://alosboiya.com.sa/wsnew.asmx/"+part+"?id_member="+id,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                "http://educareua.com/seven.asmx/" + part + "?id_member=" + id,
 
                 new Response.Listener<String>() {
                     @Override
@@ -402,53 +419,53 @@ public class ProfileFragment extends Fragment {
 
                 JSONObject childJSONObject = js.getJSONObject(i);
 
-                SalesItems oursales = new SalesItems();
+                AdsResponse oursales = new AdsResponse();
 
                 if (childJSONObject.getString("Image") != null) {
 
                     if (childJSONObject.getString("Image").contains("~")) {
                         String replaced = childJSONObject.getString("Image").replace("~", "");
-                        String finalstring = "http://alosboiya.com.sa" + replaced;
-                        oursales.setSellseimage(finalstring);
+                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        oursales.setImage(finalstring);
 
                     } else {
-                        oursales.setSellseimage(childJSONObject.getString("Image"));
+                        oursales.setImage(childJSONObject.getString("Image"));
                     }
 
                 } else {
-                    oursales.setSellseimage("images/imgposting.png");
+                    oursales.setImage("images/imgposting.png");
 
                 }
 
-                oursales.setID(childJSONObject.getString("Id"));
+                oursales.setId(childJSONObject.getString("Id"));
 
                 oursales.setIdMember(childJSONObject.getString("IdMember"));
 
-                oursales.setLocation(childJSONObject.getString("City"));
+                oursales.setCity(childJSONObject.getString("City"));
 
-                oursales.setDate(childJSONObject.getString("datee_c"));
+                oursales.setDatee(childJSONObject.getString("datee"));
 
-                oursales.setSalesname(childJSONObject.getString("Title"));
+                oursales.setTitle(childJSONObject.getString("Title"));
 
-                oursales.setSallername(childJSONObject.getString("NameMember"));
+                oursales.setNameMember(childJSONObject.getString("NameMember"));
 
-                oursales.setDescription(childJSONObject.getString("Des"));
+                oursales.setDes(childJSONObject.getString("Des"));
 
                 oursales.setDepartment(childJSONObject.getString("Department"));
 
-                oursales.setUrl(childJSONObject.getString("URL"));
+                oursales.setURL(childJSONObject.getString("URL"));
 
                 oursales.setPhone(childJSONObject.getString("Phone"));
 
                 oursales.setEmail(childJSONObject.getString("Email"));
 
-                oursales.setSubdepartment(childJSONObject.getString("SubDep"));
+                oursales.setSubDep(childJSONObject.getString("SubDep"));
 
                 if (childJSONObject.getString("Image_2") != null) {
 
                     if (childJSONObject.getString("Image_2").contains("~")) {
                         String replaced = childJSONObject.getString("Image_2").replace("~", "");
-                        String finalstring = "http://alosboiya.com.sa" + replaced;
+                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
                         oursales.setImage2(finalstring);
 
                     } else {
@@ -464,7 +481,7 @@ public class ProfileFragment extends Fragment {
 
                     if (childJSONObject.getString("Image_3").contains("~")) {
                         String replaced = childJSONObject.getString("Image_3").replace("~", "");
-                        String finalstring = "http://alosboiya.com.sa" + replaced;
+                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
                         oursales.setImage3(finalstring);
 
                     } else {
@@ -480,7 +497,7 @@ public class ProfileFragment extends Fragment {
 
                     if (childJSONObject.getString("Image_4").contains("~")) {
                         String replaced = childJSONObject.getString("Image_4").replace("~", "");
-                        String finalstring = "http://alosboiya.com.sa" + replaced;
+                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
                         oursales.setImage4(finalstring);
 
                     } else {
@@ -496,7 +513,7 @@ public class ProfileFragment extends Fragment {
 
                     if (childJSONObject.getString("Image_5").contains("~")) {
                         String replaced = childJSONObject.getString("Image_5").replace("~", "");
-                        String finalstring = "http://alosboiya.com.sa" + replaced;
+                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
                         oursales.setImage5(finalstring);
 
                     } else {
@@ -512,7 +529,7 @@ public class ProfileFragment extends Fragment {
 
                     if (childJSONObject.getString("Image_6").contains("~")) {
                         String replaced = childJSONObject.getString("Image_6").replace("~", "");
-                        String finalstring = "http://alosboiya.com.sa" + replaced;
+                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
                         oursales.setImage6(finalstring);
 
                     } else {
@@ -528,7 +545,7 @@ public class ProfileFragment extends Fragment {
 
                     if (childJSONObject.getString("Image_7").contains("~")) {
                         String replaced = childJSONObject.getString("Image_7").replace("~", "");
-                        String finalstring = "http://alosboiya.com.sa" + replaced;
+                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
                         oursales.setImage7(finalstring);
 
                     } else {
@@ -544,7 +561,7 @@ public class ProfileFragment extends Fragment {
 
                     if (childJSONObject.getString("Image_8").contains("~")) {
                         String replaced = childJSONObject.getString("Image_8").replace("~", "");
-                        String finalstring = "http://alosboiya.com.sa" + replaced;
+                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
                         oursales.setImage8(finalstring);
 
                     } else {
@@ -561,11 +578,10 @@ public class ProfileFragment extends Fragment {
 
             }
 
-            adapter2 = new ProfilePostsAdapter(postItems);
-            postsrecycler.setAdapter(adapter2);
+//            adapter2 = new ProfilePostsAdapter(postItems);
+//            postsrecycler.setAdapter(adapter2);
 
             adapter2.notifyDataSetChanged();
-
 
 
         } catch (JSONException e) {
@@ -576,4 +592,6 @@ public class ProfileFragment extends Fragment {
     private void showMessage(String s) {
         Toast.makeText(getContext(), s, Toast.LENGTH_LONG).show();
     }
+
+
 }

@@ -100,18 +100,18 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
         tinyDB = new TinyDB(this);
 
-        home = findViewById(R.id.home);
-
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-//                Intent intent = new Intent(HarageDetailsActivity.this , Main2Activity.class);
-//                startActivity(intent);
-//                finish();
-
-            }
-        });
+//        home = findViewById(R.id.home);
+//
+//        home.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+////                Intent intent = new Intent(HarageDetailsActivity.this , Main2Activity.class);
+////                startActivity(intent);
+////                finish();
+//
+//            }
+//        });
 
         dtitle = findViewById(R.id.d_sales_title);
         ddate = findViewById(R.id.d_sales_date);

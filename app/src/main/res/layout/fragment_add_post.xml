@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="130dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/user" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="hesham"
+                android:textColor="@color/orange_new"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/sp_department"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/accountedittext"
+                android:hint="القسم"
+                android:maxLength="56"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/accountedittext"
+                android:hint="عنوان الاعلان (سيارة للبيع - عقار للبيع - الخ...)"
+                android:inputType="none"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+
+            <EditText
+                android:id="@+id/et_price"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/accountedittext"
+                android:hint="السعؤ"
+                android:inputType="none"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/accountedittext"
+                android:gravity="right"
+                android:hint="05xxxxxxxx"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/tv_addImgs"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/accountedittext"
+                android:gravity="right"
+                android:hint="اضف صورة او فيديو 45 ثانية"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+
+            <EditText
+                android:id="@+id/add_desc"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/accountedittext"
+                android:gravity="right"
+                android:hint="وصف الاعلان"
+                android:padding="10dp"
+                android:textSize="20sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12sp"
+                android:text="مناطق الاستهداف"
+                android:textColor="@drawable/orange"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/sp_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/accountedittext"
+                    android:gravity="right"
+                    android:hint="05xxxxxxxx"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+
+                <Spinner
+                    android:id="@+id/sp_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/accountedittext"
+                    android:gravity="right"
+                    android:hint="05xxxxxxxx"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/sp_city2"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/accountedittext"
+                    android:gravity="right"
+                    android:hint="05xxxxxxxx"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+
+                <Spinner
+                    android:id="@+id/sp_country2"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/accountedittext"
+                    android:gravity="right"
+                    android:hint="05xxxxxxxx"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/sp_city3"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/accountedittext"
+                    android:gravity="right"
+                    android:hint="05xxxxxxxx"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+
+                <Spinner
+                    android:id="@+id/sp_country3"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/accountedittext"
+                    android:gravity="right"
+                    android:hint="05xxxxxxxx"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/add_post"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bluebutton"
+                android:text="اضف اعلان"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>
