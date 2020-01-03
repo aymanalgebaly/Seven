@@ -264,9 +264,9 @@ public class HaragFragment extends Fragment {
         final List<String> allCitiesList = new ArrayList<>();
         allCitiesList.add("كل المدن");
 
-        SpinnerUtils.SetSpinnerAdapter(getContext(), countriesSpinner, countries, R.layout.spinner_item);
-        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, allCitiesList, R.layout.spinner_item);
-        SpinnerUtils.SetSpinnerAdapter(getContext(), departmentSpinner, selectedDepartmentList, R.layout.spinner_item);
+        SpinnerUtils.SetSpinnerAdapter(getContext(), countriesSpinner, countries, R.layout.spinner_item_black);
+        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, allCitiesList, R.layout.spinner_item_black);
+        SpinnerUtils.SetSpinnerAdapter(getContext(), departmentSpinner, selectedDepartmentList, R.layout.spinner_item_black);
 
 
         countriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -277,53 +277,53 @@ public class HaragFragment extends Fragment {
 
                 switch (position) {
                     case 0:
-                        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, allCitiesList, R.layout.spinner_item);
+                        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, allCitiesList, R.layout.spinner_item_black);
 //                        JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx?op=select_haraj");
                         selectAll();
                         break;
 
                     case 1:
-                        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, cities, R.layout.spinner_item);
+                        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, cities, R.layout.spinner_item_black);
 
                         selectByCountry(countryName);
 
                         break;
 
                     case 2:
-                        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, ist_cities, R.layout.spinner_item);
+                        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, ist_cities, R.layout.spinner_item_black);
 
                         selectByCountry(countryName);
 
                         break;
 
                     case 3:
-                        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, emarat_cities, R.layout.spinner_item);
+                        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, emarat_cities, R.layout.spinner_item_black);
 
                         selectByCountry(countryName);
 
                         break;
 
                     case 4:
-                        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, egy_cities, R.layout.spinner_item);
+                        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, egy_cities, R.layout.spinner_item_black);
 
                         selectByCountry(countryName);
 
                         break;
 
                     case 5:
-                        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, sudan_cities, R.layout.spinner_item);
+                        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, sudan_cities, R.layout.spinner_item_black);
 
                         selectByCountry(countryName);
 
                         break;
 
                     case 6:
-                        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, jordan_cities, R.layout.spinner_item);
+                        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, jordan_cities, R.layout.spinner_item_black);
                         selectByCountry(countryName);
                         break;
 
                     case 7:
-                        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, gza2er_cities, R.layout.spinner_item);
+                        SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, gza2er_cities, R.layout.spinner_item_black);
                         selectByCountry(countryName);
                         break;
                 }

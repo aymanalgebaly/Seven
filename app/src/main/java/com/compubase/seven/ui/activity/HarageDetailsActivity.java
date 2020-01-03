@@ -191,7 +191,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                 Intent intent2 = new Intent(); intent2.setAction(Intent.ACTION_SEND);
                 intent2.setType("text/plain");
-                intent2.putExtra(Intent.EXTRA_TEXT, "http://alosboiya.com.sa"+ post_url);
+                intent2.putExtra(Intent.EXTRA_TEXT, "http://educareua.com/seven.asmx/"+ post_url);
                 startActivity(Intent.createChooser(intent2, "Share via"));
 
             }
@@ -280,7 +280,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
         if(url_maps.isEmpty())
         {
-            url_maps.put("No Pictures","http://alosboiya.com.sa/images/imgposting.png");
+            url_maps.put("No Pictures","http://educareua.com/seven.asmx/images/imgposting.png");
             imgslider.stopAutoCycle();
             imgslider.setEnabled(false);
         }
@@ -335,10 +335,10 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
         });
 
 
-        JSON_DATA_WEB_CALL("http://alosboiya.com.sa/wsnew.asmx/select_post_suggest_by_department?Department="+department);
+        JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/select_post_suggest_by_department?Department="+department);
 
 
-        JSON_DATA_WEB_CALL2("http://alosboiya.com.sa/wsnew.asmx/select_comment_post?id_post="+post_id);
+        JSON_DATA_WEB_CALL2("http://educareua.com/seven.asmx/select_comment_post?id_post="+post_id);
 
 
 
@@ -351,7 +351,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
         if(addButtonClick.getEvent2().equals("message"))
         {
 
-            JSON_DATA_WEB_CALL3("http://alosboiya.com.sa/wsnew.asmx/insert_message?","messagedetails",addButtonClick.getEvent());
+            JSON_DATA_WEB_CALL3("http://educareua.com/seven.asmx/insert_message?","messagedetails",addButtonClick.getEvent());
 
         }else
             {
@@ -362,9 +362,10 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                 volleyConnection(tinyDB.getString("user_id"),name,tinyDB.getString("user_name"),tinyDB.getString("user_img"));
 
-                JSON_DATA_WEB_CALL2("http://alosboiya.com.sa/wsnew.asmx/select_comment_post?id_post="+post_id);
+                JSON_DATA_WEB_CALL2("http://educareua.com/seven.asmx/select_comment_post?id_post="+post_id);
 
-                JSON_DATA_WEB_CALL3("http://alosboiya.com.sa/wsnew.asmx/insert_note?","notetitle","قام بالتعليق على أعلانك");
+                JSON_DATA_WEB_CALL3("http://educareua.com/seven.asmx/insert_note?","notetitle",
+                        "قام بالتعليق على أعلانك");
 
             }
 
@@ -541,7 +542,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                     if (childJSONObject.getString("Image").contains("~")) {
                         String replaced = childJSONObject.getString("Image").replace("~", "");
-                        String finalstring = "http://alosboiya.com.sa" + replaced;
+                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
                         oursales.setSellseimage(finalstring);
 
                     } else {
@@ -579,7 +580,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                     if (childJSONObject.getString("Image_2").contains("~")) {
                         String replaced = childJSONObject.getString("Image_2").replace("~", "");
-                        String finalstring = "http://alosboiya.com.sa" + replaced;
+                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
                         oursales.setImage2(finalstring);
 
                     } else {
@@ -595,7 +596,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                     if (childJSONObject.getString("Image_3").contains("~")) {
                         String replaced = childJSONObject.getString("Image_3").replace("~", "");
-                        String finalstring = "http://alosboiya.com.sa" + replaced;
+                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
                         oursales.setImage3(finalstring);
 
                     } else {
@@ -611,7 +612,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                     if (childJSONObject.getString("Image_4").contains("~")) {
                         String replaced = childJSONObject.getString("Image_4").replace("~", "");
-                        String finalstring = "http://alosboiya.com.sa" + replaced;
+                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
                         oursales.setImage4(finalstring);
 
                     } else {
@@ -627,7 +628,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                     if (childJSONObject.getString("Image_5").contains("~")) {
                         String replaced = childJSONObject.getString("Image_5").replace("~", "");
-                        String finalstring = "http://alosboiya.com.sa" + replaced;
+                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
                         oursales.setImage5(finalstring);
 
                     } else {
@@ -643,7 +644,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                     if (childJSONObject.getString("Image_6").contains("~")) {
                         String replaced = childJSONObject.getString("Image_6").replace("~", "");
-                        String finalstring = "http://alosboiya.com.sa" + replaced;
+                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
                         oursales.setImage6(finalstring);
 
                     } else {
@@ -659,7 +660,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                     if (childJSONObject.getString("Image_7").contains("~")) {
                         String replaced = childJSONObject.getString("Image_7").replace("~", "");
-                        String finalstring = "http://alosboiya.com.sa" + replaced;
+                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
                         oursales.setImage7(finalstring);
 
                     } else {
@@ -675,7 +676,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                     if (childJSONObject.getString("Image_8").contains("~")) {
                         String replaced = childJSONObject.getString("Image_8").replace("~", "");
-                        String finalstring = "http://alosboiya.com.sa" + replaced;
+                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
                         oursales.setImage8(finalstring);
 
                     } else {
@@ -707,7 +708,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
     private void volleyConnection(final String id_member, final String comment, final String name_member, final String image)
     {
-        String GET_JSON_DATA_HTTP_URL = "http://alosboiya.com.sa/wsnew.asmx/insert_comment?";
+        String GET_JSON_DATA_HTTP_URL = "http://educareua.com/seven.asmx/insert_comment?";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, GET_JSON_DATA_HTTP_URL,
 
