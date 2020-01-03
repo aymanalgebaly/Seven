@@ -1,5 +1,6 @@
 package com.compubase.seven.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.compubase.seven.R;
@@ -17,10 +18,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
     private TextView mTextMessage;
+    private ImageView imageView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -64,6 +68,14 @@ public class HomeActivity extends AppCompatActivity {
         mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navView.setSelectedItemId(R.id.navigation_home);
+
+        imageView = findViewById(R.id.img_add);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this,AddPostNewActivity.class));
+            }
+        });
     }
 
     public void displaySelectedFragment(Fragment fragment) {

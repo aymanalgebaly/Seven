@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.compubase.seven.R;
+import com.compubase.seven.ui.activity.FlagsActivity;
 import com.compubase.seven.ui.activity.HomeActivity;
 import com.compubase.seven.ui.activity.LoginActivity;
 import com.compubase.seven.ui.activity.MessagesActivity;
@@ -89,6 +90,7 @@ public class MoreFragment extends Fragment {
                 startActivity(new Intent(homeActivity, PolicyActivity.class));
                 break;
             case R.id.txt_flag:
+                startActivity(new Intent(homeActivity, FlagsActivity.class));
                 break;
             case R.id.txt_login:
                 startActivity(new Intent(homeActivity, LoginActivity.class));

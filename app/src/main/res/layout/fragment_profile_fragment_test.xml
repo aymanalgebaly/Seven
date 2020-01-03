@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@drawable/orange"
+            android:background="@color/orange"
             android:text="خروج"
             android:textColor="@color/white"
             android:textStyle="bold" />
@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@drawable/orange"
+            android:background="@color/orange"
             android:text="الاعدادات"
             android:textColor="@color/white"
             android:textStyle="bold" />
@@ -39,7 +39,7 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@drawable/orange"
+            android:background="@color/orange"
             android:text="حسابي"
             android:textColor="@color/white"
             android:textStyle="bold" />

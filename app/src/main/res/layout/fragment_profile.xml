@@ -22,7 +22,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/orange"
+                android:background="@color/orange"
                 android:text="خروج"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
@@ -33,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/orange"
+                android:background="@color/orange"
                 android:text="الاعدادات"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
@@ -44,7 +44,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/orange"
+                android:background="@color/orange"
                 android:text="حسابي"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
@@ -339,7 +339,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
-                    android:background="@drawable/orange"
+                    android:background="@color/orange"
                     android:visibility="gone" />
             </LinearLayout>
 
@@ -415,7 +415,7 @@
                     android:layout_height="30dp"
                     android:layout_marginStart="24sp"
                     android:layout_marginEnd="24sp"
-                    android:background="@drawable/orange"
+                    android:background="@color/orange"
                     android:gravity="center"
                     android:text="تعديل الملف الشخصي"
                     android:textColor="@color/white"
@@ -610,7 +610,7 @@
                     android:layout_height="35dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:background="@drawable/orange"
+                    android:background="@color/orange"
                     android:text="حفظ التعديلات"
                     android:textColor="@color/white"
                     android:textStyle="bold" />

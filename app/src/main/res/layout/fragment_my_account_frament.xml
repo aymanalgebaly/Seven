@@ -27,7 +27,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/stroke_blue"
                 android:text="كل الاعلانات"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/btn_expiredAds"
@@ -36,7 +36,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/stroke_blue"
                 android:text="الاعلانات المنتهية"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/btn_comments"
@@ -45,7 +45,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/stroke_blue"
                 android:text="التعليقات"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/black" />
 
         </LinearLayout>
 

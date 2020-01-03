@@ -92,11 +92,20 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
     List<String> pics;
 
     ImageView home,fullscreen;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_harage_details);
+
+        imageView = findViewById(R.id.img_add);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HarageDetailsActivity.this,AddPostNewActivity.class));
+            }
+        });
 
         tinyDB = new TinyDB(this);
 
