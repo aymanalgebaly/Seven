@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.compubase.seven.R;
+import com.compubase.seven.helper.TinyDB;
 import com.compubase.seven.profile.ProfileFragmentTest;
 import com.compubase.seven.ui.fragment.AddPostFragment;
 import com.compubase.seven.ui.fragment.HaragFragment;
@@ -21,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity {
     private TextView mTextMessage;
@@ -48,17 +50,29 @@ public class HomeActivity extends AppCompatActivity {
 
                 case R.id.navigation_profile:
 //                    mTextMessage.setText(R.string.title_notifications);
-                    displaySelectedFragment(new ProfileFragmentTest());
+                    if (user_id != null){
+
+                        displaySelectedFragment(new ProfileFragmentTest());
+                    }else {
+                        Toast.makeText(HomeActivity.this, "سجل الدخول اولا", Toast.LENGTH_SHORT).show();
+                    }
                     return true;
 
                 case R.id.navigation_add:
-                    displaySelectedFragment(new AddPostFragment());
+                    if (user_id != null){
+
+                        displaySelectedFragment(new AddPostFragment());
+                    }else {
+                        Toast.makeText(HomeActivity.this, "سجل الدخول اولا", Toast.LENGTH_SHORT).show();
+                    }
 //                    mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
         }
     };
+    private TinyDB tinyDB;
+    private String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +82,10 @@ public class HomeActivity extends AppCompatActivity {
         mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navView.setSelectedItemId(R.id.navigation_home);
+
+        tinyDB = new TinyDB(getApplicationContext());
+        user_id = tinyDB.getString("user_id");
+
 
         imageView = findViewById(R.id.img_add);
         imageView.setOnClickListener(new View.OnClickListener() {
