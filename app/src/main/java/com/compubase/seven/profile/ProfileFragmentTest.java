@@ -1,5 +1,6 @@
 package com.compubase.seven.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,10 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import com.compubase.seven.R;
+import com.compubase.seven.helper.TinyDB;
+import com.compubase.seven.ui.activity.HomeActivity;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +56,11 @@ public class ProfileFragmentTest extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_log_out:
+                TinyDB tinyDB = new TinyDB(getActivity());
+                tinyDB.putBoolean("login",false);
+
+                startActivity(new Intent(getContext(), HomeActivity.class));
+                Objects.requireNonNull(getActivity()).finish();
                 break;
             case R.id.btn_settings:
                 changeBetweenFragments(new SettingsFragment());

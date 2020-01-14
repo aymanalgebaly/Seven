@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.compubase.seven.R;
+import com.compubase.seven.helper.TinyDB;
 import com.compubase.seven.ui.activity.AboutUsActivity;
 import com.compubase.seven.ui.activity.FlagsActivity;
 import com.compubase.seven.ui.activity.HomeActivity;
@@ -101,7 +102,10 @@ public class MoreFragment extends Fragment {
                 startActivity(new Intent(homeActivity, RegisterActivity.class));
                 break;
             case R.id.txt_logOut:
-                startActivity(new Intent(getContext(), LoginActivity.class));
+                TinyDB tinyDB = new TinyDB(getActivity());
+                tinyDB.putBoolean("login",false);
+
+                startActivity(new Intent(getContext(), HomeActivity.class));
                 Objects.requireNonNull(getActivity()).finish();
                 break;
         }

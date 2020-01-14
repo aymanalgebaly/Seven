@@ -91,6 +91,8 @@ public class MyAccountFrament extends Fragment {
     private ProfilePostsAdapter allPostsAdapter, expiredPostsAdapter;
     private TinyDB tinyDB;
     private String user_id;
+    private String user_name,user_email,user_pass,user_phone,user_country,user_city,user_img,user_url,user_balance;
+    private boolean login;
 
 
     public MyAccountFrament() {
@@ -105,6 +107,33 @@ public class MyAccountFrament extends Fragment {
 
         tinyDB = new TinyDB(getActivity());
         user_id = tinyDB.getString("user_id");
+        user_name = tinyDB.getString("user_name");
+        user_email = tinyDB.getString("user_email");
+        user_pass = tinyDB.getString("user_pass");
+        user_phone = tinyDB.getString("user_phone");
+        user_country = tinyDB.getString("user_country");
+        user_city = tinyDB.getString("user_city");
+        user_url = tinyDB.getString("user_url");
+        user_img = tinyDB.getString("user_img");
+        user_balance = tinyDB.getString("user_balance");
+        login = tinyDB.getBoolean("login");
+
+
+
+        if (login = false){
+
+            tv_city.setText("");
+            tv_country.setText("");
+            tv_mail.setText("");
+            tv_name.setText("");
+            tv_phone.setText("");
+        }else {
+            tv_city.setText(user_city);
+            tv_country.setText(user_country);
+            tv_mail.setText(user_email);
+            tv_name.setText(user_name);
+            tv_phone.setText(user_phone);
+        }
 
 
         setupCommentsRecycler();
@@ -316,5 +345,14 @@ public class MyAccountFrament extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+        tv_city.setText(user_city);
+        tv_country.setText(user_country);
+        tv_mail.setText(user_email);
+        tv_name.setText(user_name);
+        tv_phone.setText(user_phone);
+    }
 }

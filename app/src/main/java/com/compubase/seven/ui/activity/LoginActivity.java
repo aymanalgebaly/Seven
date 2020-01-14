@@ -116,6 +116,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                                 tinyDB.putString("user_id",user_id);
+                                tinyDB.putBoolean("login",true);
                                 tinyDB.putString("user_name",user_name);
                                 tinyDB.putString("user_email",user_email);
                                 tinyDB.putString("user_pass",user_pass);
@@ -128,7 +129,9 @@ public class LoginActivity extends AppCompatActivity {
 
                                 EventBus.getDefault().post(new AddButtonClick("True"));
 
-                                onBackPressed();
+                                startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                                finish();
+//                                onBackPressed();
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
