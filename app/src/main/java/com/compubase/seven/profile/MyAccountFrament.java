@@ -133,6 +133,7 @@ public class MyAccountFrament extends Fragment {
             tv_mail.setText(user_email);
             tv_name.setText(user_name);
             tv_phone.setText(user_phone);
+            username2.setText(user_name);
         }
 
 
@@ -354,5 +355,7 @@ public class MyAccountFrament extends Fragment {
         tv_mail.setText(user_email);
         tv_name.setText(user_name);
         tv_phone.setText(user_phone);
+        username2.setText(user_name);
+
     }
 }
