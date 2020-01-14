@@ -17,6 +17,7 @@ import com.compubase.seven.API;
 import com.compubase.seven.R;
 import com.compubase.seven.helper.RetrofitClient;
 import com.compubase.seven.helper.SpinnerUtils;
+import com.compubase.seven.helper.TinyDB;
 import com.google.android.gms.common.api.Api;
 
 import java.io.IOException;
@@ -105,6 +106,8 @@ public class AddPostFragment extends Fragment {
     private String countryName2 = "";
     private String countryName3 = "";
     private String department = "";
+    private TinyDB tinyDB;
+    private String user_id;
 
 
     public AddPostFragment() {
@@ -117,6 +120,8 @@ public class AddPostFragment extends Fragment {
         View inflate = inflater.inflate(R.layout.fragment_add_post, container, false);
         unbinder = ButterKnife.bind(this, inflate);
 
+        tinyDB = new TinyDB(getActivity());
+        user_id = tinyDB.getString("user_id");
 
         countries2.add("البلد (اختياري) ");
         countries2.add("السعودية");
@@ -757,7 +762,7 @@ public class AddPostFragment extends Fragment {
     private void addPost(){
 
         RetrofitClient.getInstant().create(API.class)
-                .addPost("13" , etAddress.getText().toString(),etDesc.getText().toString(),
+                .addPost( user_id, etAddress.getText().toString(),etDesc.getText().toString(),
                         cityName,department,etPrice.getText().toString(),etPhone.getText().toString(),"img",
                         "","","","","","","","",cityName2,cityName3,"",countryName,
                         countryName2,countryName3,"", "")

@@ -20,6 +20,7 @@ import com.compubase.seven.R;
 import com.compubase.seven.adapter.ProfileCommentsAdapter;
 import com.compubase.seven.adapter.ProfilePostsAdapter;
 import com.compubase.seven.helper.RetrofitClient;
+import com.compubase.seven.helper.TinyDB;
 import com.compubase.seven.model.AdsResponse;
 import com.compubase.seven.model.CommentsResponse;
 import com.google.gson.Gson;
@@ -88,6 +89,8 @@ public class MyAccountFrament extends Fragment {
 
     private ProfileCommentsAdapter commentsAdapter;
     private ProfilePostsAdapter allPostsAdapter, expiredPostsAdapter;
+    private TinyDB tinyDB;
+    private String user_id;
 
 
     public MyAccountFrament() {
@@ -99,6 +102,9 @@ public class MyAccountFrament extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.fragment_my_account_frament, container, false);
         unbinder = ButterKnife.bind(this, inflate);
+
+        tinyDB = new TinyDB(getActivity());
+        user_id = tinyDB.getString("user_id");
 
 
         setupCommentsRecycler();
@@ -206,7 +212,7 @@ public class MyAccountFrament extends Fragment {
         commentsResponseList.clear();
 
         RetrofitClient.getInstant().create(API.class)
-                .getComments("13")
+                .getComments(user_id)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -239,7 +245,7 @@ public class MyAccountFrament extends Fragment {
 
         adsResponsesList.clear();
 
-        RetrofitClient.getInstant().create(API.class).getExpiredAds("13")
+        RetrofitClient.getInstant().create(API.class).getExpiredAds(user_id)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
@@ -278,7 +284,7 @@ public class MyAccountFrament extends Fragment {
 
         adsResponsesList.clear();
 
-        RetrofitClient.getInstant().create(API.class).getAllAds("13")
+        RetrofitClient.getInstant().create(API.class).getAllAds(user_id)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {

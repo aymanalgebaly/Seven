@@ -15,6 +15,7 @@ import com.compubase.seven.API;
 import com.compubase.seven.R;
 import com.compubase.seven.helper.RetrofitClient;
 import com.compubase.seven.helper.SpinnerUtils;
+import com.compubase.seven.helper.TinyDB;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -100,6 +101,8 @@ public class AddPostNewActivity extends AppCompatActivity {
     private String countryName2 = "";
     private String countryName3 = "";
     private String department = "";
+    private TinyDB tinyDB;
+    private String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +110,8 @@ public class AddPostNewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_post_new);
         unbinder = ButterKnife.bind(this);
 
+        tinyDB = new TinyDB(getApplicationContext());
+        user_id = tinyDB.getString("user_id");
 
         countries2.add("البلد (اختياري) ");
         countries2.add("السعودية");
@@ -737,7 +742,7 @@ public class AddPostNewActivity extends AppCompatActivity {
     private void addPost(){
 
         RetrofitClient.getInstant().create(API.class)
-                .addPost("13" , etAddress.getText().toString(),etDesc.getText().toString(),
+                .addPost(user_id , etAddress.getText().toString(),etDesc.getText().toString(),
                         cityName,department,etPrice.getText().toString(),etPhone.getText().toString(),"img",
                         "","","","","","","","",cityName2,cityName3,"",countryName,
                         countryName2,countryName3,"", "")

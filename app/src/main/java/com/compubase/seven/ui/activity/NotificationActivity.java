@@ -66,6 +66,7 @@ public class NotificationActivity extends AppCompatActivity {
     RequestQueue requestQueue;
 
     TinyDB tinyDB;
+    private String user_id;
 
 
     @Override
@@ -75,6 +76,7 @@ public class NotificationActivity extends AppCompatActivity {
 
 
         tinyDB = new TinyDB(this);
+        user_id = tinyDB.getString("user_id");
 
         progressBar = findViewById(R.id.progressBar1);
         recyclerView = findViewById(R.id.rv);
@@ -98,7 +100,7 @@ public class NotificationActivity extends AppCompatActivity {
 
         String url;
 
-        url = "http://educareua.com/seven.asmx/select_note?id_user_recive=" + "10";
+        url = "http://educareua.com/seven.asmx/select_note?id_user_recive=" + user_id;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
 
