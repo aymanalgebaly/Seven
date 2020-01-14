@@ -52,6 +52,7 @@ public class ProfileFragmentTest extends Fragment {
         unbinder.unbind();
     }
 
+    //
     @OnClick({R.id.btn_log_out, R.id.btn_settings, R.id.btn_hesaby})
     public void onViewClicked(View view) {
         switch (view.getId()) {
