@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "814111871112",
+    "firebase_url": "https://seven-f74ff.firebaseio.com",
+    "project_id": "seven-f74ff",
+    "storage_bucket": "seven-f74ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814111871112:android:c012bac13d644185778f3d",
+        "android_client_info": {
+          "package_name": "com.compubase.seven"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "814111871112-6s1phdfb8evqcuubm5f2splukhvgnohp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6DM55GIuuiTLeA3wnSmH_3Z_CWjE41_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "814111871112-6s1phdfb8evqcuubm5f2splukhvgnohp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "814111871112-miotatnq5onjen9kss32djp0vgqd8dj9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.amirahmed.Seven"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

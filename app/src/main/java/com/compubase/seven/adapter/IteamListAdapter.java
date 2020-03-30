@@ -43,7 +43,6 @@ public class IteamListAdapter extends RecyclerView.Adapter<IteamListAdapter.Item
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 EventBus.getDefault().post(new AddButtonClick(String.valueOf(position)));
             }
         });
