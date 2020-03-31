@@ -90,11 +90,12 @@ public class ProfileFragment extends Fragment {
     Button comments, expire, all;
     private LinearLayout lin_hesaby;
 
-    private Button btn_log_out, btn_hesaby, btn_settings;
+    private Button btn_log_out, btn_hesaby, btn_settings,btn_save;
     private Fragment fragment;
     private LinearLayout lin_settingd;
     private LinearLayout lin_buttons;
     private LinearLayout lin_rcv;
+    private TextView usercountryedit;
 
 
     public ProfileFragment() {
@@ -117,6 +118,15 @@ public class ProfileFragment extends Fragment {
         lin_hesaby = view.findViewById(R.id.lin_hesaby);
         lin_settingd = view.findViewById(R.id.lin_settings);
         lin_rcv = view.findViewById(R.id.lin_rcv);
+        btn_save = view.findViewById(R.id.btn_save);
+
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                editProfile();
+            }
+        });
 
 
 
@@ -141,6 +151,11 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    private void editProfile() {
+
+
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -155,13 +170,18 @@ public class ProfileFragment extends Fragment {
         usercountyedit2 = getActivity().findViewById(R.id.usercountryedit2);
 
         userimage2 = getActivity().findViewById(R.id.userimage2);
-
+        usercountryedit = getActivity().findViewById(R.id.usercountryedit);
 
         usernameedit2.setText(tinyDB.getString("user_name"));
         userphoneedit2.setText(tinyDB.getString("user_phone"));
         useremailedit2.setText(tinyDB.getString("user_email"));
         usercityedit2.setText(tinyDB.getString("user_city"));
         usercountyedit2.setText(tinyDB.getString("user_country"));
+
+        username.setText(tinyDB.getString("user_name"));
+        usernameedit.setText(tinyDB.getString("user_name"));
+        userphoneedit.setText(tinyDB.getString("user_phone"));
+
 
 //        userbalance2.setText(tinyDB.getString("user_balance"));
         username2.setText(tinyDB.getString("user_name"));
@@ -287,7 +307,7 @@ public class ProfileFragment extends Fragment {
         useremailedit.setText(tinyDB.getString("user_email"));
         usercityedit.setText(tinyDB.getString("user_city"));
         usercountyedit.setText(tinyDB.getString("user_country"));
-
+        usercountryedit.setText(tinyDB.getString("user_pass"));
 //        userbalance.setText(tinyDB.getString("user_balance"));
         username.setText(tinyDB.getString("user_name"));
 

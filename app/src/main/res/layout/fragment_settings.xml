@@ -51,7 +51,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="Mohamed"
+                    android:text=""
                     android:textColor="@color/orange_new"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -83,7 +83,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
+            <EditText
                 android:id="@+id/et_userName"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
@@ -92,7 +92,6 @@
                 android:gravity="right|center"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp"
-                android:text="mohamed"
                 android:textDirection="ltr"
                 tools:ignore="RtlCompat" />
 
@@ -119,7 +118,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
+            <EditText
                 android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
@@ -128,7 +127,6 @@
                 android:gravity="right|center"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp"
-                android:text="mohamed"
                 android:textDirection="ltr"
                 tools:ignore="RtlCompat" />
 
@@ -156,7 +154,7 @@
             android:orientation="horizontal"
             android:visibility="gone">
 
-            <TextView
+            <EditText
                 android:id="@+id/useremailedit"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
@@ -191,7 +189,7 @@
             android:layout_marginRight="30dp"
             android:orientation="horizontal">
 
-            <TextView
+            <EditText
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
@@ -201,7 +199,6 @@
                 android:inputType="textPassword"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp"
-                android:text="mohamed"
                 android:textDirection="ltr"
                 tools:ignore="RtlCompat" />
 
@@ -229,7 +226,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
+            <EditText
                 android:id="@+id/et_city"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
@@ -238,7 +235,6 @@
                 android:gravity="right|center"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp"
-                android:text="mohamed"
                 android:textDirection="ltr"
                 tools:ignore="RtlCompat" />
 

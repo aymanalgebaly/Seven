@@ -80,6 +80,8 @@
         android:layout_marginEnd="0dp"
         app:labelVisibilityMode="labeled"
         android:background="@color/white"
+        app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
+        app:itemTextAppearanceInactive="@style/BottomNavigationView"
         app:itemTextColor="@color/bottom"
         app:itemIconTint="@color/bottom"
         app:menu="@menu/bottom_nav_menu" />

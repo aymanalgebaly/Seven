@@ -70,7 +70,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textColor="@color/colorPrimary"
-                android:text="hesham"/>
+                android:text=""/>
 
             <TextView
                 android:layout_width="match_parent"

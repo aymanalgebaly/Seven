@@ -167,7 +167,7 @@
                             android:layout_weight="1"
                             android:gravity="right"
                             android:paddingTop="5dp"
-                            android:text="hgfhgfhgfhg"
+                            android:text=""
                             android:textColor="#000"
                             android:textDirection="rtl"
                             android:textSize="15sp"
@@ -200,7 +200,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="hdgfsdfkhajsdfjhsvdfjhsvdhjfsvjdhfvjshdvfjhsvdfhjsvdfhjsvdjhfsvjhdf"
+                        android:text=""
                         android:textColor="#000"
                         android:textDirection="rtl"
                         android:textSize="20sp" />

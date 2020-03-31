@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="hesham"
+                android:text=""
                 android:textColor="@color/orange_new"
                 android:textSize="20sp"
                 android:textStyle="bold" />

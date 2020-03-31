@@ -399,7 +399,7 @@
                             android:layout_height="30dp"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="Mohamed"
+                            android:text=""
                             android:textColor="@color/orange_new"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -440,7 +440,7 @@
                         android:gravity="right|center"
                         android:paddingStart="4dp"
                         android:paddingEnd="4dp"
-                        android:text="mohamed"
+                        android:text=""
                         android:textDirection="ltr"
                         tools:ignore="RtlCompat" />
 
@@ -476,7 +476,8 @@
                         android:gravity="right|center"
                         android:paddingStart="4dp"
                         android:paddingEnd="4dp"
-                        android:text="mohamed"
+                        android:text=""
+                        android:inputType="phone"
                         android:textDirection="ltr"
                         tools:ignore="RtlCompat" />
 
@@ -549,7 +550,7 @@
                         android:inputType="textPassword"
                         android:paddingStart="4dp"
                         android:paddingEnd="4dp"
-                        android:text="mohamed"
+                        android:text=""
                         android:textDirection="ltr"
                         tools:ignore="RtlCompat" />
 
@@ -586,7 +587,7 @@
                         android:gravity="right|center"
                         android:paddingStart="4dp"
                         android:paddingEnd="4dp"
-                        android:text="mohamed"
+                        android:text=""
                         android:textDirection="ltr"
                         tools:ignore="RtlCompat" />
 

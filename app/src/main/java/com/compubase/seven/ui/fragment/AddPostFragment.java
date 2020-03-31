@@ -1,6 +1,19 @@
 package com.compubase.seven.ui.fragment;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.media.MediaPlayer;
+import android.media.ThumbnailUtils;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,19 +23,34 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.compubase.seven.API;
 import com.compubase.seven.R;
+import com.compubase.seven.helper.PathUtil;
 import com.compubase.seven.helper.RetrofitClient;
 import com.compubase.seven.helper.SpinnerUtils;
 import com.compubase.seven.helper.TinyDB;
 import com.google.android.gms.common.api.Api;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +61,8 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 public class AddPostFragment extends Fragment {
 
@@ -50,7 +80,7 @@ public class AddPostFragment extends Fragment {
     @BindView(R.id.et_price)
     EditText etPrice;
     @BindView(R.id.tv_addImgs)
-    TextView tvAddImgs;
+    TextView pic;
     @BindView(R.id.add_desc)
     EditText etDesc;
     @BindView(R.id.sp_city)
@@ -69,6 +99,14 @@ public class AddPostFragment extends Fragment {
     Button addPost;
     private Unbinder unbinder;
 
+    final int PICK_IMAGE_REQUEST_CAMERA = 71;
+
+    final int PICK_IMAGE_REQUEST_GALLERY = 72;
+
+    final int SELECT_VIDEO = 1;
+
+    final int PICK_VIDEO = 15;
+    private SharedPreferences preferences;
 
     ArrayList<String> cities = new ArrayList<>();
     ArrayList<String> countries = new ArrayList<>();
@@ -110,6 +148,15 @@ public class AddPostFragment extends Fragment {
     private String user_id;
 
 
+    FirebaseStorage storage;
+    StorageReference storageReference;
+
+    String pic1,pic2,pic3,pic4,pic5,pic6,pic7,pic8;
+
+    Uri filePath;
+
+    Uri selectedVideoPath;
+
     public AddPostFragment() {
         // Required empty public constructor
     }
@@ -120,8 +167,14 @@ public class AddPostFragment extends Fragment {
         View inflate = inflater.inflate(R.layout.fragment_add_post, container, false);
         unbinder = ButterKnife.bind(this, inflate);
 
+        FirebaseApp.initializeApp(getActivity());
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
         tinyDB = new TinyDB(getActivity());
         user_id = tinyDB.getString("user_id");
+        username.setText(tinyDB.getString("user_name"));
 
         countries2.add("البلد (اختياري) ");
         countries2.add("السعودية");
@@ -742,8 +795,394 @@ public class AddPostFragment extends Fragment {
             }
         });
 
+        tinyDB = new TinyDB(getContext());
+
+        pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    showPicturDialog();
+                }
+            }
+        });
+
+
 
         return inflate;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public  void  showPicturDialog()
+    {
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(getContext());
+        pictureDialog.setTitle("قم بألختيار");
+        String[] pictureDlialogItem={"اختر صورة من المعرض" ,
+                "التقط فيديو","اختر فيديو","قم بألتقاط صورة"};
+        pictureDialog.setItems(pictureDlialogItem, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case 0 :
+                        choosePhotoFromGallary();
+                        break;
+                    case 1:
+                        takeVideoFromCamera();
+                        break;
+                    case 2:
+                        chooseVideoFromGallery();
+                        break;
+                    case 3:
+                        takePhotoFromCamera();
+                        break;
+                }
+            }
+        });
+        pictureDialog.show();
+    }
+
+    public void choosePhotoFromGallary() {
+
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent,PICK_IMAGE_REQUEST_GALLERY);
+    }
+
+    private void takePhotoFromCamera() {
+
+        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if(pictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(pictureIntent, PICK_IMAGE_REQUEST_CAMERA);
+        }
+    }
+
+    private void takeVideoFromCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        if(intent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(intent, PICK_VIDEO);
+        }
+    }
+
+    @SuppressLint("IntentReset")
+    public void chooseVideoFromGallery()
+    {
+        @SuppressLint("IntentReset") Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+        i.setType("video/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+        i.putExtra(MediaStore.EXTRA_DURATION_LIMIT,3);
+        startActivityForResult(i, SELECT_VIDEO);
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == PICK_IMAGE_REQUEST_CAMERA || requestCode == PICK_IMAGE_REQUEST_GALLERY && resultCode ==
+                RESULT_OK && data != null && data.getData() != null)
+        {
+            if(requestCode == PICK_IMAGE_REQUEST_CAMERA)
+            {
+                try
+                {
+                    Bitmap bitmap = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
+                    filePath = getImageUri(getContext().getApplicationContext(),bitmap);
+
+                    if(pic1.equals("images/imgposting.png") && pic2.equals("images/imgposting.png") && pic3.equals("images/imgposting.png") && pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                    {
+                        pic.setText("تم اختيار عدد ١ صورة");
+                        uploadImage(filePath);
+                    }else if(!pic1.equals("images/imgposting.png") && pic2.equals("images/imgposting.png") && pic3.equals("images/imgposting.png") && pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                    {
+                        pic.setText("تم اختيار عدد ٢ صورة");
+                        uploadImage(filePath);
+                    }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && pic3.equals("images/imgposting.png") && pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                    {
+                        pic.setText("تم اختيار عدد ٣ صورة");
+                        uploadImage(filePath);
+                    }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && !pic3.equals("images/imgposting.png") && pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                    {
+                        pic.setText("تم اختيار عدد ٤ صورة");
+                        uploadImage(filePath);
+                    }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && !pic3.equals("images/imgposting.png") && !pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                    {
+                        pic.setText("تم اختيار عدد ٥ صورة");
+                        uploadImage(filePath);
+                    }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && !pic3.equals("images/imgposting.png") && !pic4.equals("images/imgposting.png") && !pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                    {
+                        pic.setText("تم اختيار عدد ٦ صورة");
+                        uploadImage(filePath);
+                    }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && !pic3.equals("images/imgposting.png") && !pic4.equals("images/imgposting.png") && !pic5.equals("images/imgposting.png") && !pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                    {
+                        pic.setText("تم اختيار عدد ٧ صورة");
+                        uploadImage(filePath);
+                    }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && !pic3.equals("images/imgposting.png") && !pic4.equals("images/imgposting.png") && !pic5.equals("images/imgposting.png") && !pic6.equals("images/imgposting.png") && !pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                    {
+                        pic.setText("تم اختيار الحد الأقصى من الصور");
+                        pic.setEnabled(false);
+                        uploadImage(filePath);
+                    }
+
+                }catch (Exception e)
+                {
+                    pic.setText("");
+                }
+
+
+            }else {
+                filePath = data.getData();
+
+                if(pic1.equals("images/imgposting.png") && pic2.equals("images/imgposting.png") && pic3.equals("images/imgposting.png") && pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                {
+                    pic.setText("تم اختيار عدد ١ صورة");
+                    uploadImage(filePath);
+                }else if(!pic1.equals("images/imgposting.png") && pic2.equals("images/imgposting.png") && pic3.equals("images/imgposting.png") && pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                {
+                    pic.setText("تم اختيار عدد ٢ صورة");
+                    uploadImage(filePath);
+                }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && pic3.equals("images/imgposting.png") && pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                {
+                    pic.setText("تم اختيار عدد ٣ صورة");
+                    uploadImage(filePath);
+                }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && !pic3.equals("images/imgposting.png") && pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                {
+                    pic.setText("تم اختيار عدد ٤ صورة");
+                    uploadImage(filePath);
+                }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && !pic3.equals("images/imgposting.png") && !pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                {
+                    pic.setText("تم اختيار عدد ٥ صورة");
+                    uploadImage(filePath);
+                }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && !pic3.equals("images/imgposting.png") && !pic4.equals("images/imgposting.png") && !pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                {
+                    pic.setText("تم اختيار عدد ٦ صورة");
+                    uploadImage(filePath);
+                }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && !pic3.equals("images/imgposting.png") && !pic4.equals("images/imgposting.png") && !pic5.equals("images/imgposting.png") && !pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                {
+                    pic.setText("تم اختيار عدد ٧ صورة");
+                    uploadImage(filePath);
+                }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && !pic3.equals("images/imgposting.png") && !pic4.equals("images/imgposting.png") && !pic5.equals("images/imgposting.png") && !pic6.equals("images/imgposting.png") && !pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                {
+                    pic.setText("تم اختيار الحد الأقصى من الصور");
+                    pic.setEnabled(false);
+                    uploadImage(filePath);
+                }
+            }
+
+        } else if(requestCode == SELECT_VIDEO  || requestCode == PICK_VIDEO && resultCode == RESULT_OK && data!= null && data.getData() != null)
+        {
+            try{
+                pic.setText("تم اختيار فيديو");
+                pic.setEnabled(false);
+                selectedVideoPath = data.getData();
+
+                try {
+                    String filePath = PathUtil.getPath(getContext(),selectedVideoPath);
+                    MediaPlayer mp = MediaPlayer.create(getContext(), Uri.parse(filePath));
+                    int duration = mp.getDuration();
+
+                    if(duration>46)
+                    {
+                        uploadVideo(selectedVideoPath);
+                        Bitmap bMap = ThumbnailUtils.createVideoThumbnail(filePath, MediaStore.Video.Thumbnails.MINI_KIND);
+                        Uri ass = getImageUri(getContext().getApplicationContext(),bMap);
+                        uploadThumb(ass);
+                    }else
+                    {
+                        showMessage("الفيديو اطول من ٣٠ ثانية");
+                    }
+
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                }
+
+            }catch (Exception e)
+            {
+                pic.setText("");
+                pic.setEnabled(true);
+            }
+
+        }
+    }
+
+
+
+
+    private void uploadImage(Uri customfilepath) {
+
+        if(customfilepath != null)
+        {
+            final ProgressDialog progressDialog = new ProgressDialog(getContext());
+            progressDialog.setTitle("جارى الرفع٠٠٠");
+            progressDialog.show();
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+
+            final StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+            ref.putFile(customfilepath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+                                @Override
+                                public void onSuccess(Uri uri) {
+
+                                    progressDialog.dismiss();
+
+                                    showMessage("تم الرفع بنجاح");
+
+                                    if(pic1.equals("images/imgposting.png") && pic2.equals("images/imgposting.png") && pic3.equals("images/imgposting.png") && pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                                    {
+                                        pic1 = uri.toString();
+                                        //showMessage(pic1);
+                                    }else if(!pic1.equals("images/imgposting.png") && pic2.equals("images/imgposting.png") && pic3.equals("images/imgposting.png") && pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                                    {
+                                        pic2 = uri.toString();
+                                        //showMessage(pic2);
+                                    }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && pic3.equals("images/imgposting.png") && pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                                    {
+                                        pic3 = uri.toString();
+                                        //showMessage(pic3);
+                                    }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && !pic3.equals("images/imgposting.png") && pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                                    {
+                                        pic4 = uri.toString();
+                                        //showMessage(pic4);
+                                    }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && !pic3.equals("images/imgposting.png") && !pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                                    {
+                                        pic5 = uri.toString();
+                                        //showMessage(pic5);
+                                    }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && !pic3.equals("images/imgposting.png") && !pic4.equals("images/imgposting.png") && !pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                                    {
+                                        pic6 = uri.toString();
+                                        //showMessage(pic6);
+                                    }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && !pic3.equals("images/imgposting.png") && !pic4.equals("images/imgposting.png") && !pic5.equals("images/imgposting.png") && !pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                                    {
+                                        pic7 = uri.toString();
+                                        //showMessage(pic7);
+                                    }else if(!pic1.equals("images/imgposting.png") && !pic2.equals("images/imgposting.png") && !pic3.equals("images/imgposting.png") && !pic4.equals("images/imgposting.png") && !pic5.equals("images/imgposting.png") && !pic6.equals("images/imgposting.png") && !pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png"))
+                                    {
+                                        pic8 = uri.toString();
+                                        //showMessage(pic8);
+                                    }
+
+
+                                }
+                            });
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            showMessage("فشل");
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                                    .getTotalByteCount());
+                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                        }
+                    });
+        }
+    }
+
+    private void uploadThumb(Uri customfilepath) {
+
+        if(customfilepath != null)
+        {
+
+            final StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+            ref.putFile(customfilepath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+                                @Override
+                                public void onSuccess(Uri uri) {
+
+                                    pic1 = uri.toString();
+
+                                }
+                            });
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+        }
+    }
+
+
+    private void uploadVideo(Uri video)
+    {
+        if(video != null)
+        {
+            final ProgressDialog progressDialog = new ProgressDialog(getContext());
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+
+            final StorageReference ref = storageReference.child("videos/"+ UUID.randomUUID().toString());
+            ref.putFile(video)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+
+                                @Override
+                                public void onSuccess(Uri uri) {
+
+                                    progressDialog.dismiss();
+
+                                    showMessage("تم الرفع بنجاح");
+
+                                    pic2 = uri.toString();
+                                    pic3 = "images/imgposting.png";
+                                    pic4 = "images/imgposting.png";
+                                    pic5 = "images/imgposting.png";
+                                    pic6 = "images/imgposting.png";
+                                    pic7 = "images/imgposting.png";
+                                    pic8 = "images/imgposting.png";
+                                }
+                            });
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getContext(), "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                                    .getTotalByteCount());
+                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                        }
+                    });
+        }
     }
 
 
@@ -791,5 +1230,9 @@ public class AddPostFragment extends Fragment {
                     }
                 });
 
+    }
+
+    private void showMessage(String _s) {
+        Toast.makeText(getContext().getApplicationContext(), _s, Toast.LENGTH_LONG).show();
     }
 }

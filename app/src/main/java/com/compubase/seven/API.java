@@ -95,4 +95,15 @@ public interface API {
     Call<ResponseBody> search(
             @Field("text_search") String text_search
     );
+
+    @FormUrlEncoded
+    @POST("edite_profile")
+    Call<ResponseBody> edite_profile(
+            @Field("id_member") String id_member,
+            @Field("city") String city,
+            @Field("password") String password,
+            @Field("image") String image,
+            @Field("phone") String phone,
+            @Field("name") String name
+    );
 }

@@ -118,6 +118,7 @@ public class AddPostActivity extends AppCompatActivity implements AdapterView.On
 
         user_id = tinyDB.getString("user_id");
 
+
         FirebaseApp.initializeApp(this);
 
         storage = FirebaseStorage.getInstance();
