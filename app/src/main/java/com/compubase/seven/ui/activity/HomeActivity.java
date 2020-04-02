@@ -92,7 +92,6 @@ public class HomeActivity extends AppCompatActivity {
 
         tinyDB = new TinyDB(getApplicationContext());
         user_id = tinyDB.getString("user_id");
-        login = tinyDB.getBoolean("login");
 
 
         imageView = findViewById(R.id.img_add);

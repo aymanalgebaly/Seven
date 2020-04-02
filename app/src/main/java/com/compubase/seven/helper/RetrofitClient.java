@@ -52,7 +52,7 @@ public class RetrofitClient {
                 .build();
 
         Retrofit.Builder builder = new Retrofit.Builder();
-        builder.baseUrl("http://educareua.com/seven.asmx/")
+        builder.baseUrl("http://sevenapps.net/seven.asmx/")
                 .client(okClient)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create());

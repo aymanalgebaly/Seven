@@ -53,6 +53,7 @@ public class MoreFragment extends Fragment {
 
     private Unbinder unbinder;
     private HomeActivity homeActivity;
+    private boolean login;
 
     public MoreFragment() {
         // Required empty public constructor
@@ -67,6 +68,22 @@ public class MoreFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
 
         homeActivity = (HomeActivity) getActivity();
+
+        TinyDB tinyDB = new TinyDB(homeActivity);
+        login = tinyDB.getBoolean("login");
+
+        if (login) {
+
+            txtLogin.setVisibility(View.GONE);
+            txtRegister.setVisibility(View.GONE);
+            txtLogOut.setVisibility(View.VISIBLE);
+
+        } else {
+
+            txtLogin.setVisibility(View.VISIBLE);
+            txtRegister.setVisibility(View.VISIBLE);
+            txtLogOut.setVisibility(View.GONE);
+        }
 
         return view;
     }

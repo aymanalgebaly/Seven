@@ -93,6 +93,145 @@
                 android:padding="5dp"
                 android:textSize="18sp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:id="@+id/lin_car">
+
+                <EditText
+                    android:id="@+id/et_model"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/accountedittext"
+                    android:hint="الموديل"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_year"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/accountedittext"
+                    android:hint="سنة الموديل"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_auto_gear"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/accountedittext"
+                    android:hint="ناقل الحركة"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_kilo"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/accountedittext"
+                    android:hint="عدد الكيلومترات"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_otherAboutCar"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/accountedittext"
+                    android:hint="الكماليات"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_engin"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/accountedittext"
+                    android:hint="سعة المحرك"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:id="@+id/lin_department">
+
+                <EditText
+                    android:id="@+id/et_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/accountedittext"
+                    android:hint="المنطقة"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_room"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/accountedittext"
+                    android:hint="عدد الغرف"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_floor"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/accountedittext"
+                    android:hint="الطابق"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_departWith"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/accountedittext"
+                    android:hint="مفروشة او غير مفروشة"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/et_departWithExtra"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/accountedittext"
+                    android:hint="الكماليات"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+
 
             <EditText
                 android:id="@+id/et_price"
@@ -100,10 +239,11 @@
                 android:layout_height="35dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/accountedittext"
-                android:hint="السعؤ"
+                android:hint="السعر"
                 android:inputType="none"
                 android:padding="5dp"
                 android:textSize="18sp" />
+
 
 
             <EditText

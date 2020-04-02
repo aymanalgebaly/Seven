@@ -62,7 +62,17 @@ public interface API {
                                @Field("country_2") String country_2,
                                @Field("country_3") String country_3,
                                @Field("country_4") String country_4,
-                               @Field("sub") String sub);
+                               @Field("sub") String sub,
+                               @Field("model") String model,
+                               @Field("year") String year,
+                               @Field("auto_move") String auto_move,
+                               @Field("other_car") String other_car,
+                               @Field("room") String room,
+                               @Field("floor") String floor,
+                               @Field("area") String area,
+                               @Field("other_property") String other_property,
+                               @Field("type_lucx") String type_lucx,
+                               @Field("kilo") String kilo);
 
 
     @FormUrlEncoded
