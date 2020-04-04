@@ -2,24 +2,25 @@ package com.compubase.seven.ui.fragment;
 
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,8 +38,6 @@ import com.compubase.seven.helper.SpinnerUtils;
 import com.compubase.seven.helper.TinyDB;
 import com.compubase.seven.model.AdsResponse;
 import com.compubase.seven.model.ItemList;
-import com.compubase.seven.model.SalesItems;
-import com.compubase.seven.ui.activity.AddPostActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -49,11 +48,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -70,6 +72,52 @@ public class HaragFragment extends Fragment {
 
     SalesAdapter salleslistAdapter;
     List<AdsResponse> salesitems = new ArrayList<>();
+    @BindView(R.id.et_model)
+    EditText etModel;
+    @BindView(R.id.et_year)
+    EditText etYear;
+    @BindView(R.id.et_auto_gear)
+    Spinner etAutoGear;
+    @BindView(R.id.et_kilo)
+    EditText etKilo;
+    @BindView(R.id.et_otherAboutCar)
+    EditText etOtherAboutCar;
+    @BindView(R.id.et_engin)
+    EditText etEngin;
+    @BindView(R.id.et_price_from)
+    EditText etPriceFrom;
+    @BindView(R.id.et_price_to)
+    EditText etPriceTo;
+    @BindView(R.id.lin_car)
+    LinearLayout linCar;
+    @BindView(R.id.sp_mark)
+    Spinner spMark;
+    @BindView(R.id.btn_search)
+    Button btnSearch;
+    @BindView(R.id.et_area)
+    EditText etArea;
+    @BindView(R.id.et_room)
+    EditText etRoom;
+    @BindView(R.id.et_floor)
+    EditText etFloor;
+    @BindView(R.id.et_departWith)
+    EditText etDepartWith;
+    @BindView(R.id.et_departWithExtra)
+    EditText etDepartWithExtra;
+    @BindView(R.id.lin_department)
+    LinearLayout linDepartment;
+    @BindView(R.id.et_area_from)
+    EditText etAreaFrom;
+    @BindView(R.id.et_area_to)
+    EditText etAreaTo;
+    @BindView(R.id.et_price_from_pro)
+    EditText etPriceFromPro;
+    @BindView(R.id.et_price_to_pro)
+    EditText etPriceToPro;
+    @BindView(R.id.et_pro)
+    Spinner etPro;
+    @BindView(R.id.btn_search_pro)
+    Button btnSearchPro;
 
     private SwipeRefreshLayout swipeContainer;
 
@@ -91,6 +139,8 @@ public class HaragFragment extends Fragment {
     ArrayList<String> jordan_cities = new ArrayList<>();
     ArrayList<String> gza2er_cities = new ArrayList<>();
     ArrayList<String> selectedDepartmentList = new ArrayList<>();
+    ArrayList<String> autoGear = new ArrayList<>();
+    ArrayList<String> property = new ArrayList<>();
 
     TinyDB tinyDB;
 
@@ -99,6 +149,12 @@ public class HaragFragment extends Fragment {
     private int cityPosition;
     private List<AdsResponse> adsResponseList2 = new ArrayList<>();
 
+
+    Unbinder unbinder;
+    private List<String> subCategories = new ArrayList<>();
+    private String car_mark;
+    private String auto_gear;
+    private String prorety_item;
 
     public HaragFragment() {
         // Required empty public constructor
@@ -111,6 +167,7 @@ public class HaragFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_harag, container, false);
+        ButterKnife.bind(this, view);
 
         selectedDepartment = "";
 
@@ -159,6 +216,19 @@ public class HaragFragment extends Fragment {
         countries.add("السودان");
         countries.add("الأردن");
         countries.add("الجزائر");
+
+        autoGear.add("مانيوال");
+        autoGear.add("اوتوماتيك");
+
+        property.add("شقه للبيع");
+        property.add("شقه للايجار");
+        property.add("فلل للبيع");
+        property.add("فلل للايجار");
+        property.add("عقارات مصايف للبيع");
+        property.add("عقارات مصايف للبيع");
+        property.add("عقار تجاري للبيع");
+        property.add("عقار تجاري للايجار");
+        property.add("مباني و اراضي");
 
         cities.add("كل المدن");
         cities.add("الرياض");
@@ -261,12 +331,118 @@ public class HaragFragment extends Fragment {
         selectedDepartmentList.add("قسم غير مصنف");
 
 
+        subCategories.add("تويوتا");
+        subCategories.add("فورد");
+        subCategories.add("شيفروليه");
+        subCategories.add("نيسان");
+        subCategories.add("هيونداى");
+        subCategories.add("ليكسز");
+        subCategories.add("جى ام سى");
+        subCategories.add("شاحنات و معدات ثقيله");
+        subCategories.add("مرسيدس");
+        subCategories.add("هوندا");
+        subCategories.add("بى ام دبليو");
+        subCategories.add("قطع غيار و ملحقات");
+        subCategories.add("دبابات");
+        subCategories.add("كيا");
+        subCategories.add("دودج");
+        subCategories.add("كريسلر");
+        subCategories.add("جيب");
+        subCategories.add("ميتسوبيشى");
+        subCategories.add("ماذدا");
+        subCategories.add("لاندروفر");
+        subCategories.add("ايسوزو");
+        subCategories.add("كاديلاك");
+        subCategories.add("بورش");
+        subCategories.add("اودى");
+        subCategories.add("سوزوكى");
+        subCategories.add("انفينتى");
+        subCategories.add("هامار");
+        subCategories.add("لينكولن");
+        subCategories.add("فولكس واجن");
+        subCategories.add("دايهاتسو");
+        subCategories.add("جيلى");
+        subCategories.add("ميركورى");
+        subCategories.add("فولفو");
+        subCategories.add("بيجو");
+        subCategories.add("بنتلى");
+        subCategories.add("جاجوار");
+        subCategories.add("سوبارو");
+        subCategories.add("ام جى");
+        subCategories.add("زد اكس اوتو");
+        subCategories.add("رينو");
+        subCategories.add("بيوك");
+        subCategories.add("مازيراتى");
+        subCategories.add("رولز رويس");
+        subCategories.add("لامبورجينى");
+        subCategories.add("اوبل");
+        subCategories.add("سكودا");
+        subCategories.add("فيرارى");
+        subCategories.add("ستروين");
+        subCategories.add("شيرى");
+        subCategories.add("سيات");
+        subCategories.add("دايو");
+        subCategories.add("ساب");
+        subCategories.add("فيات");
+        subCategories.add("سانج يونج");
+        subCategories.add("استون مارتن");
+        subCategories.add("بروتون");
+        subCategories.add("سيارات مصدومة");
+        subCategories.add("سيارات للتنازل");
+        subCategories.add("سيارات تراثية");
+
+
         final List<String> allCitiesList = new ArrayList<>();
         allCitiesList.add("كل المدن");
 
         SpinnerUtils.SetSpinnerAdapter(getContext(), countriesSpinner, countries, R.layout.spinner_item_black);
+        SpinnerUtils.SetSpinnerAdapter(getContext(), spMark, subCategories, R.layout.spinner_item_black);
         SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, allCitiesList, R.layout.spinner_item_black);
         SpinnerUtils.SetSpinnerAdapter(getContext(), departmentSpinner, selectedDepartmentList, R.layout.spinner_item_black);
+        SpinnerUtils.SetSpinnerAdapter(getContext(), etAutoGear, autoGear, R.layout.spinner_item_black);
+        SpinnerUtils.SetSpinnerAdapter(getContext(), etPro, property, R.layout.spinner_item_black);
+
+
+        etPro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                prorety_item = property.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        etAutoGear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                auto_gear = autoGear.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        spMark.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                car_mark = subCategories.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
         countriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -399,7 +575,24 @@ public class HaragFragment extends Fragment {
 
                 if (cityesSpinner.getSelectedItemPosition() == 0) {
                     selectByDepartment(selectedDepartment);
+                }
+
+                if (selectedDepartment.equals("السيارات")) {
+
+                    linCar.setVisibility(View.VISIBLE);
+                    linDepartment.setVisibility(View.GONE);
+                    select_haraj_by_search_car(cityName, selectedDepartment);
+
+                } else if (selectedDepartment.equals("عقارات")) {
+
+                    linDepartment.setVisibility(View.VISIBLE);
+                    linCar.setVisibility(View.GONE);
+                    select_haraj_by_search_property(cityName, selectedDepartment);
+
+
                 } else {
+                    linCar.setVisibility(View.GONE);
+                    linDepartment.setVisibility(View.GONE);
                     selectByCityAndDepartment(cityName, selectedDepartment);
                 }
 
@@ -414,7 +607,212 @@ public class HaragFragment extends Fragment {
 
         swiptorefresch();
 
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                select_haraj_by_search_car(cityName, selectedDepartment);
+            }
+        });
+
+        btnSearchPro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                select_haraj_by_search_property(cityName,selectedDepartment);
+            }
+        });
+
         return view;
+    }
+
+    private void select_haraj_by_search_property(String cityName, String selectedDepartment) {
+
+
+        String areaFrom = etAreaFrom.getText().toString();
+        String departWith = etDepartWith.getText().toString();
+        String departWithExtra = etDepartWithExtra.getText().toString();
+        String floor = etFloor.getText().toString();
+        String room = etRoom.getText().toString();
+        String areaTo = etAreaTo.getText().toString();
+        String priceFromPro = etPriceFromPro.getText().toString();
+        String priceToPro = etPriceToPro.getText().toString();
+//        String year = etYear.getText().toString();
+
+        if (TextUtils.isEmpty(room)) {
+            etRoom.setError("ادخل عدد الغرف");
+        } else if (TextUtils.isEmpty(floor)) {
+            etFloor.setError("ادخل الطابق");
+        } else if (TextUtils.isEmpty(departWith)) {
+            etDepartWith.setError("بفرش او بدون");
+        } else if (TextUtils.isEmpty(departWithExtra)) {
+            etDepartWithExtra.setError("ادخل كماليات");
+        } else if (TextUtils.isEmpty(areaFrom)) {
+            etAreaFrom.setError("المساحه من");
+        } else if (TextUtils.isEmpty(areaTo)) {
+            etAreaTo.setError("المساحه الي");
+        } else if (TextUtils.isEmpty(priceFromPro)) {
+            etPriceFromPro.setError("ادخل السعر من");
+        } else if (TextUtils.isEmpty(priceToPro)) {
+            etPriceToPro.setError("ادخل السعر الي");
+        } else {
+
+            RetrofitClient.getInstant().create(API.class).select_haraj_by_search_property(selectedDepartment,
+                    cityName, prorety_item, room, floor, "", "", departWith, priceFromPro, areaFrom,
+                    areaTo, priceToPro).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+
+                    GsonBuilder builder = new GsonBuilder();
+                    Gson gson = builder.create();
+
+                    try {
+                        assert response.body() != null;
+
+                        List<AdsResponse> adsResponses
+                                = Arrays.asList(gson.fromJson(response.body().string(), AdsResponse[].class));
+
+                        if (adsResponseList2.isEmpty()) {
+
+                            linDepartment.setVisibility(View.GONE);
+
+                            Toast.makeText(getActivity(), "لايوجد نتيجه للبحث", Toast.LENGTH_LONG).show();
+
+//                            etAutoGear.setText("");
+                            etEngin.setText("");
+                            etKilo.setText("");
+                            etModel.setText("");
+                            etOtherAboutCar.setText("");
+                            etPriceFrom.setText("");
+                            etPriceTo.setText("");
+                            etYear.setText("");
+                        } else {
+
+                            adsResponseList2.addAll(adsResponses);
+
+                            salleslistAdapter.setDataList(adsResponseList2);
+
+//                            etAutoGear.setText("");
+                            etEngin.setText("");
+                            etKilo.setText("");
+                            etModel.setText("");
+                            etOtherAboutCar.setText("");
+                            etPriceFrom.setText("");
+                            etPriceTo.setText("");
+                            etYear.setText("");
+
+
+                            linDepartment.setVisibility(View.GONE);
+
+                        }
+
+
+                    } catch (IOException e) {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+    }
+
+    private void select_haraj_by_search_car(String cityName, String selectedDepartment) {
+
+
+//        String auto_gear = etAutoGear.getText().toString();
+        String engin = etEngin.getText().toString();
+        String kilo = etKilo.getText().toString();
+        String model = etModel.getText().toString();
+        String aboutCar = etOtherAboutCar.getText().toString();
+        String priceFrom = etPriceFrom.getText().toString();
+        String priceTo = etPriceTo.getText().toString();
+        String year = etYear.getText().toString();
+
+        if (TextUtils.isEmpty(model)) {
+            etModel.setError("ادخل موديل السياره");
+        } else if (TextUtils.isEmpty(year)) {
+            etYear.setError("ادخل السنة");
+        } else if (TextUtils.isEmpty(kilo)) {
+            etKilo.setError("ادخل عدد الكيلومترات");
+        } else if (TextUtils.isEmpty(aboutCar)) {
+            etOtherAboutCar.setError("ادخل كماليات السياره");
+        } else if (TextUtils.isEmpty(engin)) {
+            etEngin.setError("ادخل سعه المحرك");
+        } else if (TextUtils.isEmpty(priceFrom)) {
+            etPriceFrom.setError("ادخل السعر من");
+        } else if (TextUtils.isEmpty(priceTo)) {
+            etPriceTo.setError("ادخل السعر الي");
+        } else {
+
+            RetrofitClient.getInstant().create(API.class).select_haraj_by_search_car(selectedDepartment, cityName,
+                    car_mark,
+                    model, year, auto_gear, kilo, aboutCar, priceFrom, priceTo).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+
+                    GsonBuilder builder = new GsonBuilder();
+                    Gson gson = builder.create();
+
+                    try {
+                        assert response.body() != null;
+
+                        List<AdsResponse> adsResponses
+                                = Arrays.asList(gson.fromJson(response.body().string(), AdsResponse[].class));
+
+                        if (adsResponseList2.isEmpty()) {
+
+                            linCar.setVisibility(View.GONE);
+
+                            Toast.makeText(getActivity(), "لايوجد نتيجه للبحث", Toast.LENGTH_LONG).show();
+
+//                            etAutoGear.setText("");
+                            etEngin.setText("");
+                            etKilo.setText("");
+                            etModel.setText("");
+                            etOtherAboutCar.setText("");
+                            etPriceFrom.setText("");
+                            etPriceTo.setText("");
+                            etYear.setText("");
+                        } else {
+
+                            adsResponseList2.addAll(adsResponses);
+
+                            salleslistAdapter.setDataList(adsResponseList2);
+
+//                            etAutoGear.setText("");
+                            etEngin.setText("");
+                            etKilo.setText("");
+                            etModel.setText("");
+                            etOtherAboutCar.setText("");
+                            etPriceFrom.setText("");
+                            etPriceTo.setText("");
+                            etYear.setText("");
+
+
+                            linCar.setVisibility(View.GONE);
+
+                        }
+
+
+                    } catch (IOException e) {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
     }
 
     public void swiptorefresch() {
@@ -820,7 +1218,7 @@ public class HaragFragment extends Fragment {
                         try {
                             assert response.body() != null;
                             assert response.body().toString() != null;
-                            List<AdsResponse> adsResponseList = Arrays.asList(gson.fromJson(response.body().string(),AdsResponse[].class));
+                            List<AdsResponse> adsResponseList = Arrays.asList(gson.fromJson(response.body().string(), AdsResponse[].class));
 
 
                             adsResponseList2.addAll(adsResponseList);
@@ -847,6 +1245,11 @@ public class HaragFragment extends Fragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
 
     private void selectByCountry(String country) {
         progressBar.setVisibility(View.VISIBLE);
@@ -958,7 +1361,8 @@ public class HaragFragment extends Fragment {
                         try {
                             assert response.body() != null;
                             assert response.body().toString() != null;
-                            List<AdsResponse> adsResponseList = Arrays.asList(gson.fromJson(response.body().string(), AdsResponse[].class));
+                            List<AdsResponse> adsResponseList =
+                                    Arrays.asList(gson.fromJson(response.body().string(), AdsResponse[].class));
 
                             adsResponseList2.addAll(adsResponseList);
 

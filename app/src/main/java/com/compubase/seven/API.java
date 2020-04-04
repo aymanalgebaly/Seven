@@ -116,4 +116,37 @@ public interface API {
             @Field("phone") String phone,
             @Field("name") String name
     );
+
+    @FormUrlEncoded
+    @POST("select_haraj_by_search_car")
+    Call<ResponseBody> select_haraj_by_search_car(
+            @Field("Department") String Department,
+            @Field("City") String City,
+            @Field("SubDep") String SubDep,
+            @Field("model") String model,
+            @Field("year") String year,
+            @Field("auto_move") String auto_move,
+            @Field("kilo") String kilo,
+            @Field("other_car") String other_car,
+            @Field("pricefrom") String pricefrom,
+            @Field("priceto") String priceto
+    );
+
+
+    @FormUrlEncoded
+    @POST("select_haraj_by_search_property")
+    Call<ResponseBody> select_haraj_by_search_property(
+            @Field("Department") String Department,
+            @Field("City") String City,
+            @Field("SubDep") String SubDep,
+            @Field("room") String room,
+            @Field("floor") String floor,
+            @Field("area") String area,
+            @Field("other_property") String other_property,
+            @Field("type_lucx") String type_lucx,
+            @Field("pricefrom") String pricefrom,
+            @Field("areafrom") String areafrom,
+            @Field("areato") String areato,
+            @Field("priceto") String priceto
+    );
 }

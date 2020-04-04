@@ -40,6 +40,8 @@
 
     <!--</androidx.appcompat.widget.Toolbar>-->
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -95,6 +97,277 @@
         android:layout_marginRight="10dp"
         android:gravity="center"
         android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:id="@+id/lin_car">
+
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/accountedittext"
+                android:id="@+id/sp_mark">
+
+            </Spinner>
+
+            <EditText
+                android:id="@+id/et_model"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/accountedittext"
+                android:hint="الموديل"
+                android:inputType="none"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_year"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/accountedittext"
+                android:hint="سنة الموديل"
+                android:inputType="number"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+            <Spinner
+                android:id="@+id/et_auto_gear"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/accountedittext"
+                android:inputType="none"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_kilo"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/accountedittext"
+                android:hint="عدد الكيلومترات"
+                android:inputType="number"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_otherAboutCar"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/accountedittext"
+                android:hint="الكماليات"
+                android:inputType="none"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_engin"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/accountedittext"
+                android:hint="سعة المحرك"
+                android:inputType="number"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_price_from"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/accountedittext"
+                android:hint="السعر من"
+                android:inputType="number"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/et_price_to"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/accountedittext"
+                android:hint="السعر الي"
+                android:inputType="number"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/curv_stroke_orange"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text="بحث"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:id="@+id/btn_search"/>
+
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:id="@+id/lin_department">
+
+                    <EditText
+                        android:id="@+id/et_area"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/accountedittext"
+                        android:hint="المساحه"
+                        android:inputType="number"
+                        android:visibility="gone"
+                        android:padding="5dp"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/et_pro"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/accountedittext"
+                        android:inputType="none"
+                        android:padding="5dp"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_room"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/accountedittext"
+                        android:hint="عدد الغرف"
+                        android:inputType="number"
+                        android:padding="5dp"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_floor"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/accountedittext"
+                        android:hint="الطابق"
+                        android:inputType="number"
+                        android:padding="5dp"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_departWith"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/accountedittext"
+                        android:hint="مفروشة او غير مفروشة"
+                        android:inputType="none"
+                        android:padding="5dp"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_departWithExtra"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/accountedittext"
+                        android:hint="الكماليات"
+                        android:inputType="none"
+                        android:padding="5dp"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_area_from"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/accountedittext"
+                        android:hint="المساحة من"
+                        android:inputType="number"
+                        android:padding="5dp"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_area_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/accountedittext"
+                        android:hint="المساحة الي"
+                        android:inputType="number"
+                        android:padding="5dp"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_price_from_pro"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/accountedittext"
+                        android:hint="السعر من"
+                        android:inputType="number"
+                        android:padding="5dp"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/et_price_to_pro"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/accountedittext"
+                        android:hint="السعر الي"
+                        android:inputType="number"
+                        android:padding="5dp"
+                        android:textSize="18sp" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/curv_stroke_orange"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="بحث"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:id="@+id/btn_search_pro"/>
+
+                </LinearLayout>
+
+                </LinearLayout>
+
+
+            </ScrollView>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
