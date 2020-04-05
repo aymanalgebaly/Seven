@@ -82,6 +82,17 @@
                 android:padding="5dp"
                 android:textSize="18sp" />
 
+            <Spinner
+                android:id="@+id/sp_sub_department"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/accountedittext"
+                android:maxLength="56"
+                android:padding="5dp"
+                android:textSize="18sp" />
+
+
             <EditText
                 android:id="@+id/et_address"
                 android:layout_width="match_parent"
@@ -122,13 +133,12 @@
                     android:padding="5dp"
                     android:textSize="18sp" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/et_auto_gear"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
-                    android:hint="ناقل الحركة"
                     android:inputType="none"
                     android:padding="5dp"
                     android:textSize="18sp" />
@@ -181,7 +191,7 @@
                     android:layout_height="35dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
-                    android:hint="المنطقة"
+                    android:hint="المساحة"
                     android:inputType="none"
                     android:padding="5dp"
                     android:textSize="18sp" />
@@ -208,14 +218,12 @@
                     android:padding="5dp"
                     android:textSize="18sp" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/et_departWith"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
-                    android:hint="مفروشة او غير مفروشة"
-                    android:inputType="none"
                     android:padding="5dp"
                     android:textSize="18sp" />
 

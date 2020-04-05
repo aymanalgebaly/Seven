@@ -127,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
                                 tinyDB.putString("user_img",user_img);
                                 tinyDB.putString("user_balance",user_balance);
 
+
                                 EventBus.getDefault().post(new AddButtonClick("True"));
 
                                 startActivity(new Intent(LoginActivity.this,HomeActivity.class));

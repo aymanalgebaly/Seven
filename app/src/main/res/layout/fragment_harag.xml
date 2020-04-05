@@ -281,14 +281,12 @@
                         android:padding="5dp"
                         android:textSize="18sp" />
 
-                    <EditText
+                    <Spinner
                         android:id="@+id/et_departWith"
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
+                        android:layout_height="40dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/accountedittext"
-                        android:hint="مفروشة او غير مفروشة"
-                        android:inputType="none"
                         android:padding="5dp"
                         android:textSize="18sp" />
 

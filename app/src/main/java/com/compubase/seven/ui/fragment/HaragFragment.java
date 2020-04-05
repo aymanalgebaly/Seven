@@ -101,7 +101,7 @@ public class HaragFragment extends Fragment {
     @BindView(R.id.et_floor)
     EditText etFloor;
     @BindView(R.id.et_departWith)
-    EditText etDepartWith;
+    Spinner etDepartWith;
     @BindView(R.id.et_departWithExtra)
     EditText etDepartWithExtra;
     @BindView(R.id.lin_department)
@@ -129,6 +129,7 @@ public class HaragFragment extends Fragment {
 
     Spinner cityesSpinner, countriesSpinner, departmentSpinner;
 
+    Unbinder unbinder;
 
     ArrayList<String> cities = new ArrayList<>();
     ArrayList<String> countries = new ArrayList<>();
@@ -141,6 +142,7 @@ public class HaragFragment extends Fragment {
     ArrayList<String> selectedDepartmentList = new ArrayList<>();
     ArrayList<String> autoGear = new ArrayList<>();
     ArrayList<String> property = new ArrayList<>();
+    ArrayList<String> depart_with = new ArrayList<>();
 
     TinyDB tinyDB;
 
@@ -150,11 +152,11 @@ public class HaragFragment extends Fragment {
     private List<AdsResponse> adsResponseList2 = new ArrayList<>();
 
 
-    Unbinder unbinder;
     private List<String> subCategories = new ArrayList<>();
     private String car_mark;
     private String auto_gear;
     private String prorety_item;
+    private String departWith;
 
     public HaragFragment() {
         // Required empty public constructor
@@ -167,7 +169,7 @@ public class HaragFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_harag, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         selectedDepartment = "";
 
@@ -207,6 +209,9 @@ public class HaragFragment extends Fragment {
         cityesSpinner = view.findViewById(R.id.cities);
         countriesSpinner = view.findViewById(R.id.countries);
 
+
+        depart_with.add("مفروشه");
+        depart_with.add("غير مفروشه");
 
         countries.add("كل البلاد");
         countries.add("السعودية");
@@ -401,6 +406,7 @@ public class HaragFragment extends Fragment {
         SpinnerUtils.SetSpinnerAdapter(getContext(), departmentSpinner, selectedDepartmentList, R.layout.spinner_item_black);
         SpinnerUtils.SetSpinnerAdapter(getContext(), etAutoGear, autoGear, R.layout.spinner_item_black);
         SpinnerUtils.SetSpinnerAdapter(getContext(), etPro, property, R.layout.spinner_item_black);
+        SpinnerUtils.SetSpinnerAdapter(getContext(), etDepartWith, depart_with, R.layout.spinner_item_black);
 
 
         etPro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -408,6 +414,18 @@ public class HaragFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
                 prorety_item = property.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        etDepartWith.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                departWith = depart_with.get(i);
             }
 
             @Override
@@ -630,7 +648,7 @@ public class HaragFragment extends Fragment {
 
 
         String areaFrom = etAreaFrom.getText().toString();
-        String departWith = etDepartWith.getText().toString();
+//        String departWith = etDepartWith.getText().toString();
         String departWithExtra = etDepartWithExtra.getText().toString();
         String floor = etFloor.getText().toString();
         String room = etRoom.getText().toString();
@@ -639,23 +657,25 @@ public class HaragFragment extends Fragment {
         String priceToPro = etPriceToPro.getText().toString();
 //        String year = etYear.getText().toString();
 
-        if (TextUtils.isEmpty(room)) {
-            etRoom.setError("ادخل عدد الغرف");
-        } else if (TextUtils.isEmpty(floor)) {
-            etFloor.setError("ادخل الطابق");
-        } else if (TextUtils.isEmpty(departWith)) {
-            etDepartWith.setError("بفرش او بدون");
-        } else if (TextUtils.isEmpty(departWithExtra)) {
-            etDepartWithExtra.setError("ادخل كماليات");
-        } else if (TextUtils.isEmpty(areaFrom)) {
-            etAreaFrom.setError("المساحه من");
-        } else if (TextUtils.isEmpty(areaTo)) {
-            etAreaTo.setError("المساحه الي");
-        } else if (TextUtils.isEmpty(priceFromPro)) {
-            etPriceFromPro.setError("ادخل السعر من");
-        } else if (TextUtils.isEmpty(priceToPro)) {
-            etPriceToPro.setError("ادخل السعر الي");
-        } else {
+//        if (TextUtils.isEmpty(room)) {
+//            etRoom.setError("ادخل عدد الغرف");
+//        } else if (TextUtils.isEmpty(floor)) {
+//            etFloor.setError("ادخل الطابق");
+//        }
+////        else if (TextUtils.isEmpty(departWith)) {
+////            etDepartWith.setError("بفرش او بدون");
+////        }
+//        else if (TextUtils.isEmpty(departWithExtra)) {
+//            etDepartWithExtra.setError("ادخل كماليات");
+//        } else if (TextUtils.isEmpty(areaFrom)) {
+//            etAreaFrom.setError("المساحه من");
+//        } else if (TextUtils.isEmpty(areaTo)) {
+//            etAreaTo.setError("المساحه الي");
+//        } else if (TextUtils.isEmpty(priceFromPro)) {
+//            etPriceFromPro.setError("ادخل السعر من");
+//        } else if (TextUtils.isEmpty(priceToPro)) {
+//            etPriceToPro.setError("ادخل السعر الي");
+//        } else {
 
             RetrofitClient.getInstant().create(API.class).select_haraj_by_search_property(selectedDepartment,
                     cityName, prorety_item, room, floor, "", "", departWith, priceFromPro, areaFrom,
@@ -720,7 +740,7 @@ public class HaragFragment extends Fragment {
             });
 
         }
-    }
+//    }
 
     private void select_haraj_by_search_car(String cityName, String selectedDepartment) {
 
@@ -734,21 +754,21 @@ public class HaragFragment extends Fragment {
         String priceTo = etPriceTo.getText().toString();
         String year = etYear.getText().toString();
 
-        if (TextUtils.isEmpty(model)) {
-            etModel.setError("ادخل موديل السياره");
-        } else if (TextUtils.isEmpty(year)) {
-            etYear.setError("ادخل السنة");
-        } else if (TextUtils.isEmpty(kilo)) {
-            etKilo.setError("ادخل عدد الكيلومترات");
-        } else if (TextUtils.isEmpty(aboutCar)) {
-            etOtherAboutCar.setError("ادخل كماليات السياره");
-        } else if (TextUtils.isEmpty(engin)) {
-            etEngin.setError("ادخل سعه المحرك");
-        } else if (TextUtils.isEmpty(priceFrom)) {
-            etPriceFrom.setError("ادخل السعر من");
-        } else if (TextUtils.isEmpty(priceTo)) {
-            etPriceTo.setError("ادخل السعر الي");
-        } else {
+//        if (TextUtils.isEmpty(model)) {
+//            etModel.setError("ادخل موديل السياره");
+//        } else if (TextUtils.isEmpty(year)) {
+//            etYear.setError("ادخل السنة");
+//        } else if (TextUtils.isEmpty(kilo)) {
+//            etKilo.setError("ادخل عدد الكيلومترات");
+//        } else if (TextUtils.isEmpty(aboutCar)) {
+//            etOtherAboutCar.setError("ادخل كماليات السياره");
+//        } else if (TextUtils.isEmpty(engin)) {
+//            etEngin.setError("ادخل سعه المحرك");
+//        } else if (TextUtils.isEmpty(priceFrom)) {
+//            etPriceFrom.setError("ادخل السعر من");
+//        } else if (TextUtils.isEmpty(priceTo)) {
+//            etPriceTo.setError("ادخل السعر الي");
+//        } else {
 
             RetrofitClient.getInstant().create(API.class).select_haraj_by_search_car(selectedDepartment, cityName,
                     car_mark,
@@ -813,7 +833,7 @@ public class HaragFragment extends Fragment {
             });
 
         }
-    }
+//    }
 
     public void swiptorefresch() {
         // Lookup the swipe container view

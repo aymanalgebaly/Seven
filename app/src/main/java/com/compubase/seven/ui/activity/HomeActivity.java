@@ -50,6 +50,7 @@ public class HomeActivity extends AppCompatActivity {
 //                    mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_more:
+
                     displaySelectedFragment(new MoreFragment());
 
                     return true;
@@ -60,6 +61,7 @@ public class HomeActivity extends AppCompatActivity {
 
                         displaySelectedFragment(new ProfileFragmentTest());
                     }else {
+
                         Toast.makeText(HomeActivity.this, "سجل الدخول اولا", Toast.LENGTH_SHORT).show();
                     }
                     return true;
@@ -92,6 +94,7 @@ public class HomeActivity extends AppCompatActivity {
 
         tinyDB = new TinyDB(getApplicationContext());
         user_id = tinyDB.getString("user_id");
+        login = tinyDB.getBoolean("login");
 
 
         imageView = findViewById(R.id.img_add);

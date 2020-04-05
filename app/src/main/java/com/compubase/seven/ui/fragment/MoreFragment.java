@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -50,6 +51,12 @@ public class MoreFragment extends Fragment {
     TextView txtRegister;
     @BindView(R.id.txt_logOut)
     TextView txtLogOut;
+    @BindView(R.id.lin_new_user)
+    LinearLayout linNewUser;
+    @BindView(R.id.lin_login)
+    LinearLayout linLogin;
+    @BindView(R.id.lin_log_out)
+    LinearLayout linLogOut;
 
     private Unbinder unbinder;
     private HomeActivity homeActivity;
@@ -74,15 +81,15 @@ public class MoreFragment extends Fragment {
 
         if (login) {
 
-            txtLogin.setVisibility(View.GONE);
-            txtRegister.setVisibility(View.GONE);
-            txtLogOut.setVisibility(View.VISIBLE);
+            linLogin.setVisibility(View.GONE);
+            linNewUser.setVisibility(View.GONE);
+            linLogOut.setVisibility(View.VISIBLE);
 
         } else {
 
-            txtLogin.setVisibility(View.VISIBLE);
-            txtRegister.setVisibility(View.VISIBLE);
-            txtLogOut.setVisibility(View.GONE);
+            linLogin.setVisibility(View.VISIBLE);
+            linNewUser.setVisibility(View.VISIBLE);
+            linLogOut.setVisibility(View.GONE);
         }
 
         return view;
@@ -120,7 +127,10 @@ public class MoreFragment extends Fragment {
                 break;
             case R.id.txt_logOut:
                 TinyDB tinyDB = new TinyDB(getActivity());
-                tinyDB.putBoolean("login",false);
+
+                tinyDB.clear();
+
+                tinyDB.putBoolean("login", false);
 
                 startActivity(new Intent(getContext(), HomeActivity.class));
                 Objects.requireNonNull(getActivity()).finish();
