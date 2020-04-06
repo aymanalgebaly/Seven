@@ -1341,7 +1341,7 @@ public class AddPostFragment extends Fragment {
             Log.i( "hhhhhh",department + auto_gear + model);
 
 
-            RetrofitClient.getInstant().create(API.class).addPostDepartment("222",address,
+            RetrofitClient.getInstant().create(API.class).addPostDepartment(user_id,address,
                     desc,cityName,department,price,phone,"img","img","img","img","img","img","img","img",
                     "hbh",cityName2,cityName3,"",countryName,countryName2,countryName3,"",room,floor,area,departmentWithExtra,
                     departWith,sup_depar,"m","1","m","m","1").enqueue(new Callback<ResponseBody>() {
@@ -1408,7 +1408,7 @@ public class AddPostFragment extends Fragment {
             etKilo.setError("ادخل عدد الكيلومترات");
         }else {
 
-            RetrofitClient.getInstant().create(API.class).addPostCar("222",address,
+            RetrofitClient.getInstant().create(API.class).addPostCar(user_id,address,
                     desc,cityName,department,price,phone,"img","img","img","img","img","img","img",
                     "img",
                     "hbh",cityName2,cityName3,"",countryName,countryName2,countryName3,"",
@@ -1491,7 +1491,7 @@ public class AddPostFragment extends Fragment {
 
 
 
-            RetrofitClient.getInstant().create(API.class).addPost("222",address,
+            RetrofitClient.getInstant().create(API.class).addPost(user_id,address,
                     desc,cityName,department,price,phone,"img","img","img","img","img","img","img","img",
                     "hbh",cityName2,cityName3,"",countryName,countryName2,countryName3,"",
                     "1","1","1","m",
