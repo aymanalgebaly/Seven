@@ -108,7 +108,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
                     android:hint="الموديل"
-                    android:inputType="none"
+                    android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -119,18 +119,16 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
                     android:hint="سنة الموديل"
-                    android:inputType="none"
+                    android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/et_auto_gear"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
-                    android:hint="ناقل الحركة"
-                    android:inputType="none"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -163,7 +161,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
                     android:hint="سعة المحرك"
-                    android:inputType="none"
+                    android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -181,8 +179,8 @@
                     android:layout_height="35dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
-                    android:hint="المنطقة"
-                    android:inputType="none"
+                    android:hint="المساحة"
+                    android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -193,7 +191,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
                     android:hint="عدد الغرف"
-                    android:inputType="none"
+                    android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -204,18 +202,16 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
                     android:hint="الطابق"
-                    android:inputType="none"
+                    android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/et_departWith"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
-                    android:hint="مفروشة او غير مفروشة"
-                    android:inputType="none"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -240,7 +236,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/accountedittext"
                 android:hint="السعر"
-                android:inputType="none"
+                android:inputType="number"
                 android:padding="5dp"
                 android:textSize="18sp" />
 
@@ -267,7 +263,6 @@
                 android:background="@drawable/accountedittext"
                 android:gravity="right"
                 android:hint="اضف صورة او فيديو 45 ثانية"
-                android:inputType="phone"
                 android:maxLength="10"
                 android:padding="5dp"
                 android:textSize="18sp" />

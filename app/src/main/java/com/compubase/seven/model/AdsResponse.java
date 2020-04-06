@@ -8,7 +8,7 @@ public class AdsResponse {
 
     @SerializedName("Id")
     @Expose
-    private String id;
+    private Integer id;
     @SerializedName("IdMember")
     @Expose
     private String idMember;
@@ -101,7 +101,7 @@ public class AdsResponse {
     private String city4;
     @SerializedName("flag")
     @Expose
-    private Object flag;
+    private String flag;
     @SerializedName("country_2")
     @Expose
     private String country2;
@@ -111,12 +111,42 @@ public class AdsResponse {
     @SerializedName("country_4")
     @Expose
     private String country4;
+    @SerializedName("model")
+    @Expose
+    private String model;
+    @SerializedName("year")
+    @Expose
+    private String year;
+    @SerializedName("auto_move")
+    @Expose
+    private String autoMove;
+    @SerializedName("kilo")
+    @Expose
+    private String kilo;
+    @SerializedName("other_car")
+    @Expose
+    private String otherCar;
+    @SerializedName("room")
+    @Expose
+    private String room;
+    @SerializedName("floor")
+    @Expose
+    private String floor;
+    @SerializedName("area")
+    @Expose
+    private String area;
+    @SerializedName("other_property")
+    @Expose
+    private String otherProperty;
+    @SerializedName("type_lucx")
+    @Expose
+    private String typeLucx;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -360,11 +390,11 @@ public class AdsResponse {
         this.city4 = city4;
     }
 
-    public Object getFlag() {
+    public String getFlag() {
         return flag;
     }
 
-    public void setFlag(Object flag) {
+    public void setFlag(String flag) {
         this.flag = flag;
     }
 
@@ -390,6 +420,86 @@ public class AdsResponse {
 
     public void setCountry4(String country4) {
         this.country4 = country4;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getAutoMove() {
+        return autoMove;
+    }
+
+    public void setAutoMove(String autoMove) {
+        this.autoMove = autoMove;
+    }
+
+    public String getKilo() {
+        return kilo;
+    }
+
+    public void setKilo(String kilo) {
+        this.kilo = kilo;
+    }
+
+    public String getOtherCar() {
+        return otherCar;
+    }
+
+    public void setOtherCar(String otherCar) {
+        this.otherCar = otherCar;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    public String getFloor() {
+        return floor;
+    }
+
+    public void setFloor(String floor) {
+        this.floor = floor;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getOtherProperty() {
+        return otherProperty;
+    }
+
+    public void setOtherProperty(String otherProperty) {
+        this.otherProperty = otherProperty;
+    }
+
+    public String getTypeLucx() {
+        return typeLucx;
+    }
+
+    public void setTypeLucx(String typeLucx) {
+        this.typeLucx = typeLucx;
     }
 
 }

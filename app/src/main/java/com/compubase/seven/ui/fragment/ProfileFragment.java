@@ -457,7 +457,7 @@ public class ProfileFragment extends Fragment {
 
                 }
 
-                oursales.setId(childJSONObject.getString("Id"));
+                oursales.setId(Integer.valueOf(childJSONObject.getString("Id")));
 
                 oursales.setIdMember(childJSONObject.getString("IdMember"));
 

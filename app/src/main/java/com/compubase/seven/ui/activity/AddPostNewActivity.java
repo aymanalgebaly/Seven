@@ -980,7 +980,6 @@ public class AddPostNewActivity extends AppCompatActivity {
         });
 
 
-
         spSubDepartment.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -989,6 +988,7 @@ public class AddPostNewActivity extends AppCompatActivity {
 
                     sup_depar = sup_depa.get(i);
                     spSubDepartment.setVisibility(View.VISIBLE);
+                    auto_gear = "m";
 
                 }else if (department.equals("السيارات")){
 
@@ -997,6 +997,8 @@ public class AddPostNewActivity extends AppCompatActivity {
                     sup_depar = car_mark.get(i);
                 }else {
 
+                    sup_depar = department;
+                    auto_gear = "m";
                     spSubDepartment.setVisibility(View.GONE);
                 }
             }
@@ -1012,6 +1014,90 @@ public class AddPostNewActivity extends AppCompatActivity {
     @OnClick(R.id.add_post)
     public void onViewClicked() {
 
+
+        if (department.equals("عقارات")){
+            addPostDepartment();
+        }else if (department.equals("السيارات")){
+            addPostCar();
+        }else {
+            addPost();
+        }
+    }
+
+    private void addPostDepartment() {
+
+        address = etAddress.getText().toString();
+        desc = etDesc.getText().toString();
+        price = etPrice.getText().toString();
+        phone = etPhone.getText().toString();
+        room = etRoom.getText().toString();
+        floor = etFloor.getText().toString();
+        area = etArea.getText().toString();
+        departmentWithExtra = etDepartWithExtra.getText().toString();
+
+
+
+        if (TextUtils.isEmpty(address)) {
+            etAddress.setError("ادخل العنوان");
+        } else if (TextUtils.isEmpty(desc)) {
+            etDesc.setError("ادخل الوصف");
+        } else if (TextUtils.isEmpty(price)) {
+            etPrice.setError("ادخل السعر");
+        } else if (TextUtils.isEmpty(phone)) {
+            etPhone.setError("ادخل رقم الهاتف");
+        }else if (TextUtils.isEmpty(room)){
+            etRoom.setError("ادخل عدد الغرف");
+        } else if (TextUtils.isEmpty(floor)) {
+            etFloor.setError("ادخل رقم الطابق");
+        }else if (TextUtils.isEmpty(area)){
+            etArea.setError("ادخل المساحه");
+        }else if (TextUtils.isEmpty(departmentWithExtra)){
+            etDepartWithExtra.setError("ادخل الكماليات");
+        }else {
+
+
+            Log.i( "hhhhhh",department + auto_gear + model);
+
+
+            RetrofitClient.getInstant().create(API.class).addPostDepartment("222",address,
+                    desc,cityName,department,price,phone,"img","img","img","img","img","img","img","img",
+                    "hbh",cityName2,cityName3,"",countryName,countryName2,countryName3,"",room,floor,area,departmentWithExtra,
+                    departWith,sup_depar,"m","1","m","m","1").enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                    if (response.isSuccessful()) {
+
+                        String string = null;
+                        try {
+                            assert response.body() != null;
+                            string = response.body().string();
+
+                            Toast.makeText(AddPostNewActivity.this, string, Toast.LENGTH_SHORT).show();
+
+                            startActivity(new Intent(AddPostNewActivity.this, HomeActivity.class));
+
+                            finish();
+                        } catch (IOException e) {
+                            Toast.makeText(AddPostNewActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Toast.makeText(AddPostNewActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+        }
+
+
+    private void addPostCar() {
+
         address = etAddress.getText().toString();
         desc = etDesc.getText().toString();
         price = etPrice.getText().toString();
@@ -1019,108 +1105,151 @@ public class AddPostNewActivity extends AppCompatActivity {
         model = etModel.getText().toString();
         year = etYear.getText().toString();
         otherAboutCar = etOtherAboutCar.getText().toString();
-        room = etRoom.getText().toString();
-        floor = etFloor.getText().toString();
-        area = etArea.getText().toString();
-        departmentWithExtra = etDepartWithExtra.getText().toString();
         kilo = etKilo.getText().toString();
 
-        if (department.equals("عقارات")){
-            if (TextUtils.isEmpty(address)){
-                etAddress.setError("ادخل عنوان للاعلان");
-            }else if (TextUtils.isEmpty(desc)){
-                etDesc.setError("ادخل وصف للاعلان");
-            }else if (TextUtils.isEmpty(price)){
-                etPrice.setError("ادخل السعر");
-            }else if (TextUtils.isEmpty(phone)){
-                etPhone.setError("ادخل رقم الهاتف");
-            }else if (TextUtils.isEmpty(room)){
-                etRoom.setError("ادخل عدد الغرق");
-            }else if (TextUtils.isEmpty(floor)){
-                etFloor.setError("ادخل رقم الطابق");
-            }else if (TextUtils.isEmpty(area)){
-                etArea.setError("ادخل المساحه");
-            }else if (TextUtils.isEmpty(departmentWithExtra)){
-                etDepartWithExtra.setError("ادخل الكماليات");
-            }else {
 
-                addPost();
-
-            }
-        }else if (department.equals("السيارات")){
-                if (TextUtils.isEmpty(address)){
-                    etAddress.setError("ادخل عنوان للاعلان");
-                }else if (TextUtils.isEmpty(desc)){
-                    etDesc.setError("ادخل وصف للاعلان");
-                }else if (TextUtils.isEmpty(price)){
-                    etPrice.setError("ادخل السعر");
-                }else if (TextUtils.isEmpty(phone)){
-                    etPhone.setError("ادخل رقم الهاتف");
-                }else if (TextUtils.isEmpty(model)){
-                    etModel.setError("ادحل الموديل");
-                }else if (TextUtils.isEmpty(year)){
-                    etYear.setError("ادخل سنه الموديل");
-                }else if (TextUtils.isEmpty(otherAboutCar)){
-                    etOtherAboutCar.setError("ادخل الكماليات");
-                }else if (TextUtils.isEmpty(kilo)){
-                    etKilo.setError("ادخل رقم العداد");
-                }else {
-                    addPost();
-                }
+        if (TextUtils.isEmpty(address)) {
+            etAddress.setError("ادخل العنوان");
+        } else if (TextUtils.isEmpty(desc)) {
+            etDesc.setError("ادخل الوصف");
+        } else if (TextUtils.isEmpty(price)) {
+            etPrice.setError("ادخل السعر");
+        } else if (TextUtils.isEmpty(phone)) {
+            etPhone.setError("ادخل رقم الهاتف");
+        } else if (TextUtils.isEmpty(model)){
+            etModel.setError("ادخل الموديل");
+        }else if (TextUtils.isEmpty(year)){
+            etYear.setError("ادخل سنة الموديل");
+        }else if (TextUtils.isEmpty(otherAboutCar)){
+            etDepartWithExtra.setError("ادخل الكماليات");
+        }else if (TextUtils.isEmpty(kilo)){
+            etKilo.setError("ادخل عدد الكيلومترات");
         }else {
-            if (TextUtils.isEmpty(address)){
-                etAddress.setError("ادخل عنوان للاعلان");
-            }else if (TextUtils.isEmpty(desc)){
-                etDesc.setError("ادخل وصف للاعلان");
-            }else if (TextUtils.isEmpty(price)){
-                etPrice.setError("ادخل السعر");
-            }else if (TextUtils.isEmpty(phone)){
-                etPhone.setError("ادخل رقم الهاتف");
-            }else {
-                addPost();
-            }
-        }
-    }
 
+            RetrofitClient.getInstant().create(API.class).addPostCar("222",address,
+                    desc,cityName,department,price,phone,"img","img","img","img","img","img","img","img",
+                    "hbh",cityName2,cityName3,"",countryName,countryName2,countryName3,"",
+                    "1","1","1","m",
+                    "m",sup_depar,model,year,auto_gear,otherAboutCar,kilo).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-    private void addPost() {
+                    if (response.isSuccessful()) {
 
+                        String string = null;
+                        try {
+                            assert response.body() != null;
+                            string = response.body().string();
 
-        RetrofitClient.getInstant().create(API.class)
-                .addPost(user_id, etAddress.getText().toString(), etDesc.getText().toString(),
-                        cityName, department, etPrice.getText().toString(), etPhone.getText().toString(), "img",
-                        "", "", "", "", "", "", "", "", cityName2, cityName3,
-                        "", countryName,
-                        countryName2, countryName3, "", sup_depar, etModel.getText().toString(),
-                        etYear.getText().toString(), auto_gear, etOtherAboutCar.getText().toString(),
-                        etRoom.getText().toString(), etFloor.getText().toString(), etArea.getText().toString(),
-                        etDepartWithExtra.getText().toString(), departWith, etKilo.getText().toString())
-                .enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            Toast.makeText(AddPostNewActivity.this, string, Toast.LENGTH_SHORT).show();
 
-                        if (response.isSuccessful()) {
-                            try {
-                                assert response.body() != null;
-                                String string = response.body().string();
+                            startActivity(new Intent(AddPostNewActivity.this, HomeActivity.class));
 
-
-                                Log.i("tesssssst", "onResponse: " + string);
-
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            finish();
+                        } catch (IOException e) {
+                            Toast.makeText(AddPostNewActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
                         }
 
                     }
+                }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Toast.makeText(AddPostNewActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
 
-                    }
-                });
+                }
+            });
+        }
+        }
 
-    }
+    private void addPost() {
+
+        Log.i( "ccccccc",department + auto_gear + model);
+
+
+
+        address = etAddress.getText().toString();
+        desc = etDesc.getText().toString();
+        price = etPrice.getText().toString();
+        phone = etPhone.getText().toString();
+
+        if (TextUtils.isEmpty(address)) {
+            etAddress.setError("ادخل العنوان");
+        } else if (TextUtils.isEmpty(desc)) {
+            etDesc.setError("ادخل الوصف");
+        } else if (TextUtils.isEmpty(price)) {
+            etPrice.setError("ادخل السعر");
+        } else if (TextUtils.isEmpty(phone)) {
+            etPhone.setError("ادخل رقم الهاتف");
+        } else {
+
+//        if (sup_depar == null){
+//            sup_depar = "mm";
+//        }else if (auto_gear == null){
+//            auto_gear = "mm";
+//        }else if (model == null){
+//            model = "mm";
+//        }else if (room == null){
+//            room = "1";
+//        }else if (floor == null){
+//            floor = "1";
+//        }else if (kilo == null){
+//            kilo = "10";
+//        }else if (otherAboutCar == null){
+//            otherAboutCar = "mm";
+//        }else if (year == null){
+//            year = "1";
+//        }else if (departmentWithExtra == null){
+//            departmentWithExtra = "mm";
+//        }else if (area == null){
+//            area = "1";
+//        }else {
+
+
+
+            RetrofitClient.getInstant().create(API.class).addPost("222",address,
+                    desc,cityName,department,price,phone,"img","img","img","img","img","img","img","img",
+                    "hbh",cityName2,cityName3,"",countryName,countryName2,countryName3,"",
+                    "1","1","1","m",
+                    "m","m","m","1","m","m","1")
+                    .enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                            if (response.isSuccessful()) {
+
+                                String string = null;
+                                try {
+                                    assert response.body() != null;
+                                    string = response.body().string();
+
+                                    Toast.makeText(AddPostNewActivity.this, string, Toast.LENGTH_SHORT).show();
+
+                                    startActivity(new Intent(AddPostNewActivity.this, HomeActivity.class));
+
+                                    finish();
+                                } catch (IOException e) {
+                                    Toast.makeText(AddPostNewActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Toast.makeText(AddPostNewActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+        }
+        }
+
+//
+
+
+//    }
 
     @Override
     protected void onResume() {

@@ -599,19 +599,19 @@ public class HaragFragment extends Fragment {
 
                     linCar.setVisibility(View.VISIBLE);
                     linDepartment.setVisibility(View.GONE);
-                    select_haraj_by_search_car(cityName, selectedDepartment);
+//                    select_haraj_by_search_car(cityName, selectedDepartment);
 
                 } else if (selectedDepartment.equals("عقارات")) {
 
                     linDepartment.setVisibility(View.VISIBLE);
                     linCar.setVisibility(View.GONE);
-                    select_haraj_by_search_property(cityName, selectedDepartment);
+//                    select_haraj_by_search_property(cityName, selectedDepartment);
 
 
                 } else {
                     linCar.setVisibility(View.GONE);
                     linDepartment.setVisibility(View.GONE);
-                    selectByCityAndDepartment(cityName, selectedDepartment);
+//                    selectByCityAndDepartment(cityName, selectedDepartment);
                 }
 
             }
@@ -629,7 +629,12 @@ public class HaragFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                select_haraj_by_search_car(cityName, selectedDepartment);
+                if (cityName == null){
+
+                    cityName = "الرياض";
+                    select_haraj_by_search_car(cityName, selectedDepartment);
+
+                }
             }
         });
 
@@ -637,7 +642,12 @@ public class HaragFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                select_haraj_by_search_property(cityName,selectedDepartment);
+                if (cityName == null){
+
+                    cityName = "الرياض";
+                    select_haraj_by_search_property(cityName, selectedDepartment);
+
+                }
             }
         });
 
@@ -678,7 +688,7 @@ public class HaragFragment extends Fragment {
 //        } else {
 
             RetrofitClient.getInstant().create(API.class).select_haraj_by_search_property(selectedDepartment,
-                    cityName, prorety_item, room, floor, "", "", departWith, priceFromPro, areaFrom,
+                    cityName, prorety_item, room, floor, "", departWithExtra, departWith, priceFromPro, areaFrom,
                     areaTo, priceToPro).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
@@ -691,6 +701,10 @@ public class HaragFragment extends Fragment {
 
                         List<AdsResponse> adsResponses
                                 = Arrays.asList(gson.fromJson(response.body().string(), AdsResponse[].class));
+
+                        adsResponseList2.addAll(adsResponses);
+
+                        salleslistAdapter.setDataList(adsResponseList2);
 
                         if (adsResponseList2.isEmpty()) {
 
@@ -729,12 +743,14 @@ public class HaragFragment extends Fragment {
 
                     } catch (IOException e) {
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        linDepartment.setVisibility(View.GONE);
                         e.printStackTrace();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    linDepartment.setVisibility(View.GONE);
                     Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
@@ -770,8 +786,9 @@ public class HaragFragment extends Fragment {
 //            etPriceTo.setError("ادخل السعر الي");
 //        } else {
 
-            RetrofitClient.getInstant().create(API.class).select_haraj_by_search_car(selectedDepartment, cityName,
-                    car_mark,
+        Log.i("bhhbjhbh",selectedDepartment + "-" +cityName + "-" + car_mark + "-" + model + "-" + year + "-" + auto_gear + "-" + kilo + "-" + aboutCar + "-" + priceFrom + "-" + priceTo);
+
+            RetrofitClient.getInstant().create(API.class).select_haraj_by_search_car(selectedDepartment, cityName,car_mark,
                     model, year, auto_gear, kilo, aboutCar, priceFrom, priceTo).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
@@ -784,6 +801,10 @@ public class HaragFragment extends Fragment {
 
                         List<AdsResponse> adsResponses
                                 = Arrays.asList(gson.fromJson(response.body().string(), AdsResponse[].class));
+
+                        adsResponseList2.addAll(adsResponses);
+
+                        salleslistAdapter.setDataList(adsResponseList2);
 
                         if (adsResponseList2.isEmpty()) {
 
@@ -822,6 +843,7 @@ public class HaragFragment extends Fragment {
 
                     } catch (IOException e) {
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        linCar.setVisibility(View.GONE);
                         e.printStackTrace();
                     }
                 }
@@ -829,6 +851,7 @@ public class HaragFragment extends Fragment {
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    linCar.setVisibility(View.GONE);
                 }
             });
 
@@ -1059,7 +1082,7 @@ public class HaragFragment extends Fragment {
 
                 }
 
-                oursales.setId(childJSONObject.getString("Id"));
+                oursales.setId(Integer.valueOf(childJSONObject.getString("Id")));
 
                 oursales.setIdMember(childJSONObject.getString("IdMember"));
 

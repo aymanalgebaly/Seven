@@ -120,7 +120,7 @@ public class ProfilePostsAdapter extends RecyclerView.Adapter<ProfilePostsAdapte
             @Override
             public void onClick(View v) {
 
-                deletePost(postsItems.get(position).getId(), position);
+                deletePost(String.valueOf(postsItems.get(position).getId()), position);
             }
         });
 
@@ -147,7 +147,7 @@ public class ProfilePostsAdapter extends RecyclerView.Adapter<ProfilePostsAdapte
             @Override
             public void onClick(View v) {
 
-                tinyDB.putString("postID", salesItems.getId());
+                tinyDB.putString("postID", String.valueOf(salesItems.getId()));
                 tinyDB.putString("postPhone", salesItems.getPhone());
                 tinyDB.putString("postTitle", salesItems.getTitle());
                 tinyDB.putString("postDescription", salesItems.getDes());

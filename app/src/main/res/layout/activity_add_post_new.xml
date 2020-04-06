@@ -129,7 +129,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
                     android:hint="سنة الموديل"
-                    android:inputType="none"
+                    android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -150,7 +150,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
                     android:hint="عدد الكيلومترات"
-                    android:inputType="none"
+                    android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -173,6 +173,7 @@
                     android:background="@drawable/accountedittext"
                     android:hint="سعة المحرك"
                     android:inputType="none"
+                    android:visibility="gone"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -192,7 +193,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
                     android:hint="المساحة"
-                    android:inputType="none"
+                    android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -203,7 +204,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
                     android:hint="عدد الغرف"
-                    android:inputType="none"
+                    android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -214,7 +215,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
                     android:hint="الطابق"
-                    android:inputType="none"
+                    android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -249,7 +250,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/accountedittext"
                 android:hint="السعر"
-                android:inputType="none"
+                android:inputType="number"
                 android:padding="5dp"
                 android:textSize="18sp" />
 
@@ -277,7 +278,6 @@
                 android:background="@drawable/accountedittext"
                 android:gravity="right"
                 android:hint="اضف صورة او فيديو 45 ثانية"
-                android:inputType="phone"
                 android:maxLength="10"
                 android:padding="5dp"
                 android:textSize="18sp" />
