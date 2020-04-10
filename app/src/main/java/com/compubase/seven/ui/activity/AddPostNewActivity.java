@@ -124,6 +124,8 @@ public class AddPostNewActivity extends AppCompatActivity {
     Spinner etPro;
     private Unbinder unbinder;
 
+    
+
     final int PICK_IMAGE_REQUEST_CAMERA = 71;
 
     final int PICK_IMAGE_REQUEST_GALLERY = 72;
