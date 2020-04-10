@@ -20,8 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m">
-        <activity android:name=".ui.activity.FlagsActivity"></activity>
+        tools:targetApi="m"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.activity.FlagsActivity"/>
         <activity android:name=".ui.activity.AddPostNewActivity" />
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.ForgetPassword2Activity" />
@@ -44,6 +45,10 @@
             android:name=".ui.activity.ImagePreviewActivity"
             android:label="@string/title_activity_home" />
         <activity android:name=".ui.activity.SplashActivity">
+
+        </activity>
+
+        <activity android:name=".ui.activity.Test">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
