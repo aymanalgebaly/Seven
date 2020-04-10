@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.compubase.seven.API;
 import com.compubase.seven.R;
 import com.compubase.seven.adapter.ProfileCommentsAdapter;
@@ -140,6 +141,8 @@ public class MyAccountFrament extends Fragment {
         setupCommentsRecycler();
         setupAllPostsRecycler();
         setupExpiredPostsRecycler();
+
+        Glide.with(getActivity()).load(user_img).placeholder(R.drawable.user).into(userimage2);
 
         return inflate;
     }
@@ -356,6 +359,8 @@ public class MyAccountFrament extends Fragment {
         tv_name.setText(user_name);
         tv_phone.setText(user_phone);
         username2.setText(user_name);
+
+        Glide.with(getActivity()).load(user_img).placeholder(R.drawable.user).into(userimage2);
 
     }
 }

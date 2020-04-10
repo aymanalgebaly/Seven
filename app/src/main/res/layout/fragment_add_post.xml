@@ -101,6 +101,14 @@
                 android:visibility="gone"
                 android:id="@+id/lin_car">
 
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/accountedittext"
+                    android:id="@+id/sp_mark">
+
+                </Spinner>
+
                 <EditText
                     android:id="@+id/et_model"
                     android:layout_width="match_parent"
@@ -108,7 +116,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
                     android:hint="الموديل"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -139,7 +147,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
                     android:hint="عدد الكيلومترات"
-                    android:inputType="none"
+                    android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -172,6 +180,16 @@
                 android:orientation="vertical"
                 android:visibility="gone"
                 android:id="@+id/lin_department">
+
+                <Spinner
+                    android:id="@+id/et_pro"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/accountedittext"
+                    android:inputType="none"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/et_area"

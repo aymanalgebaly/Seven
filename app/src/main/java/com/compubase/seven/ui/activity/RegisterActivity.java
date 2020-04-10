@@ -370,12 +370,12 @@ public class RegisterActivity extends AppCompatActivity {
     {
         if(code.equals("nosms"))
         {
-            GET_JSON_DATA_HTTP_URL = "http://educareua.com/seven.asmx/register_nosendsms?";
+            GET_JSON_DATA_HTTP_URL = "http://sevenapps.net/seven.asmx/register_nosendsms?";
             progressBar.setVisibility(View.VISIBLE);
 
         }else
         {
-            GET_JSON_DATA_HTTP_URL = "http://educareua.com/seven.asmx/register_save?";
+            GET_JSON_DATA_HTTP_URL = "http://sevenapps.net/seven.asmx/register_save?";
             progressBar.setVisibility(View.VISIBLE);
 
         }

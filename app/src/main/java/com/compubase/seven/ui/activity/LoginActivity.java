@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
     private void volleyConnection()
 
     {
-        GET_JSON_DATA_HTTP_URL = "http://educareua.com/seven.asmx/login?";
+        GET_JSON_DATA_HTTP_URL = "http://sevenapps.net/seven.asmx/login?";
 
         progressBar.setVisibility(View.VISIBLE);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, GET_JSON_DATA_HTTP_URL,

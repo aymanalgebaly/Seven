@@ -28,6 +28,7 @@ import com.compubase.seven.helper.TinyDB;
 import com.compubase.seven.ui.activity.HomeActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -83,6 +84,7 @@ public class SettingsFragment extends Fragment {
     Uri filePath;
 
     String imageURL;
+    private String user_img;
 
     public SettingsFragment() {
     }
@@ -94,6 +96,11 @@ public class SettingsFragment extends Fragment {
         View inflate = inflater.inflate(R.layout.fragment_settings, container, false);
         unbinder = ButterKnife.bind(this, inflate);
 
+        FirebaseApp.initializeApp(getActivity());
+
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
         tinyDB = new TinyDB(getActivity());
         tvUsername.setText(tinyDB.getString("user_name"));
         etCity.setText(tinyDB.getString("user_city"));
@@ -101,6 +108,9 @@ public class SettingsFragment extends Fragment {
         etPhone.setText(tinyDB.getString("user_phone"));
         etUserName.setText(tinyDB.getString("user_name"));
         id = tinyDB.getString("user_id");
+        user_img = tinyDB.getString("user_img");
+
+        Glide.with(getActivity()).load(user_img).placeholder(R.drawable.user).into(userimage);
 
         return inflate;
     }
@@ -211,7 +221,7 @@ public class SettingsFragment extends Fragment {
         super.onResume();
 
         Glide.with(Objects.requireNonNull(getContext())).
-                load(imageURL).into(userimage);
+                load(user_img).placeholder(R.drawable.user).into(userimage);
 //        txtName.setText(name);
     }
 
