@@ -1,6 +1,8 @@
 package com.compubase.seven.ui.fragment;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
@@ -15,6 +17,8 @@ import android.widget.ImageView;
 
 import com.compubase.seven.R;
 import com.compubase.seven.helper.AddButtonClick;
+import com.compubase.seven.ui.activity.AboutUsActivity;
+import com.yariksoffice.lingver.Lingver;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -29,6 +33,8 @@ public class ConfirmFragment extends DialogFragment {
     ImageView quit;
     EditText text;
     Button submit,submit2;
+    private SharedPreferences preferences;
+    private String string;
 
     public ConfirmFragment() {
         // Required empty public constructor
@@ -40,6 +46,13 @@ public class ConfirmFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_confirm, container, false);
+
+
+        preferences = getActivity().getSharedPreferences("lan", Context.MODE_PRIVATE);
+
+        string = preferences.getString("lan", "");
+
+        Lingver.getInstance().setLocale(getContext(), string);
 
         Objects.requireNonNull(this.getDialog()).setTitle("تأكيد التسجيل");
 

@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="تحديث الأعلان"
+            android:text="@string/Ad_update"
             android:textColor="#FFF"
             android:textSize="20sp" />
 
@@ -37,7 +37,7 @@
         android:layout_height="50dp"
         android:layout_margin="10dp"
         android:background="@drawable/rounded_empty"
-        android:hint="رقم الجوال"
+        android:hint="@string/Mobile_number"
         android:inputType="text"
         android:padding="10dp" />
 
@@ -47,7 +47,7 @@
         android:layout_height="50dp"
         android:layout_margin="10dp"
         android:background="@drawable/rounded_empty"
-        android:hint="العنوان"
+        android:hint="@string/Address"
         android:inputType="text"
         android:padding="10dp" />
 
@@ -57,7 +57,7 @@
         android:layout_height="120dp"
         android:layout_margin="10dp"
         android:background="@drawable/rounded_empty"
-        android:hint="التفاصيل"
+        android:hint="@string/Details"
         android:inputType="text"
         android:padding="10dp" />
 
@@ -68,7 +68,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@color/orange_new"
-        android:text="تحديث الأعلان"
+        android:text="@string/Ad_update"
         android:textColor="#FFF"
         android:textStyle="bold" />
 

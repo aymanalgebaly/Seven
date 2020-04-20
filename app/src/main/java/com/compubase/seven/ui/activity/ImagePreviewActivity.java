@@ -1,6 +1,7 @@
 package com.compubase.seven.ui.activity;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -13,6 +14,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.yariksoffice.lingver.Lingver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +30,8 @@ public class ImagePreviewActivity extends Activity implements BaseSliderView.OnS
     String img1,img2,img3,img4,img5,img6,img7,img8;
 
     int position;
+    private SharedPreferences preferences;
+    private String string;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +40,12 @@ public class ImagePreviewActivity extends Activity implements BaseSliderView.OnS
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_preview);
+
+        preferences = getSharedPreferences("lan", MODE_PRIVATE);
+
+        string = preferences.getString("lan", "");
+
+        Lingver.getInstance().setLocale(ImagePreviewActivity.this, string);
 
         imgslider = findViewById(R.id.myslider);
 

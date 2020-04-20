@@ -4,10 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -44,6 +44,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.yariksoffice.lingver.Lingver;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -57,20 +58,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class HarageDetailsActivity extends Activity implements BaseSliderView.OnSliderClickListener,
-        ViewPagerEx.OnPageChangeListener{
+        ViewPagerEx.OnPageChangeListener {
 
-    TextView dtitle, ddate, dsname, dlocation, ddescripe ,callnum;
+    TextView dtitle, ddate, dsname, dlocation, ddescripe, callnum;
     ImageView share;
     LinearLayout callcustomer;
-    RelativeLayout sliderview,videolayout;
+    RelativeLayout sliderview, videolayout;
 
     VideoView videoView;
 
     ProgressBar progressBar;
 
-    RecyclerView commentsRv,suggestRv;
+    RecyclerView commentsRv, suggestRv;
 
     SalesCommentAdapter salesitemcommentsAdapter;
     SugesstionAdapter sugRvAdapter;
@@ -84,26 +88,68 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
     TinyDB tinyDB;
 
-    String title,datee,description,city,saller_name,saller_phone,post_url,img1,img2,img3,img4,img5,img6,img7,img8
-            ,post_id,department,item_owner_id;
+    String title, datee, description, city, saller_name, saller_phone, post_url, img1, img2, img3, img4, img5, img6, img7, img8, post_id, department, item_owner_id;
 
-    Button comment,message;
+    Button comment, message;
 
     List<String> pics;
 
-    ImageView home,fullscreen;
+    ImageView home, fullscreen;
+    @BindView(R.id.txt_car_mark)
+    TextView txtCarMark;
+    @BindView(R.id.txt_car_model)
+    TextView txtCarModel;
+    @BindView(R.id.txt_car_year)
+    TextView txtCarYear;
+    @BindView(R.id.txt_engin)
+    TextView txtEngin;
+    @BindView(R.id.txt_about_car)
+    TextView txtAboutCar;
+    @BindView(R.id.txt_kilo)
+    TextView txtKilo;
+    @BindView(R.id.txt_price_car)
+    TextView txtPriceCar;
+    @BindView(R.id.lin_car)
+    LinearLayout linCar;
+    @BindView(R.id.txt_depart_mark)
+    TextView txtDepartMark;
+    @BindView(R.id.txt_floor)
+    TextView txtFloor;
+    @BindView(R.id.txt_room)
+    TextView txtRoom;
+    @BindView(R.id.txt_area)
+    TextView txtArea;
+    @BindView(R.id.txt_about_depart)
+    TextView txtAboutDepart;
+    @BindView(R.id.txt_price_depart)
+    TextView txtPriceDepart;
+    @BindView(R.id.lin_department)
+    LinearLayout linDepartment;
+    @BindView(R.id.txt_type_depart)
+    TextView txtTypeDepart;
     private ImageView imageView;
+    private String area, model, year, otherCar, otherPro, kilo, sup, room, floor, price, typeLux;
+    private SharedPreferences preferences;
+    private String string;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_harage_details);
+        ButterKnife.bind(this);
+
+
+        preferences = getSharedPreferences("lan", MODE_PRIVATE);
+
+        string = preferences.getString("lan", "");
+
+        Lingver.getInstance().setLocale(HarageDetailsActivity.this, string);
 
         imageView = findViewById(R.id.img_add);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HarageDetailsActivity.this,AddPostNewActivity.class));
+                startActivity(new Intent(HarageDetailsActivity.this, AddPostNewActivity.class));
             }
         });
 
@@ -125,7 +171,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
         dtitle = findViewById(R.id.d_sales_title);
         ddate = findViewById(R.id.d_sales_date);
         dsname = findViewById(R.id.d_saller_name);
-        dlocation =findViewById(R.id.d_sales_location);
+        dlocation = findViewById(R.id.d_sales_location);
         ddescripe = findViewById(R.id.d_sales_disc);
         callnum = findViewById(R.id.call_number);
         share = findViewById(R.id.share_sales);
@@ -144,7 +190,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
         suggestRv.setHasFixedSize(true);
 
-        GridLayoutManager mGridlayoutManager = new GridLayoutManager(getApplicationContext(),2);
+        GridLayoutManager mGridlayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         suggestRv.setLayoutManager(mGridlayoutManager);
 
         commentsRv.setHasFixedSize(false);
@@ -152,7 +198,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
         //SpanningLinearLayoutManager llm = new SpanningLinearLayoutManager(this , SpanningLinearLayoutManager.VERTICAL,false);
         //commentsRv.setLayoutManager(llm);
 
-        @SuppressLint("WrongConstant") LinearLayoutManager llm = new LinearLayoutManager(this , LinearLayoutManager.VERTICAL,false);
+        @SuppressLint("WrongConstant") LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         commentsRv.setLayoutManager(llm);
 
         commentsItems = new ArrayList<>();
@@ -180,27 +226,62 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
             post_id = extras.getString("item_id");
             item_owner_id = extras.getString("item_owner_id");
             department = extras.getString("item_department");
+            area = extras.getString("area");
+            model = extras.getString("model");
+            kilo = extras.getString("kilo");
+            otherCar = extras.getString("otherCar");
+            otherPro = extras.getString("otherPro");
+            price = extras.getString("price");
+            room = extras.getString("room");
+            floor = extras.getString("floor");
+            typeLux = extras.getString("typeLux");
+            sup = extras.getString("sup_dep");
+            year = extras.getString("year");
 
         }
 
-        if(img2.contains("videos"))
-        {
+        if (department.equals("عقارات")) {
+
+            linDepartment.setVisibility(View.VISIBLE);
+            linCar.setVisibility(View.GONE);
+
+            txtAboutDepart.setText(otherPro);
+            txtArea.setText(area);
+            txtDepartMark.setText(sup);
+            txtFloor.setText(floor);
+            txtRoom.setText(room);
+            txtPriceDepart.setText(price);
+            txtTypeDepart.setText(typeLux);
+        }else if (department.equals("السيارات")){
+
+            linCar.setVisibility(View.VISIBLE);
+            linDepartment.setVisibility(View.GONE);
+
+            txtAboutCar.setText(otherCar);
+            txtCarMark.setText(sup);
+            txtCarModel.setText(model);
+            txtCarYear.setText(year);
+            txtKilo.setText(kilo);
+            txtPriceCar.setText(price);
+        }
+
+        if (img2.contains("videos")) {
             videolayout.setVisibility(View.VISIBLE);
             sliderview.setVisibility(View.GONE);
-        }else
-            {
-                videolayout.setVisibility(View.GONE);
-                sliderview.setVisibility(View.VISIBLE);
-            }
+        } else {
+            videolayout.setVisibility(View.GONE);
+            sliderview.setVisibility(View.VISIBLE);
+        }
 
 
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent2 = new Intent(); intent2.setAction(Intent.ACTION_SEND);
+                Intent intent2 = new Intent();
+                intent2.setAction(Intent.ACTION_SEND);
                 intent2.setType("text/plain");
-                intent2.putExtra(Intent.EXTRA_TEXT, "http://educareua.com/seven.asmx/"+ post_url);
+                intent2.putExtra(Intent.EXTRA_TEXT, "http://sevenapps.net/seven.asmx/" + post_url);
                 startActivity(Intent.createChooser(intent2, "Share via"));
 
             }
@@ -211,7 +292,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
             public void onClick(View v) {
 
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:"+saller_phone));
+                intent.setData(Uri.parse("tel:" + saller_phone));
                 startActivity(intent);
 
             }
@@ -239,16 +320,14 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
             @Override
             public void onClick(View v) {
 
-                if(tinyDB.getString("isLoggedIn").equals("True"))
-                {
+                if (tinyDB.getString("isLoggedIn").equals("True")) {
                     final FragmentManager fm = getFragmentManager();
                     AddCommentFragment addCommentFragment = new AddCommentFragment();
 
-                    addCommentFragment.show(fm,"TV_tag");
-                }else
-                    {
-                        showMessage("سجل الدخول اولا");
-                    }
+                    addCommentFragment.show(fm, "TV_tag");
+                } else {
+                    showMessage("سجل الدخول اولا");
+                }
             }
         });
 
@@ -256,19 +335,16 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
             @Override
             public void onClick(View v) {
 
-                if(tinyDB.getString("isLoggedIn").equals("True"))
-                {
+                if (tinyDB.getString("isLoggedIn").equals("True")) {
                     final FragmentManager fm = getFragmentManager();
                     SendMessageFragment sendMessageFragment = new SendMessageFragment();
 
-                    sendMessageFragment.show(fm,"TV_tag");
-                }else
-                {
+                    sendMessageFragment.show(fm, "TV_tag");
+                } else {
                     showMessage("سجل الدخول اولا");
                 }
             }
         });
-
 
 
         imgslider = findViewById(R.id.myslider);
@@ -276,26 +352,22 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
         HashMap<String, String> url_maps = new HashMap<>();
 
-        for(int i=0;i<pics.size();i++)
-        {
-            if(!pics.get(i).equals("images/imgposting.png"))
-            {
-                if(!pics.get(i).equals(""))
-                {
-                    url_maps.put("Picture "+ String.valueOf(i + 1),pics.get(i));
+        for (int i = 0; i < pics.size(); i++) {
+            if (!pics.get(i).equals("images/imgposting.png")) {
+                if (!pics.get(i).equals("")) {
+                    url_maps.put("Picture " + String.valueOf(i + 1), pics.get(i));
                 }
             }
         }
 
-        if(url_maps.isEmpty())
-        {
-            url_maps.put("No Pictures","http://educareua.com/seven.asmx/images/imgposting.png");
+        if (url_maps.isEmpty()) {
+            url_maps.put("No Pictures", "http://sevenapps.net/seven.asmx/images/imgposting.png");
             imgslider.stopAutoCycle();
             imgslider.setEnabled(false);
         }
 
 
-        for(String name : url_maps.keySet()){
+        for (String name : url_maps.keySet()) {
             TextSliderView textSliderView = new TextSliderView(this);
             // initialize a SliderLayout
             textSliderView
@@ -307,7 +379,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
             //add your extra information
             textSliderView.bundle(new Bundle());
             textSliderView.getBundle()
-                    .putString("extra",name);
+                    .putString("extra", name);
 
             imgslider.addSlider(textSliderView);
         }
@@ -344,39 +416,35 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
         });
 
 
-        JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/select_post_suggest_by_department?Department="+department);
+        JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/select_post_suggest_by_department?Department=" + department);
 
 
-        JSON_DATA_WEB_CALL2("http://educareua.com/seven.asmx/select_comment_post?id_post="+post_id);
-
+        JSON_DATA_WEB_CALL2("http://sevenapps.net/seven.asmx/select_comment_post?id_post=" + post_id);
 
 
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onButtonClick(AddButtonClick addButtonClick)
-    {
+    public void onButtonClick(AddButtonClick addButtonClick) {
 
-        if(addButtonClick.getEvent2().equals("message"))
-        {
+        if (addButtonClick.getEvent2().equals("message")) {
 
-            JSON_DATA_WEB_CALL3("http://educareua.com/seven.asmx/insert_message?","messagedetails",addButtonClick.getEvent());
+            JSON_DATA_WEB_CALL3("http://sevenapps.net/seven.asmx/insert_message?", "messagedetails", addButtonClick.getEvent());
 
-        }else
-            {
+        } else {
 
-                commentsItems.clear();
+            commentsItems.clear();
 
-                String name = addButtonClick.getEvent();
+            String name = addButtonClick.getEvent();
 
-                volleyConnection(tinyDB.getString("user_id"),name,tinyDB.getString("user_name"),tinyDB.getString("user_img"));
+            volleyConnection(tinyDB.getString("user_id"), name, tinyDB.getString("user_name"), tinyDB.getString("user_img"));
 
-                JSON_DATA_WEB_CALL2("http://educareua.com/seven.asmx/select_comment_post?id_post="+post_id);
+            JSON_DATA_WEB_CALL2("http://sevenapps.net/seven.asmx/select_comment_post?id_post=" + post_id);
 
-                JSON_DATA_WEB_CALL3("http://educareua.com/seven.asmx/insert_note?","notetitle",
-                        "قام بالتعليق على أعلانك");
+            JSON_DATA_WEB_CALL3("http://sevenapps.net/seven.asmx/insert_note?", "notetitle",
+                    "قام بالتعليق على أعلانك");
 
-            }
+        }
 
     }
 
@@ -399,10 +467,9 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
     }
 
 
+    public void JSON_DATA_WEB_CALL(String URL) {
 
-    public void JSON_DATA_WEB_CALL(String URL){
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
 
                 new Response.Listener<String>() {
                     @Override
@@ -427,9 +494,9 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
         requestQueue.add(stringRequest);
     }
 
-    public void JSON_DATA_WEB_CALL2(String URL){
+    public void JSON_DATA_WEB_CALL2(String URL) {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
 
                 new Response.Listener<String>() {
                     @Override
@@ -454,7 +521,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
         requestQueue.add(stringRequest);
     }
 
-    public void JSON_DATA_WEB_CALL3(String URL, final String key, final String content){
+    public void JSON_DATA_WEB_CALL3(String URL, final String key, final String content) {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
 
@@ -462,7 +529,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
                     @Override
                     public void onResponse(String response) {
 
-                       // showMessage(response);
+                        // showMessage(response);
 
                     }
                 }, new Response.ErrorListener() {
@@ -475,7 +542,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
         }) {
 
             @Override
-            protected Map<String, String> getParams(){
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("id_user_send", tinyDB.getString("user_id"));
                 params.put("sender", tinyDB.getString("user_name"));
@@ -492,18 +559,13 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
     }
 
 
-
-
-
-
-
     private void JSON_PARSE_DATA_AFTER_WEBCALL2(String response) {
 
         try {
 
             JSONArray js = new JSONArray(response);
 
-            for(int i = 0; i<js.length(); i++) {
+            for (int i = 0; i < js.length(); i++) {
 
                 JSONObject childJSONObject = js.getJSONObject(i);
 
@@ -535,13 +597,13 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
     }
 
 
-    public void JSON_PARSE_DATA_AFTER_WEBCALL(String Jobj){
+    public void JSON_PARSE_DATA_AFTER_WEBCALL(String Jobj) {
 
         try {
 
             JSONArray js = new JSONArray(Jobj);
 
-            for(int i = 0; i<js.length(); i++) {
+            for (int i = 0; i < js.length(); i++) {
 
                 JSONObject childJSONObject = js.getJSONObject(i);
 
@@ -551,7 +613,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                     if (childJSONObject.getString("Image").contains("~")) {
                         String replaced = childJSONObject.getString("Image").replace("~", "");
-                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        String finalstring = "http://sevenapps.net/seven.asmx" + replaced;
                         oursales.setSellseimage(finalstring);
 
                     } else {
@@ -589,7 +651,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                     if (childJSONObject.getString("Image_2").contains("~")) {
                         String replaced = childJSONObject.getString("Image_2").replace("~", "");
-                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        String finalstring = "http://sevenapps.net/seven.asmx" + replaced;
                         oursales.setImage2(finalstring);
 
                     } else {
@@ -605,7 +667,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                     if (childJSONObject.getString("Image_3").contains("~")) {
                         String replaced = childJSONObject.getString("Image_3").replace("~", "");
-                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        String finalstring = "http://sevenapps.net/seven.asmx" + replaced;
                         oursales.setImage3(finalstring);
 
                     } else {
@@ -621,7 +683,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                     if (childJSONObject.getString("Image_4").contains("~")) {
                         String replaced = childJSONObject.getString("Image_4").replace("~", "");
-                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        String finalstring = "http://sevenapps.net/seven.asmx" + replaced;
                         oursales.setImage4(finalstring);
 
                     } else {
@@ -637,7 +699,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                     if (childJSONObject.getString("Image_5").contains("~")) {
                         String replaced = childJSONObject.getString("Image_5").replace("~", "");
-                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        String finalstring = "http://sevenapps.net/seven.asmx" + replaced;
                         oursales.setImage5(finalstring);
 
                     } else {
@@ -653,7 +715,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                     if (childJSONObject.getString("Image_6").contains("~")) {
                         String replaced = childJSONObject.getString("Image_6").replace("~", "");
-                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        String finalstring = "http://sevenapps.net/seven.asmx" + replaced;
                         oursales.setImage6(finalstring);
 
                     } else {
@@ -669,7 +731,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                     if (childJSONObject.getString("Image_7").contains("~")) {
                         String replaced = childJSONObject.getString("Image_7").replace("~", "");
-                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        String finalstring = "http://sevenapps.net/seven.asmx" + replaced;
                         oursales.setImage7(finalstring);
 
                     } else {
@@ -685,7 +747,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
                     if (childJSONObject.getString("Image_8").contains("~")) {
                         String replaced = childJSONObject.getString("Image_8").replace("~", "");
-                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        String finalstring = "http://sevenapps.net/seven.asmx" + replaced;
                         oursales.setImage8(finalstring);
 
                     } else {
@@ -715,9 +777,8 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
     }
 
 
-    private void volleyConnection(final String id_member, final String comment, final String name_member, final String image)
-    {
-        String GET_JSON_DATA_HTTP_URL = "http://educareua.com/seven.asmx/insert_comment?";
+    private void volleyConnection(final String id_member, final String comment, final String name_member, final String image) {
+        String GET_JSON_DATA_HTTP_URL = "http://sevenapps.net/seven.asmx/insert_comment?";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, GET_JSON_DATA_HTTP_URL,
 
@@ -738,7 +799,7 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
         }) {
 
             @Override
-            protected Map<String, String> getParams(){
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("id_member", id_member);
                 params.put("id_post", post_id);
@@ -751,12 +812,10 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
             }
 
 
-
         };
 
         RequestHandler.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }
-
 
 
     private void showMessage(String s) {
@@ -770,20 +829,18 @@ public class HarageDetailsActivity extends Activity implements BaseSliderView.On
 
         Intent intent = new Intent(getApplicationContext(), ImagePreviewActivity.class);
 
-        if(!img1.equals(""))
-        {
-            intent.putExtra("item_img1",img1);
-        }else
-            {
-                intent.putExtra("item_img1","images/imgposting.png");
-            }
-        intent.putExtra("item_img2",img2);
-        intent.putExtra("item_img3",img3);
-        intent.putExtra("item_img4",img4);
-        intent.putExtra("item_img5",img5);
-        intent.putExtra("item_img6",img6);
-        intent.putExtra("item_img7",img7);
-        intent.putExtra("item_img8",img8);
+        if (!img1.equals("")) {
+            intent.putExtra("item_img1", img1);
+        } else {
+            intent.putExtra("item_img1", "images/imgposting.png");
+        }
+        intent.putExtra("item_img2", img2);
+        intent.putExtra("item_img3", img3);
+        intent.putExtra("item_img4", img4);
+        intent.putExtra("item_img5", img5);
+        intent.putExtra("item_img6", img6);
+        intent.putExtra("item_img7", img7);
+        intent.putExtra("item_img8", img8);
         this.startActivity(intent);
 
     }

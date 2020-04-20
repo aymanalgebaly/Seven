@@ -152,7 +152,6 @@ public class AddPostActivity extends AppCompatActivity implements AdapterView.On
         desc =findViewById(R.id.add_desc);
 
         pic.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
                 showPicturDialog();
@@ -238,6 +237,7 @@ public class AddPostActivity extends AppCompatActivity implements AdapterView.On
     @RequiresApi(api = Build.VERSION_CODES.M)
     public  void  showPicturDialog()
     {
+        showMessage("here");
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
         pictureDialog.setTitle("قم بألختيار");
         String[] pictureDlialogItem={"اختر صورة من المعرض" ,

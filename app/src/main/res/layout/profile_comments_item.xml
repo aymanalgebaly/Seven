@@ -44,7 +44,7 @@
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     android:textSize="15sp"
-                    android:text="حذف"
+                    android:text="@string/Delete"
                     android:textColor="#fff"
                     android:background="@drawable/redbutton"
                     android:padding="5dp"/>
@@ -54,7 +54,7 @@
                     android:layout_width="50dp"
                     android:layout_height="30dp"
                     android:textSize="15sp"
-                    android:text="تعديل"
+                    android:text="@string/Update"
                     android:layout_marginStart="10dp"
                     android:textColor="#fff"
                     android:padding="5dp"

@@ -18,7 +18,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@color/orange"
-            android:text="خروج"
+            android:text="@string/Log_out"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -29,7 +29,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@color/orange"
-            android:text="الاعدادات"
+            android:text="@string/Settings"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -40,7 +40,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="@color/orange"
-            android:text="حسابي"
+            android:text="@string/My_account"
             android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>

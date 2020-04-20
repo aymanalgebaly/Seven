@@ -23,7 +23,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@color/orange"
-                android:text="خروج"
+                android:text="@string/Log_out"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -34,7 +34,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@color/orange"
-                android:text="الاعدادات"
+                android:text="@string/Settings"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@color/orange"
-                android:text="حسابي"
+                android:text="@string/My_account"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -417,7 +417,7 @@
                     android:layout_marginEnd="24sp"
                     android:background="@color/orange"
                     android:gravity="center"
-                    android:text="تعديل الملف الشخصي"
+                    android:text="@string/Edit_profile"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
@@ -451,7 +451,7 @@
                         android:layout_weight="2"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text="الاسم :"
+                        android:text="@string/Name"
                         android:textColor="@color/orange_new"
                         android:textSize="20sp" />
 
@@ -488,7 +488,7 @@
                         android:layout_weight="2"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text="الجوال :"
+                        android:text="@string/Mobile_number"
                         android:textColor="@color/orange_new"
                         android:textSize="20sp" />
 
@@ -561,7 +561,7 @@
                         android:layout_weight="2"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text="كلمة المرور : "
+                        android:text="@string/Password"
                         android:textColor="@color/orange_new"
                         android:textSize="20sp" />
 
@@ -598,7 +598,7 @@
                         android:layout_weight="2"
                         android:gravity="center_vertical"
                         android:padding="5dp"
-                        android:text="المدينة : "
+                        android:text="@string/City"
                         android:textColor="@color/orange_new"
                         android:textSize="20sp" />
 
@@ -612,7 +612,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:background="@color/orange"
-                    android:text="حفظ التعديلات"
+                    android:text="@string/Save_edits"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 

@@ -1,6 +1,9 @@
 package com.compubase.seven.ui.fragment;
 
 import android.app.DialogFragment;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.compubase.seven.R;
 import com.compubase.seven.helper.RequestHandler;
 import com.compubase.seven.helper.TinyDB;
+import com.yariksoffice.lingver.Lingver;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,11 +37,23 @@ public class EditPostFragment extends DialogFragment {
     TinyDB tinyDB;
 
     String id,phone,title,content;
+    private SharedPreferences preferences;
+    private String string;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View rootView=inflater.inflate(R.layout.fragment_edit_post,container);
+
+
+        preferences = getActivity().getSharedPreferences("lan", Context.MODE_PRIVATE);
+
+        string = preferences.getString("lan", "");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Lingver.getInstance().setLocale(getContext(), string);
+        }
+
 
         tinyDB = new TinyDB(getActivity());
 

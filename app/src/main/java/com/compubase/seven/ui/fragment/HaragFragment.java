@@ -2,6 +2,8 @@ package com.compubase.seven.ui.fragment;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -40,6 +42,7 @@ import com.compubase.seven.model.AdsResponse;
 import com.compubase.seven.model.ItemList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.yariksoffice.lingver.Lingver;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -157,6 +160,8 @@ public class HaragFragment extends Fragment {
     private String auto_gear;
     private String prorety_item;
     private String departWith;
+    private SharedPreferences preferences;
+    private String string;
 
     public HaragFragment() {
         // Required empty public constructor
@@ -170,6 +175,14 @@ public class HaragFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_harag, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+
+
+        preferences = getActivity().getSharedPreferences("lan", Context.MODE_PRIVATE);
+
+        string = preferences.getString("lan", "");
+
+        Lingver.getInstance().setLocale(getContext(), string);
 
         selectedDepartment = "";
 
@@ -472,7 +485,7 @@ public class HaragFragment extends Fragment {
                 switch (position) {
                     case 0:
                         SpinnerUtils.SetSpinnerAdapter(getContext(), cityesSpinner, allCitiesList, R.layout.spinner_item_black);
-//                        JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx?op=select_haraj");
+//                        JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx?op=select_haraj");
                         selectAll();
                         break;
 
@@ -623,18 +636,17 @@ public class HaragFragment extends Fragment {
         });
 
 
-        swiptorefresch();
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (cityName == null){
+//                if (cityName == null){
 
-                    cityName = "الرياض";
+//                    cityName = "";
                     select_haraj_by_search_car(cityName, selectedDepartment);
 
-                }
+//                }
             }
         });
 
@@ -642,20 +654,25 @@ public class HaragFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (cityName == null){
-
-                    cityName = "الرياض";
+//                if (cityName == null){
+//
+//                    cityName = "";
                     select_haraj_by_search_property(cityName, selectedDepartment);
 
-                }
+//                }
             }
         });
+
+
+        swiptorefresch();
+
 
         return view;
     }
 
     private void select_haraj_by_search_property(String cityName, String selectedDepartment) {
 
+        adsResponseList2.clear();
 
         String areaFrom = etAreaFrom.getText().toString();
 //        String departWith = etDepartWith.getText().toString();
@@ -687,6 +704,12 @@ public class HaragFragment extends Fragment {
 //            etPriceToPro.setError("ادخل السعر الي");
 //        } else {
 
+        if (cityName == null){
+
+            cityName = "";
+
+//            Log.i("hhhhhhh",selectedDepartment,"-"+cityName + "-"+ prorety_item);
+
             RetrofitClient.getInstant().create(API.class).select_haraj_by_search_property(selectedDepartment,
                     cityName, prorety_item, room, floor, "", departWithExtra, departWith, priceFromPro, areaFrom,
                     areaTo, priceToPro).enqueue(new Callback<ResponseBody>() {
@@ -705,6 +728,7 @@ public class HaragFragment extends Fragment {
                         adsResponseList2.addAll(adsResponses);
 
                         salleslistAdapter.setDataList(adsResponseList2);
+                        salleslistAdapter.notifyDataSetChanged();
 
                         if (adsResponseList2.isEmpty()) {
 
@@ -725,6 +749,7 @@ public class HaragFragment extends Fragment {
                             adsResponseList2.addAll(adsResponses);
 
                             salleslistAdapter.setDataList(adsResponseList2);
+                            salleslistAdapter.notifyDataSetChanged();
 
 //                            etAutoGear.setText("");
                             etEngin.setText("");
@@ -756,10 +781,13 @@ public class HaragFragment extends Fragment {
             });
 
         }
+    }
 //    }
 
     private void select_haraj_by_search_car(String cityName, String selectedDepartment) {
 
+
+        adsResponseList2.clear();
 
 //        String auto_gear = etAutoGear.getText().toString();
         String engin = etEngin.getText().toString();
@@ -788,6 +816,11 @@ public class HaragFragment extends Fragment {
 
         Log.i("bhhbjhbh",selectedDepartment + "-" +cityName + "-" + car_mark + "-" + model + "-" + year + "-" + auto_gear + "-" + kilo + "-" + aboutCar + "-" + priceFrom + "-" + priceTo);
 
+
+        if (cityName == null){
+
+            cityName = "";
+
             RetrofitClient.getInstant().create(API.class).select_haraj_by_search_car(selectedDepartment, cityName,car_mark,
                     model, year, auto_gear, kilo, aboutCar, priceFrom, priceTo).enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -805,6 +838,7 @@ public class HaragFragment extends Fragment {
                         adsResponseList2.addAll(adsResponses);
 
                         salleslistAdapter.setDataList(adsResponseList2);
+                        salleslistAdapter.notifyDataSetChanged();
 
                         if (adsResponseList2.isEmpty()) {
 
@@ -820,11 +854,14 @@ public class HaragFragment extends Fragment {
                             etPriceFrom.setText("");
                             etPriceTo.setText("");
                             etYear.setText("");
+
+
                         } else {
 
                             adsResponseList2.addAll(adsResponses);
 
                             salleslistAdapter.setDataList(adsResponseList2);
+                            salleslistAdapter.notifyDataSetChanged();
 
 //                            etAutoGear.setText("");
                             etEngin.setText("");
@@ -856,6 +893,7 @@ public class HaragFragment extends Fragment {
             });
 
         }
+    }
 //    }
 
     public void swiptorefresch() {
@@ -872,7 +910,7 @@ public class HaragFragment extends Fragment {
                 // once the network request has completed successfully.
                 salesitems.clear();
 
-                JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj?");
+                JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj?");
 
                 salleslistAdapter.notifyDataSetChanged();
 
@@ -896,53 +934,53 @@ public class HaragFragment extends Fragment {
             switch (event) {
 
                 case "0":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=عقارات");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=عقارات");
                     selectedDepartment = "عقارات";
                     break;
 
                 case "1":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=سيارات");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=سيارات");
                     selectedDepartment = "سيارات";
                     break;
 
                 case "2":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=وظائف");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=وظائف");
                     selectedDepartment = "وظائف";
                     break;
 
 
                 case "3":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=الاجهزه");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=الاجهزه");
                     selectedDepartment = "الاجهزه";
                     break;
 
 
                 case "4":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=اثاث");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=اثاث");
                     selectedDepartment = "اثاث";
                     break;
 
 
                 case "5":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=الخدمات");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=الخدمات");
                     selectedDepartment = "الخدمات";
                     break;
 
 
                 case "6":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=مواشى وحيوانات وطيور");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=مواشى وحيوانات وطيور");
                     selectedDepartment = "مواشى وحيوانات وطيور";
                     break;
 
 
                 case "7":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=الاسرة المنتجة");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=الاسرة المنتجة");
                     selectedDepartment = "الاسرة المنتجة";
                     break;
 
 
                 case "8":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=قسم غير مصنف");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_Department?Department=قسم غير مصنف");
                     selectedDepartment = "قسم غير مصنف";
                     break;
 
@@ -953,52 +991,52 @@ public class HaragFragment extends Fragment {
             switch (event) {
 
                 case "0":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "عقارات");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "عقارات");
                     selectedDepartment = "عقارات";
                     break;
 
                 case "1":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "سيارات");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "سيارات");
                     selectedDepartment = "سيارات";
                     break;
 
                 case "2":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "وظائف");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "وظائف");
                     selectedDepartment = "وظائف";
                     break;
 
 
                 case "3":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "الاجهزه");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "الاجهزه");
                     selectedDepartment = "الاجهزه";
                     break;
 
 
                 case "4":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "اثاث");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "اثاث");
                     selectedDepartment = "اثاث";
                     break;
 
 
                 case "5":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "الخدمات");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "الخدمات");
                     selectedDepartment = "الخدمات";
                     break;
 
 
                 case "6":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "مواشى وحيوانات وطيور");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "مواشى وحيوانات وطيور");
                     selectedDepartment = "مواشى وحيوانات وطيور";
                     break;
 
 
                 case "7":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "الاسرة المنتجة");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "الاسرة المنتجة");
                     selectedDepartment = "الاسرة المنتجة";
                     break;
 
                 case "8":
-                    JSON_DATA_WEB_CALL("http://educareua.com/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "قسم غير مصنف");
+                    JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj_by_search_city_and_department?city=" + cityesSpinner.getSelectedItem().toString() + "&department=" + "قسم غير مصنف");
                     selectedDepartment = "قسم غير مصنف";
                     break;
             }
@@ -1070,7 +1108,7 @@ public class HaragFragment extends Fragment {
 
                     if (childJSONObject.getString("Image").contains("~")) {
                         String replaced = childJSONObject.getString("Image").replace("~", "");
-                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        String finalstring = "http://sevenapps.net/seven.asmx" + replaced;
                         oursales.setImage(finalstring);
 
                     } else {
@@ -1110,7 +1148,7 @@ public class HaragFragment extends Fragment {
 
                     if (childJSONObject.getString("Image_2").contains("~")) {
                         String replaced = childJSONObject.getString("Image_2").replace("~", "");
-                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        String finalstring = "http://sevenapps.net/seven.asmx" + replaced;
                         oursales.setImage2(finalstring);
 
                     } else {
@@ -1126,7 +1164,7 @@ public class HaragFragment extends Fragment {
 
                     if (childJSONObject.getString("Image_3").contains("~")) {
                         String replaced = childJSONObject.getString("Image_3").replace("~", "");
-                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        String finalstring = "http://sevenapps.net/seven.asmx" + replaced;
                         oursales.setImage3(finalstring);
 
                     } else {
@@ -1142,7 +1180,7 @@ public class HaragFragment extends Fragment {
 
                     if (childJSONObject.getString("Image_4").contains("~")) {
                         String replaced = childJSONObject.getString("Image_4").replace("~", "");
-                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        String finalstring = "http://sevenapps.net/seven.asmx" + replaced;
                         oursales.setImage4(finalstring);
 
                     } else {
@@ -1158,7 +1196,7 @@ public class HaragFragment extends Fragment {
 
                     if (childJSONObject.getString("Image_5").contains("~")) {
                         String replaced = childJSONObject.getString("Image_5").replace("~", "");
-                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        String finalstring = "http://sevenapps.net/seven.asmx" + replaced;
                         oursales.setImage5(finalstring);
 
                     } else {
@@ -1174,7 +1212,7 @@ public class HaragFragment extends Fragment {
 
                     if (childJSONObject.getString("Image_6").contains("~")) {
                         String replaced = childJSONObject.getString("Image_6").replace("~", "");
-                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        String finalstring = "http://sevenapps.net/seven.asmx" + replaced;
                         oursales.setImage6(finalstring);
 
                     } else {
@@ -1190,7 +1228,7 @@ public class HaragFragment extends Fragment {
 
                     if (childJSONObject.getString("Image_7").contains("~")) {
                         String replaced = childJSONObject.getString("Image_7").replace("~", "");
-                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        String finalstring = "http://sevenapps.net/seven.asmx" + replaced;
                         oursales.setImage7(finalstring);
 
                     } else {
@@ -1206,7 +1244,7 @@ public class HaragFragment extends Fragment {
 
                     if (childJSONObject.getString("Image_8").contains("~")) {
                         String replaced = childJSONObject.getString("Image_8").replace("~", "");
-                        String finalstring = "http://educareua.com/seven.asmx" + replaced;
+                        String finalstring = "http://sevenapps.net/seven.asmx" + replaced;
                         oursales.setImage8(finalstring);
 
                     } else {

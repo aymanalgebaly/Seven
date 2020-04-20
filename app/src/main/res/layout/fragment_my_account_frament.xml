@@ -26,7 +26,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/stroke_blue"
-                android:text="كل الاعلانات"
+                android:text="@string/All_ads"
                 android:textColor="@color/black" />
 
             <Button
@@ -35,7 +35,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/stroke_blue"
-                android:text="الاعلانات المنتهية"
+                android:text="@string/Expired_ads"
                 android:textColor="@color/black" />
 
             <Button
@@ -44,7 +44,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/stroke_blue"
-                android:text="التعليقات"
+                android:text="@string/Comments"
                 android:textColor="@color/black" />
 
         </LinearLayout>
@@ -104,24 +104,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_gravity="center"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/accountedittext"
-                android:gravity="center"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/usernameedit2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text=""
-                    android:textColor="@color/colorPrimary"
-                    android:textDirection="rtl" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -129,33 +116,32 @@
                     android:layout_gravity="right"
                     android:gravity="center_vertical"
                     android:padding="5dp"
-                    android:text="الاسم :"
+                    android:text="@string/Name"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/usernameedit2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:text=""
+                    android:textColor="@color/colorPrimary"
+                    android:textDirection="rtl" />
+
+
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_gravity="center"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/accountedittext"
-                android:gravity="center"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/userphoneedit2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text=""
-                    android:textColor="@color/colorPrimary"
-                    android:textDirection="rtl" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -163,33 +149,32 @@
                     android:layout_gravity="center"
                     android:gravity="center_vertical"
                     android:padding="5dp"
-                    android:text="الجوال :"
+                    android:text="@string/Mobile_number"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/userphoneedit2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:text=""
+                    android:textColor="@color/colorPrimary"
+                    android:textDirection="rtl" />
+
+
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_gravity="center"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/accountedittext"
-                android:gravity="center_vertical"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/useremailedit2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text=""
-                    android:textColor="@color/colorPrimary"
-                    android:textDirection="rtl" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -197,42 +182,51 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:padding="5dp"
-                    android:text="البريد الالكتروني :"
+                    android:text="@string/Email"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/useremailedit2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="right"
+                    android:text=""
+                    android:textColor="@color/colorPrimary"
+                    android:textDirection="rtl" />
+
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_gravity="center"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
                 android:background="@drawable/accountedittext"
-                android:gravity="center"
                 android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/City"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/usercityedit2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text=""
-                    android:textColor="@color/colorPrimary" />
-
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center_vertical"
-                    android:padding="5dp"
-                    android:text="المدينة : "
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp" />
+                    android:text=""
+                    android:textColor="@color/colorPrimary" />
+
 
             </LinearLayout>
 
@@ -246,24 +240,24 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/usercountryedit2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text=""
-                    android:textColor="@color/colorPrimary" />
-
-                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center_vertical"
                     android:padding="5dp"
-                    android:text="البلد : "
+                    android:text="@string/Country"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/usercountryedit2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/colorPrimary" />
+
 
             </LinearLayout>
 

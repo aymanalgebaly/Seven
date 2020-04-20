@@ -31,7 +31,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text=" دخول الاعضاء"
+                        android:text="@string/Member_Login"
                         android:textAlignment="center"
                         android:textColor="#ffffff"
                         android:textSize="22sp"/>
@@ -53,7 +53,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:text="دخول المستخدمين"
+                    android:text="@string/Login_users"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textSize="25sp"
@@ -76,7 +76,7 @@
                     android:layout_height="35dp"
                     android:id="@+id/login_email"
                     android:background="@drawable/accountedittext"
-                    android:hint="البريد الألكترونى "
+                    android:hint="@string/Email"
                     android:inputType="textEmailAddress"
                     android:textSize="20sp"
                     android:padding="5dp"/>
@@ -86,7 +86,7 @@
                     android:layout_height="35dp"
                     android:background="@drawable/accountedittext"
                     android:id="@+id/login_pass"
-                    android:hint="كلمة السر"
+                    android:hint="@string/Password"
                     android:inputType="textPassword"
                     android:gravity="end"
                     android:layout_marginTop="15dp"
@@ -99,7 +99,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_gravity="right"
                     android:textSize="15sp"
-                    android:text="نسيت كلمة السر "
+                    android:text="@string/Forgot_your_password"
                     android:id="@+id/forget_pass"
                     android:textColor="#ff0000"
                     android:textStyle="bold"
@@ -110,7 +110,7 @@
             <Button
                 android:layout_width="170dp"
                 android:layout_height="45dp"
-                android:text="دخول"
+                android:text="@string/Login"
                 android:textSize="20sp"
                 android:textColor="#fff"
                 android:layout_gravity="center"

@@ -3,7 +3,9 @@ package com.compubase.seven.ui.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,7 @@ import com.compubase.seven.R;
 import com.compubase.seven.helper.AddButtonClick;
 import com.compubase.seven.helper.RequestHandler;
 import com.compubase.seven.helper.TinyDB;
+import com.yariksoffice.lingver.Lingver;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
@@ -37,11 +40,19 @@ public class LoginActivity extends AppCompatActivity {
     EditText logemail , logpass ;
     TextView forgetpass ;
     private ProgressBar progressBar;
+    private SharedPreferences preferences;
+    private String string;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        preferences = getSharedPreferences("lan", MODE_PRIVATE);
+
+        string = preferences.getString("lan", "");
+
+        Lingver.getInstance().setLocale(LoginActivity.this, string);
 
         do5ol =findViewById(R.id.do5oool);
         logemail = findViewById(R.id.login_email);

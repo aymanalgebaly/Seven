@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_margin="15dp"
-        android:hint="عبارة البحث"
+        android:hint="@string/Search_term"
         android:id="@+id/search"
         android:inputType="text"
         android:gravity="start"

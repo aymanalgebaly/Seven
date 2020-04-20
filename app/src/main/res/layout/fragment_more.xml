@@ -26,7 +26,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="عن تطبيق سفن"
+        android:text="@string/About_Seven"
         android:id="@+id/txt_about_app"
         android:gravity="center_vertical"
         android:paddingEnd="5dp"
@@ -63,7 +63,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="الرسائل"
+            android:text="@string/Messages"
             android:gravity="center_vertical"
             android:paddingEnd="5dp"
             android:id="@+id/txt_msg"
@@ -101,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/txt_noti"
-            android:text="الاشعارات"
+            android:text="@string/Notifications"
             android:gravity="center_vertical"
             android:paddingEnd="5dp"
             android:paddingStart="5dp"
@@ -137,7 +137,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="الشروط و الاحكام"
+            android:text="@string/Policy_and_terms"
             android:gravity="center_vertical"
             android:paddingEnd="5dp"
             android:id="@+id/txt_policy"
@@ -174,7 +174,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="دولة المصدر"
+            android:text="@string/Source_country"
             android:gravity="center_vertical"
             android:paddingEnd="5dp"
             android:id="@+id/txt_flag"
@@ -183,6 +183,37 @@
             android:textSize="18sp"
             android:textColor="@color/colorPrimary"
             android:drawableEnd="@drawable/ic_flag_black_24dp"
+            android:drawablePadding="10sp"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/ic_keyboard_arrow_left_black_24dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/Language"
+            android:gravity="center_vertical"
+            android:paddingEnd="5dp"
+            android:id="@+id/txt_lan"
+            android:paddingStart="5dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimary"
+            android:drawableEnd="@drawable/ic_language_black_24dp"
             android:drawablePadding="10sp"/>
 
 
@@ -212,7 +243,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="دخول الاعضاء"
+            android:text="@string/Member_Login"
             android:gravity="center_vertical"
             android:paddingEnd="5dp"
             android:paddingStart="5dp"
@@ -250,7 +281,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="تسجيل جديد"
+            android:text="@string/New_registration"
             android:gravity="center_vertical"
             android:paddingEnd="5dp"
             android:paddingStart="5dp"
@@ -289,7 +320,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="تسجيل الخروج"
+            android:text="@string/Log_out"
             android:gravity="center_vertical"
             android:paddingEnd="5dp"
             android:paddingStart="5dp"

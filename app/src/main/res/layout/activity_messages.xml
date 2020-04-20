@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:text="Title"
+        android:text="@string/Title"
         android:textColor="@color/orange_new"
         android:textSize="23sp" />
 

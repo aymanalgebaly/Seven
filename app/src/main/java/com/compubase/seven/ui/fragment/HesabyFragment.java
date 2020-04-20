@@ -1,6 +1,8 @@
 package com.compubase.seven.ui.fragment;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.compubase.seven.R;
 import com.compubase.seven.helper.TinyDB;
+import com.yariksoffice.lingver.Lingver;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +32,8 @@ public class HesabyFragment extends Fragment {
     ImageView userimage;
 
     TinyDB tinyDB;
+    private SharedPreferences preferences;
+    private String string;
 
 
     public HesabyFragment() {
@@ -40,7 +45,17 @@ public class HesabyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hesaby, container, false);
+        View view = inflater.inflate(R.layout.fragment_hesaby, container, false);
+
+
+
+        preferences = getActivity().getSharedPreferences("lan", Context.MODE_PRIVATE);
+
+        string = preferences.getString("lan", "");
+
+        Lingver.getInstance().setLocale(getContext(), string);
+
+        return view;
     }
 
 

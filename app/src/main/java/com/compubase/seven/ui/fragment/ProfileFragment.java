@@ -2,6 +2,8 @@ package com.compubase.seven.ui.fragment;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -38,6 +40,7 @@ import com.compubase.seven.model.AdsResponse;
 import com.compubase.seven.model.SalesItems;
 import com.compubase.seven.model.SallesCommentItems;
 import com.compubase.seven.ui.activity.HomeActivity;
+import com.yariksoffice.lingver.Lingver;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -96,6 +99,8 @@ public class ProfileFragment extends Fragment {
     private LinearLayout lin_buttons;
     private LinearLayout lin_rcv;
     private TextView usercountryedit;
+    private SharedPreferences preferences;
+    private String string;
 
 
     public ProfileFragment() {
@@ -110,6 +115,16 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+
+
+
+        preferences = getActivity().getSharedPreferences("lan", Context.MODE_PRIVATE);
+
+        string = preferences.getString("lan", "");
+
+        Lingver.getInstance().setLocale(getContext(), string);
+
 
         btn_hesaby = view.findViewById(R.id.btn_hesaby);
         btn_settings = view.findViewById(R.id.btn_settings);

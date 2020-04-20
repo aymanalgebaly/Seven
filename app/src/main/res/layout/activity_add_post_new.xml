@@ -88,7 +88,7 @@
                 android:layout_height="35dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/accountedittext"
-                android:hint="عنوان الاعلان (سيارة للبيع - عقار للبيع - الخ...)"
+                android:hint="@string/Ad_title"
                 android:inputType="none"
                 android:padding="5dp"
                 android:textSize="18sp" />
@@ -114,7 +114,7 @@
                     android:layout_height="35dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
-                    android:hint="الموديل"
+                    android:hint="@string/Model"
                     android:inputType="none"
                     android:padding="5dp"
                     android:textSize="18sp" />
@@ -125,7 +125,7 @@
                     android:layout_height="35dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
-                    android:hint="سنة الموديل"
+                    android:hint="@string/Model_year"
                     android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
@@ -146,7 +146,7 @@
                     android:layout_height="35dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
-                    android:hint="عدد الكيلومترات"
+                    android:hint="@string/Mileage"
                     android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
@@ -157,7 +157,7 @@
                     android:layout_height="35dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
-                    android:hint="الكماليات"
+                    android:hint="@string/Luxuries"
                     android:inputType="none"
                     android:padding="5dp"
                     android:textSize="18sp" />
@@ -168,7 +168,7 @@
                     android:layout_height="35dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
-                    android:hint="سعة المحرك"
+                    android:hint="@string/Engine_Capacity"
                     android:inputType="none"
                     android:visibility="gone"
                     android:padding="5dp"
@@ -199,7 +199,7 @@
                     android:layout_height="35dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
-                    android:hint="المساحة"
+                    android:hint="@string/The_space"
                     android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
@@ -210,7 +210,7 @@
                     android:layout_height="35dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
-                    android:hint="عدد الغرف"
+                    android:hint="@string/The_number_of_rooms"
                     android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
@@ -221,7 +221,7 @@
                     android:layout_height="35dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
-                    android:hint="الطابق"
+                    android:hint="@string/Floor"
                     android:inputType="number"
                     android:padding="5dp"
                     android:textSize="18sp" />
@@ -241,7 +241,7 @@
                     android:layout_height="35dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/accountedittext"
-                    android:hint="الكماليات"
+                    android:hint="@string/Luxuries"
                     android:inputType="none"
                     android:padding="5dp"
                     android:textSize="18sp" />
@@ -256,7 +256,7 @@
                 android:layout_height="35dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/accountedittext"
-                android:hint="السعر"
+                android:hint="@string/Price"
                 android:inputType="number"
                 android:padding="5dp"
                 android:textSize="18sp" />
@@ -283,7 +283,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/accountedittext"
                 android:gravity="right"
-                android:hint="اضف صورة او فيديو 45 ثانية"
+                android:hint="@string/Add_a_photo_or_video"
                 android:maxLength="10"
                 android:padding="5dp"
                 android:textSize="18sp" />
@@ -296,7 +296,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/accountedittext"
                 android:gravity="right"
-                android:hint="وصف الاعلان"
+                android:hint="@string/Ad_description"
                 android:padding="10dp"
                 android:textSize="20sp" />
 
@@ -305,7 +305,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12sp"
-                android:text="مناطق الاستهداف"
+                android:text="@string/Targeting_areas"
                 android:textColor="@color/orange"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -432,7 +432,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/bluebutton"
-                android:text="اضف اعلان"
+                android:text="@string/Add_an_Ad"
                 android:textColor="#fff"
                 android:textSize="20sp" />
 

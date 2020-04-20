@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="تأكيد التسجيل"
+            android:text="@string/Confirm_registration"
             android:textSize="20sp"
             android:textColor="#FFF"
             android:layout_centerInParent="true"/>
@@ -39,14 +39,14 @@
         android:layout_margin="10dp"
         android:padding="10dp"
         android:background="@drawable/rounded_empty"
-        android:hint="اكتب الكود"
+        android:hint="@string/Write_code_number"
         android:inputType="text"/>
 
     <Button
         android:id="@+id/submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="تأكيد التسجيل"
+        android:text="@string/Confirm_registration"
         android:textColor="#FFF"
         android:background="@color/orange_new"
         android:layout_marginRight="20dp"
@@ -57,7 +57,7 @@
         android:id="@+id/submit2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="لم تصل الرسالة ؟ اضغط هنا"
+        android:text="@string/The_message_has_not_arrived"
         android:textColor="@color/orange_new"
         android:background="#FFF"
         android:layout_marginRight="20dp"

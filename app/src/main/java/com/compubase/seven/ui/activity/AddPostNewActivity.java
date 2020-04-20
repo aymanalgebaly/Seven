@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.media.ThumbnailUtils;
@@ -28,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.compubase.seven.API;
 import com.compubase.seven.R;
 import com.compubase.seven.helper.PathUtil;
@@ -41,6 +43,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.yariksoffice.lingver.Lingver;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -204,6 +207,9 @@ public class AddPostNewActivity extends AppCompatActivity {
     private String departmentWithExtra;
     private String area;
     private String kilo;
+    private String user_img;
+    private SharedPreferences preferences;
+    private String string;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,6 +217,14 @@ public class AddPostNewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_post_new);
         unbinder = ButterKnife.bind(this);
 
+
+        preferences = getSharedPreferences("lan", MODE_PRIVATE);
+
+        string = preferences.getString("lan", "");
+
+        Lingver.getInstance().setLocale(AddPostNewActivity.this, string);
+
+        //
         FirebaseApp.initializeApp(this);
 
         storage = FirebaseStorage.getInstance();
@@ -219,11 +233,14 @@ public class AddPostNewActivity extends AppCompatActivity {
         tinyDB = new TinyDB(getApplicationContext());
         user_id = tinyDB.getString("user_id");
         user_name = tinyDB.getString("user_name");
+        user_img = tinyDB.getString("user_img");
 
         username.setText(user_name);
 
         depart_with.add("مفروشه");
         depart_with.add("غير مفروشه");
+
+        Glide.with(this).load(user_img).placeholder(R.drawable.user).into(profileImage);
 
 
         car_mark.add("تويوتا");
@@ -607,6 +624,17 @@ public class AddPostNewActivity extends AppCompatActivity {
 
         autoGear.add("مانيوال");
         autoGear.add("اوتوماتيك");
+
+
+        pic1 = "images/imgposting.png";
+        pic2 = "images/imgposting.png";
+        pic3 = "images/imgposting.png";
+        pic4 = "images/imgposting.png";
+        pic5 = "images/imgposting.png";
+        pic6 = "images/imgposting.png";
+        pic7 = "images/imgposting.png";
+        pic8 = "images/imgposting.png";
+
 
 
         SpinnerUtils.SetSpinnerAdapter(AddPostNewActivity.this, spCountry, countries, R.layout.spinner_item_black);

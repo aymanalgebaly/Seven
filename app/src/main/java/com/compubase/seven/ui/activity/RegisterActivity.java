@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,6 +24,7 @@ import com.compubase.seven.helper.RequestHandler;
 import com.compubase.seven.helper.SpinnerUtils;
 import com.compubase.seven.helper.TinyDB;
 import com.compubase.seven.ui.fragment.ConfirmFragment;
+import com.yariksoffice.lingver.Lingver;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -58,11 +60,21 @@ public class RegisterActivity extends AppCompatActivity {
     ArrayList<String> gza2er_cities = new ArrayList<>();
     private int cityPosition;
     private String cityName;
+    private SharedPreferences preferences;
+    private String string;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+
+        preferences = getSharedPreferences("lan", MODE_PRIVATE);
+
+        string = preferences.getString("lan", "");
+
+        Lingver.getInstance().setLocale(RegisterActivity.this, string);
+
 
         tinyDB = new TinyDB(getApplicationContext());
 

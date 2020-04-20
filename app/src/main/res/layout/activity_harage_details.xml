@@ -200,12 +200,313 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text=""
+                        android:text="vbjhbjhb"
                         android:textColor="#000"
                         android:textDirection="rtl"
                         android:textSize="20sp" />
 
                 </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:id="@+id/lin_car"
+                    android:weightSum="2">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Vehicle_type"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Model"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Model_year"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Engine_Capacity"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Luxuries"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Mileage"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Price"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.4"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt_car_mark"
+                            android:textStyle="bold"
+                            android:textDirection="rtl"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textDirection="rtl"
+                            android:id="@+id/txt_car_model"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textDirection="rtl"
+                            android:id="@+id/txt_car_year"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textDirection="rtl"
+                            android:id="@+id/txt_engin"
+                            android:visibility="gone"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textDirection="rtl"
+                            android:id="@+id/txt_about_car"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textDirection="rtl"
+                            android:id="@+id/txt_kilo"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textDirection="rtl"
+                            android:id="@+id/txt_price_car"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:id="@+id/lin_department"
+                    android:weightSum="2">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Property_type"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Floor"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/The_number_of_rooms"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/The_space"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Luxuries"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/furniture"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Price"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.4"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/txt_depart_mark"
+                            android:textStyle="bold"
+                            android:textDirection="rtl"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:id="@+id/txt_floor"
+                            android:textDirection="rtl"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:id="@+id/txt_room"
+                            android:textDirection="rtl"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:id="@+id/txt_area"
+                            android:textDirection="rtl"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textDirection="rtl"
+                            android:id="@+id/txt_about_depart"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textDirection="rtl"
+                            android:id="@+id/txt_type_depart"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textDirection="rtl"
+                            android:id="@+id/txt_price_depart"
+                            android:textColor="@color/black"
+                            android:padding="5dp"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -223,7 +524,7 @@
                         android:layout_marginEnd="50dp"
                         android:drawableEnd="@drawable/ic_location_on_black_24dp"
                         android:gravity="center_vertical"
-                        android:text="المديمة المنورة"
+                        android:text=""
                         android:textColor="#000"
                         android:textDirection="rtl"
                         android:textSize="15sp" />
@@ -280,7 +581,7 @@
                         android:gravity="center"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:text="01150552551"
+                        android:text=""
                         android:textColor="#fff"
                         android:textSize="16sp" />
 
@@ -380,7 +681,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="التعليقات"
+                    android:text="@string/Comments"
                     android:textColor="#000"
                     android:textSize="25sp" />
 
@@ -408,7 +709,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/bluebutton2"
                     android:gravity="center"
-                    android:text="اضف تعليق"
+                    android:text="@string/Add_Comment"
                     android:textColor="#fff"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -422,7 +723,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/bluebutton2"
                     android:gravity="center"
-                    android:text="أرسل رسالة"
+                    android:text="@string/Send_Message"
                     android:textColor="#fff"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -444,7 +745,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="الأقتراحات"
+                    android:text="@string/Suggestions"
                     android:textColor="#000"
                     android:textSize="25sp" />
 

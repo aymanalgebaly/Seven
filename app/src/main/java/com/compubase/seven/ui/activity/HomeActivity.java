@@ -3,6 +3,7 @@ package com.compubase.seven.ui.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.compubase.seven.R;
@@ -14,6 +15,7 @@ import com.compubase.seven.ui.fragment.MoreFragment;
 import com.compubase.seven.ui.fragment.ProfileFragment;
 import com.compubase.seven.ui.fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.yariksoffice.lingver.Lingver;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
@@ -82,11 +84,21 @@ public class HomeActivity extends AppCompatActivity {
     private TinyDB tinyDB;
     private String user_id;
     private boolean login;
+    private SharedPreferences preferences;
+    private String string;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        preferences = getSharedPreferences("lan", MODE_PRIVATE);
+
+        string = preferences.getString("lan", "");
+
+        Lingver.getInstance().setLocale(HomeActivity.this, string);
+
+
         BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

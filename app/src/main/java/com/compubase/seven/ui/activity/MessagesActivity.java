@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +45,7 @@ import com.android.volley.toolbox.Volley;
 import com.compubase.seven.adapter.NotificationMessageAdapter;
 import com.compubase.seven.helper.TinyDB;
 import com.compubase.seven.model.NotificationMessageItem;
+import com.yariksoffice.lingver.Lingver;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,12 +69,21 @@ public class MessagesActivity extends AppCompatActivity {
     RequestQueue requestQueue;
 
     TinyDB tinyDB;
+    private SharedPreferences preferences;
+    private String string;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
+
+
+        preferences = getSharedPreferences("lan", MODE_PRIVATE);
+
+        string = preferences.getString("lan", "");
+
+        Lingver.getInstance().setLocale(MessagesActivity.this, string);
 
         tinyDB = new TinyDB(this);
 

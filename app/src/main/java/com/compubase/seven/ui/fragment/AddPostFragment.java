@@ -38,6 +38,7 @@ import com.compubase.seven.helper.PathUtil;
 import com.compubase.seven.helper.RetrofitClient;
 import com.compubase.seven.helper.SpinnerUtils;
 import com.compubase.seven.helper.TinyDB;
+import com.compubase.seven.ui.activity.AboutUsActivity;
 import com.compubase.seven.ui.activity.HomeActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,6 +47,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.yariksoffice.lingver.Lingver;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -211,6 +213,7 @@ public class AddPostFragment extends Fragment {
 
     Uri selectedVideoPath;
     private String user_img;
+    private String string;
 
     public AddPostFragment() {
         // Required empty public constructor
@@ -221,6 +224,13 @@ public class AddPostFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.fragment_add_post, container, false);
         unbinder = ButterKnife.bind(this, inflate);
+
+        preferences = Objects.requireNonNull(getActivity()).getSharedPreferences("lan", Context.MODE_PRIVATE);
+
+        string = preferences.getString("lan", "");
+
+        Lingver.getInstance().setLocale(getActivity(), string);
+
 
         FirebaseApp.initializeApp(getActivity());
 
@@ -622,6 +632,17 @@ public class AddPostFragment extends Fragment {
         autoGear.add("اوتوماتيك");
 
 
+
+        pic1 = "images/imgposting.png";
+        pic2 = "images/imgposting.png";
+        pic3 = "images/imgposting.png";
+        pic4 = "images/imgposting.png";
+        pic5 = "images/imgposting.png";
+        pic6 = "images/imgposting.png";
+        pic7 = "images/imgposting.png";
+        pic8 = "images/imgposting.png";
+
+
         SpinnerUtils.SetSpinnerAdapter(getContext(), spCountry, countries, R.layout.spinner_item_black);
         SpinnerUtils.SetSpinnerAdapter(getContext(), spCountry2, countries2, R.layout.spinner_item_black);
         SpinnerUtils.SetSpinnerAdapter(getContext(), spCountry3, countries3, R.layout.spinner_item_black);
@@ -634,6 +655,19 @@ public class AddPostFragment extends Fragment {
         SpinnerUtils.SetSpinnerAdapter(getContext(), spMark, car_mark, R.layout.spinner_item_black);
         SpinnerUtils.SetSpinnerAdapter(getContext(), etPro, sup_depa, R.layout.spinner_item_black);
 
+
+        etDepartWith.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                departWith = depart_with.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         etAutoGear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -1035,8 +1069,13 @@ public class AddPostFragment extends Fragment {
 
     public void choosePhotoFromGallary() {
 
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST_GALLERY);
+//        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST_GALLERY);
+
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST_GALLERY);
     }
 
     private void takePhotoFromCamera() {
@@ -1083,7 +1122,10 @@ public class AddPostFragment extends Fragment {
                     Bitmap bitmap = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
                     filePath = getImageUri(getContext().getApplicationContext(), bitmap);
 
-                    if (pic1.equals("images/imgposting.png") && pic2.equals("images/imgposting.png") && pic3.equals("images/imgposting.png") && pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png")) {
+                    if (pic1.equals("images/imgposting.png") && pic2.equals("images/imgposting.png") &&
+                            pic3.equals("images/imgposting.png") && pic4.equals("images/imgposting.png")
+                            && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png")
+                            && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png")) {
                         pic.setText("تم اختيار عدد ١ صورة");
                         uploadImage(filePath);
                     } else if (!pic1.equals("images/imgposting.png") && pic2.equals("images/imgposting.png") && pic3.equals("images/imgposting.png") && pic4.equals("images/imgposting.png") && pic5.equals("images/imgposting.png") && pic6.equals("images/imgposting.png") && pic7.equals("images/imgposting.png") && pic8.equals("images/imgposting.png")) {
@@ -1392,8 +1434,10 @@ public class AddPostFragment extends Fragment {
 
 
             RetrofitClient.getInstant().create(API.class).addPostDepartment(user_id, address,
-                    desc, cityName, department, price, phone, "img", "img", "img", "img", "img", "img", "img", "img",
-                    "hbh", cityName2, cityName3, "", countryName, countryName2, countryName3, "", room, floor, area, departmentWithExtra,
+                    desc, cityName, department, price, phone, pic1, pic2, pic3, pic4,
+                    pic5, pic6, pic7, pic8,
+                    "hbh", cityName2, cityName3, "", countryName, countryName2, countryName3,
+                    "", room, floor, area, departmentWithExtra,
                     departWith, sup_depar, "m", "1", "m", "m", "1").enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -1459,8 +1503,8 @@ public class AddPostFragment extends Fragment {
         } else {
 
             RetrofitClient.getInstant().create(API.class).addPostCar(user_id, address,
-                    desc, cityName, department, price, phone, "img", "img", "img", "img", "img", "img", "img",
-                    "img",
+                    desc, cityName, department, price, phone, pic1, pic2, pic3, pic4,
+                    pic5, pic6, pic7, pic8,
                     "hbh", cityName2, cityName3, "", countryName, countryName2, countryName3, "",
                     "1", "1", "1", "m",
                     "m", sup_depar, model, year, auto_gear, otherAboutCar, kilo).enqueue(new Callback<ResponseBody>() {
@@ -1540,7 +1584,8 @@ public class AddPostFragment extends Fragment {
 
 
             RetrofitClient.getInstant().create(API.class).addPost(user_id, address,
-                    desc, cityName, department, price, phone, "img", "img", "img", "img", "img", "img", "img", "img",
+                    desc, cityName, department, price, phone, pic1, pic2, pic3, pic4,
+                    pic5, pic6, pic7, pic8,
                     "hbh", cityName2, cityName3, "", countryName, countryName2, countryName3, "",
                     "1", "1", "1", "m",
                     "m", "m", "m", "1", "m", "m", "1")

@@ -69,77 +69,86 @@
             android:layout_marginEnd="24sp"
             android:background="@color/orange"
             android:gravity="center"
-            android:text="تعديل الملف الشخصي"
+            android:text="@string/Edit_profile"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
-            android:gravity="center"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/et_userName"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:background="@drawable/accountedittext"
-                android:gravity="right|center"
-                android:paddingStart="4dp"
-                android:paddingEnd="4dp"
-                android:textDirection="ltr"
-                tools:ignore="RtlCompat" />
+
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="right"
-                android:layout_weight="2"
                 android:gravity="center_vertical"
                 android:padding="5dp"
-                android:text="الاسم :"
+                android:text="@string/Name"
                 android:textColor="@color/orange_new"
                 android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/accountedittext"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/et_userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/accountedittext"
+                    android:gravity="center_vertical"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    tools:ignore="RtlCompat" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
-            android:gravity="center"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/et_phone"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:background="@drawable/accountedittext"
-                android:gravity="right|center"
-                android:paddingStart="4dp"
-                android:paddingEnd="4dp"
-                android:textDirection="ltr"
-                tools:ignore="RtlCompat" />
-
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_weight="2"
                 android:gravity="center_vertical"
                 android:padding="5dp"
-                android:text="الجوال :"
+                android:text="@string/Mobile_number"
                 android:textColor="@color/orange_new"
                 android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/accountedittext">
+
+                <EditText
+                    android:id="@+id/et_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/accountedittext"
+                    android:gravity="center_vertical"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    tools:ignore="RtlCompat" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
@@ -150,7 +159,6 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
-            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:visibility="gone">
 
@@ -189,29 +197,35 @@
             android:layout_marginRight="30dp"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/et_password"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:background="@drawable/accountedittext"
-                android:gravity="right|center"
-                android:inputType="textPassword"
-                android:paddingStart="4dp"
-                android:paddingEnd="4dp"
-                android:textDirection="ltr"
-                tools:ignore="RtlCompat" />
-
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_weight="2"
                 android:gravity="center_vertical"
                 android:padding="5dp"
-                android:text="كلمة المرور : "
+                android:text="@string/Password"
                 android:textColor="@color/orange_new"
                 android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/accountedittext">
+
+                <EditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/accountedittext"
+                    android:gravity="center_vertical"
+                    android:inputType="textPassword"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    tools:ignore="RtlCompat" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
@@ -219,35 +233,38 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_gravity="center"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
-            android:gravity="center"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/et_city"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:background="@drawable/accountedittext"
-                android:gravity="right|center"
-                android:paddingStart="4dp"
-                android:paddingEnd="4dp"
-                android:textDirection="ltr"
-                tools:ignore="RtlCompat" />
-
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_weight="2"
                 android:gravity="center_vertical"
                 android:padding="5dp"
-                android:text="المدينة : "
+                android:text="@string/City"
                 android:textColor="@color/orange_new"
                 android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/accountedittext">
+
+                <EditText
+                    android:id="@+id/et_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/accountedittext"
+                    android:gravity="center_vertical"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    tools:ignore="RtlCompat" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -259,7 +276,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:background="@color/orange"
-            android:text="حفظ التعديلات"
+            android:text="@string/Save_edits"
             android:textColor="@color/white"
             android:textStyle="bold" />
 

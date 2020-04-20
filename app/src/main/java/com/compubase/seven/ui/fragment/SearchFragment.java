@@ -2,6 +2,8 @@ package com.compubase.seven.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.view.KeyEvent;
@@ -34,6 +36,7 @@ import com.compubase.seven.model.SalesItems;
 import com.compubase.seven.model.SearchResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.yariksoffice.lingver.Lingver;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,6 +66,8 @@ public class SearchFragment extends Fragment {
 
     RequestQueue requestQueue;
     private ArrayList<SearchResponse> searchResponseList = new ArrayList<>();
+    private SharedPreferences preferences;
+    private String string;
 
 
     public SearchFragment() {
@@ -71,7 +76,16 @@ public class SearchFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+
+        preferences = getActivity().getSharedPreferences("lan", Context.MODE_PRIVATE);
+
+        string = preferences.getString("lan", "");
+
+        Lingver.getInstance().setLocale(getContext(), string);
+
+        return view;
     }
 
     @SuppressLint("WrongConstant")

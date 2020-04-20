@@ -115,6 +115,19 @@ public class SalesAdapter extends RecyclerView.Adapter<SalesAdapter.SalesViewHol
                 intent.putExtra("item_img6", oursalesitems.get(position).getImage6());
                 intent.putExtra("item_img7", oursalesitems.get(position).getImage7());
                 intent.putExtra("item_img8", oursalesitems.get(position).getImage8());
+                intent.putExtra("area", oursalesitems.get(position).getArea());
+                intent.putExtra("auto_move", oursalesitems.get(position).getAutoMove());
+                intent.putExtra("floor", oursalesitems.get(position).getFloor());
+                intent.putExtra("year", oursalesitems.get(position).getYear());
+                intent.putExtra("sup_dep", oursalesitems.get(position).getSubDep());
+                intent.putExtra("room", oursalesitems.get(position).getRoom());
+                intent.putExtra("price", oursalesitems.get(position).getPrice());
+                intent.putExtra("otherPro", oursalesitems.get(position).getOtherProperty());
+                intent.putExtra("otherCar", oursalesitems.get(position).getOtherCar());
+                intent.putExtra("model", oursalesitems.get(position).getModel());
+                intent.putExtra("kilo", oursalesitems.get(position).getKilo());
+                intent.putExtra("typeLux", oursalesitems.get(position).getTypeLucx());
+
                 context.startActivity(intent);
 
             }

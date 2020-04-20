@@ -4,26 +4,26 @@
     <item
         android:id="@+id/navigation_more"
         android:icon="@drawable/ic_looks_black_24dp"
-        android:title="المزيد" />
+        android:title="@string/More" />
 
     <item
         android:id="@+id/navigation_search"
         android:icon="@drawable/ic_search_black_24dp"
-        android:title="البحث" />
+        android:title="@string/Search" />
 
     <item
         android:id="@+id/navigation_add"
         android:icon="@drawable/ic_add_black_24dp"
-        android:title="اعلان جديد" />
+        android:title="@string/New_add" />
 
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_person_black_24dp"
-        android:title="الملف الشخصي " />
+        android:title="@string/Profile" />
 
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_white_24dp"
-        android:title="الرئيسية" />
+        android:title="@string/Home" />
 
 </menu>
