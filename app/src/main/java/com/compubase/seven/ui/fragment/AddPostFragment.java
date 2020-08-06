@@ -244,7 +244,7 @@ public class AddPostFragment extends Fragment {
 
         Glide.with(getActivity()).load(user_img).placeholder(R.drawable.user).into(profileImage);
 
-        countries2.add("البلد (اختياري) ");
+        countries2.add("البلد (اختياري)");
         countries2.add("السعودية");
         countries2.add("تركيا");
         countries2.add("الأمارات");
@@ -254,7 +254,7 @@ public class AddPostFragment extends Fragment {
         countries2.add("الجزائر");
 
 
-        countries3.add("البلد (اختياري) ");
+        countries3.add("البلد (اختياري)");
         countries3.add("السعودية");
         countries3.add("تركيا");
         countries3.add("الأمارات");
@@ -1390,11 +1390,46 @@ public class AddPostFragment extends Fragment {
     @OnClick(R.id.add_post)
     public void onViewClicked() {
         if (department.equals("عقارات")) {
-            addPostDepartment();
+
+            if (countryName2.equals("البلد (اختياري)")){
+                Toast.makeText(getContext(), "ادخل اسم البلد", Toast.LENGTH_SHORT).show();
+            }else if (countryName3.equals("البلد (اختياري)")){
+                Toast.makeText(getContext(), "ادخل اسم البلد", Toast.LENGTH_SHORT).show();
+            }else if (cityName2.equals("المدينة")){
+                Toast.makeText(getContext(), "ادخل اسم المدينة", Toast.LENGTH_SHORT).show();
+            }else if (cityName3.equals("االمدينة")){
+                Toast.makeText(getContext(), "ادخل اسم المدينة", Toast.LENGTH_SHORT).show();
+            }else{
+
+                addPostDepartment();
+            }
         } else if (department.equals("السيارات")) {
-            addPostCar();
+            if (countryName2.equals("البلد (اختياري)")){
+                Toast.makeText(getContext(), "ادخل اسم البلد", Toast.LENGTH_SHORT).show();
+            }else if (countryName3.equals("البلد (اختياري)")){
+                Toast.makeText(getContext(), "ادخل اسم البلد", Toast.LENGTH_SHORT).show();
+            }else if (cityName2.equals("المدينة")){
+                Toast.makeText(getContext(), "ادخل اسم المدينة", Toast.LENGTH_SHORT).show();
+            }else if (cityName3.equals("االمدينة")){
+                Toast.makeText(getContext(), "ادخل اسم المدينة", Toast.LENGTH_SHORT).show();
+            }else{
+
+                addPostCar();
+            }
         } else {
-            addPost();
+
+            if (countryName2.equals("البلد (اختياري)")){
+                Toast.makeText(getContext(), "ادخل اسم البلد", Toast.LENGTH_SHORT).show();
+            }else if (countryName3.equals("البلد (اختياري)")){
+                Toast.makeText(getContext(), "ادخل اسم البلد", Toast.LENGTH_SHORT).show();
+            }else if (cityName2.equals("المدينة")){
+                Toast.makeText(getContext(), "ادخل اسم المدينة", Toast.LENGTH_SHORT).show();
+            }else if (cityName3.equals("االمدينة")){
+                Toast.makeText(getContext(), "ادخل اسم المدينة", Toast.LENGTH_SHORT).show();
+            }else{
+
+                addPost();
+            }
         }
     }
 
@@ -1558,7 +1593,7 @@ public class AddPostFragment extends Fragment {
             etPrice.setError("ادخل السعر");
         } else if (TextUtils.isEmpty(phone)) {
             etPhone.setError("ادخل رقم الهاتف");
-        } else {
+        } else  {
 
 //        if (sup_depar == null){
 //            sup_depar = "mm";

@@ -606,26 +606,27 @@ public class HaragFragment extends Fragment {
 
                 if (cityesSpinner.getSelectedItemPosition() == 0) {
                     selectByDepartment(selectedDepartment);
-                }
-
-                if (selectedDepartment.equals("السيارات")) {
-
-                    linCar.setVisibility(View.VISIBLE);
-                    linDepartment.setVisibility(View.GONE);
-//                    select_haraj_by_search_car(cityName, selectedDepartment);
-
-                } else if (selectedDepartment.equals("عقارات")) {
-
-                    linDepartment.setVisibility(View.VISIBLE);
-                    linCar.setVisibility(View.GONE);
-//                    select_haraj_by_search_property(cityName, selectedDepartment);
-
-
                 } else {
                     linCar.setVisibility(View.GONE);
                     linDepartment.setVisibility(View.GONE);
-//                    selectByCityAndDepartment(cityName, selectedDepartment);
+                    selectByCityAndDepartment(cityName, selectedDepartment);
                 }
+
+
+                //                if (selectedDepartment.equals("السيارات")) {
+//
+//                    linCar.setVisibility(View.GONE);
+//                    linDepartment.setVisibility(View.GONE);
+////                    select_haraj_by_search_car(cityName, selectedDepartment);
+//
+//                } else if (selectedDepartment.equals("عقارات")) {
+//
+//                    linDepartment.setVisibility(View.GONE);
+//                    linCar.setVisibility(View.GONE);
+////                    select_haraj_by_search_property(cityName, selectedDepartment);
+//
+//
+//                }
 
             }
 
@@ -637,263 +638,264 @@ public class HaragFragment extends Fragment {
 
 
 
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-//                if (cityName == null){
-
-//                    cityName = "";
-                    select_haraj_by_search_car(cityName, selectedDepartment);
-
-//                }
-            }
-        });
-
-        btnSearchPro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-//                if (cityName == null){
+//        btnSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
 //
-//                    cityName = "";
-                    select_haraj_by_search_property(cityName, selectedDepartment);
+////                if (cityName == null){
+//
+////                    cityName = "";
+//                    select_haraj_by_search_car(cityName, selectedDepartment);
+//
+////                }
+//            }
+//        });
 
-//                }
-            }
-        });
+//        btnSearchPro.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+////                if (cityName == null){
+////
+////                    cityName = "";
+//                    select_haraj_by_search_property(cityName, selectedDepartment);
+//
+////                }
+//            }
+//        });
 
 
         swiptorefresch();
 
+//        selectAll();
 
         return view;
     }
 
-    private void select_haraj_by_search_property(String cityName, String selectedDepartment) {
-
-        adsResponseList2.clear();
-
-        String areaFrom = etAreaFrom.getText().toString();
-//        String departWith = etDepartWith.getText().toString();
-        String departWithExtra = etDepartWithExtra.getText().toString();
-        String floor = etFloor.getText().toString();
-        String room = etRoom.getText().toString();
-        String areaTo = etAreaTo.getText().toString();
-        String priceFromPro = etPriceFromPro.getText().toString();
-        String priceToPro = etPriceToPro.getText().toString();
-//        String year = etYear.getText().toString();
-
-//        if (TextUtils.isEmpty(room)) {
-//            etRoom.setError("ادخل عدد الغرف");
-//        } else if (TextUtils.isEmpty(floor)) {
-//            etFloor.setError("ادخل الطابق");
-//        }
-////        else if (TextUtils.isEmpty(departWith)) {
-////            etDepartWith.setError("بفرش او بدون");
+//    private void select_haraj_by_search_property(String cityName, String selectedDepartment) {
+//
+//        adsResponseList2.clear();
+//
+//        String areaFrom = etAreaFrom.getText().toString();
+////        String departWith = etDepartWith.getText().toString();
+//        String departWithExtra = etDepartWithExtra.getText().toString();
+//        String floor = etFloor.getText().toString();
+//        String room = etRoom.getText().toString();
+//        String areaTo = etAreaTo.getText().toString();
+//        String priceFromPro = etPriceFromPro.getText().toString();
+//        String priceToPro = etPriceToPro.getText().toString();
+////        String year = etYear.getText().toString();
+//
+////        if (TextUtils.isEmpty(room)) {
+////            etRoom.setError("ادخل عدد الغرف");
+////        } else if (TextUtils.isEmpty(floor)) {
+////            etFloor.setError("ادخل الطابق");
 ////        }
-//        else if (TextUtils.isEmpty(departWithExtra)) {
-//            etDepartWithExtra.setError("ادخل كماليات");
-//        } else if (TextUtils.isEmpty(areaFrom)) {
-//            etAreaFrom.setError("المساحه من");
-//        } else if (TextUtils.isEmpty(areaTo)) {
-//            etAreaTo.setError("المساحه الي");
-//        } else if (TextUtils.isEmpty(priceFromPro)) {
-//            etPriceFromPro.setError("ادخل السعر من");
-//        } else if (TextUtils.isEmpty(priceToPro)) {
-//            etPriceToPro.setError("ادخل السعر الي");
-//        } else {
-
-        if (cityName == null){
-
-            cityName = "";
-
-//            Log.i("hhhhhhh",selectedDepartment,"-"+cityName + "-"+ prorety_item);
-
-            RetrofitClient.getInstant().create(API.class).select_haraj_by_search_property(selectedDepartment,
-                    cityName, prorety_item, room, floor, "", departWithExtra, departWith, priceFromPro, areaFrom,
-                    areaTo, priceToPro).enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-
-                    GsonBuilder builder = new GsonBuilder();
-                    Gson gson = builder.create();
-
-                    try {
-                        assert response.body() != null;
-
-                        List<AdsResponse> adsResponses
-                                = Arrays.asList(gson.fromJson(response.body().string(), AdsResponse[].class));
-
-                        adsResponseList2.addAll(adsResponses);
-
-                        salleslistAdapter.setDataList(adsResponseList2);
-                        salleslistAdapter.notifyDataSetChanged();
-
-                        if (adsResponseList2.isEmpty()) {
-
-                            linDepartment.setVisibility(View.GONE);
-
-                            Toast.makeText(getActivity(), "لايوجد نتيجه للبحث", Toast.LENGTH_LONG).show();
-
-//                            etAutoGear.setText("");
-                            etEngin.setText("");
-                            etKilo.setText("");
-                            etModel.setText("");
-                            etOtherAboutCar.setText("");
-                            etPriceFrom.setText("");
-                            etPriceTo.setText("");
-                            etYear.setText("");
-                        } else {
-
-                            adsResponseList2.addAll(adsResponses);
-
-                            salleslistAdapter.setDataList(adsResponseList2);
-                            salleslistAdapter.notifyDataSetChanged();
-
-//                            etAutoGear.setText("");
-                            etEngin.setText("");
-                            etKilo.setText("");
-                            etModel.setText("");
-                            etOtherAboutCar.setText("");
-                            etPriceFrom.setText("");
-                            etPriceTo.setText("");
-                            etYear.setText("");
-
-
-                            linDepartment.setVisibility(View.GONE);
-
-                        }
-
-
-                    } catch (IOException e) {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        linDepartment.setVisibility(View.GONE);
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    linDepartment.setVisibility(View.GONE);
-                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }
-    }
+//////        else if (TextUtils.isEmpty(departWith)) {
+//////            etDepartWith.setError("بفرش او بدون");
+//////        }
+////        else if (TextUtils.isEmpty(departWithExtra)) {
+////            etDepartWithExtra.setError("ادخل كماليات");
+////        } else if (TextUtils.isEmpty(areaFrom)) {
+////            etAreaFrom.setError("المساحه من");
+////        } else if (TextUtils.isEmpty(areaTo)) {
+////            etAreaTo.setError("المساحه الي");
+////        } else if (TextUtils.isEmpty(priceFromPro)) {
+////            etPriceFromPro.setError("ادخل السعر من");
+////        } else if (TextUtils.isEmpty(priceToPro)) {
+////            etPriceToPro.setError("ادخل السعر الي");
+////        } else {
+//
+//        if (cityName == null){
+//
+//            cityName = "";
+//
+////            Log.i("hhhhhhh",selectedDepartment,"-"+cityName + "-"+ prorety_item);
+//
+//            RetrofitClient.getInstant().create(API.class).select_haraj_by_search_property(selectedDepartment,
+//                    cityName, prorety_item, room, floor, "", departWithExtra, departWith, priceFromPro, areaFrom,
+//                    areaTo, priceToPro).enqueue(new Callback<ResponseBody>() {
+//                @Override
+//                public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+//
+//                    GsonBuilder builder = new GsonBuilder();
+//                    Gson gson = builder.create();
+//
+//                    try {
+//                        assert response.body() != null;
+//
+//                        List<AdsResponse> adsResponses
+//                                = Arrays.asList(gson.fromJson(response.body().string(), AdsResponse[].class));
+//
+//                        adsResponseList2.addAll(adsResponses);
+//
+//                        salleslistAdapter.setDataList(adsResponseList2);
+//                        salleslistAdapter.notifyDataSetChanged();
+//
+//                        if (adsResponseList2.isEmpty()) {
+//
+//                            linDepartment.setVisibility(View.GONE);
+//
+//                            Toast.makeText(getActivity(), "لايوجد نتيجه للبحث", Toast.LENGTH_LONG).show();
+//
+////                            etAutoGear.setText("");
+//                            etEngin.setText("");
+//                            etKilo.setText("");
+//                            etModel.setText("");
+//                            etOtherAboutCar.setText("");
+//                            etPriceFrom.setText("");
+//                            etPriceTo.setText("");
+//                            etYear.setText("");
+//                        } else {
+//
+//                            adsResponseList2.addAll(adsResponses);
+//
+//                            salleslistAdapter.setDataList(adsResponseList2);
+//                            salleslistAdapter.notifyDataSetChanged();
+//
+////                            etAutoGear.setText("");
+//                            etEngin.setText("");
+//                            etKilo.setText("");
+//                            etModel.setText("");
+//                            etOtherAboutCar.setText("");
+//                            etPriceFrom.setText("");
+//                            etPriceTo.setText("");
+//                            etYear.setText("");
+//
+//
+//                            linDepartment.setVisibility(View.GONE);
+//
+//                        }
+//
+//
+//                    } catch (IOException e) {
+//                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        linDepartment.setVisibility(View.GONE);
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                    linDepartment.setVisibility(View.GONE);
+//                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//
+//        }
+//    }
 //    }
 
-    private void select_haraj_by_search_car(String cityName, String selectedDepartment) {
-
-
-        adsResponseList2.clear();
-
-//        String auto_gear = etAutoGear.getText().toString();
-        String engin = etEngin.getText().toString();
-        String kilo = etKilo.getText().toString();
-        String model = etModel.getText().toString();
-        String aboutCar = etOtherAboutCar.getText().toString();
-        String priceFrom = etPriceFrom.getText().toString();
-        String priceTo = etPriceTo.getText().toString();
-        String year = etYear.getText().toString();
-
-//        if (TextUtils.isEmpty(model)) {
-//            etModel.setError("ادخل موديل السياره");
-//        } else if (TextUtils.isEmpty(year)) {
-//            etYear.setError("ادخل السنة");
-//        } else if (TextUtils.isEmpty(kilo)) {
-//            etKilo.setError("ادخل عدد الكيلومترات");
-//        } else if (TextUtils.isEmpty(aboutCar)) {
-//            etOtherAboutCar.setError("ادخل كماليات السياره");
-//        } else if (TextUtils.isEmpty(engin)) {
-//            etEngin.setError("ادخل سعه المحرك");
-//        } else if (TextUtils.isEmpty(priceFrom)) {
-//            etPriceFrom.setError("ادخل السعر من");
-//        } else if (TextUtils.isEmpty(priceTo)) {
-//            etPriceTo.setError("ادخل السعر الي");
-//        } else {
-
-        Log.i("bhhbjhbh",selectedDepartment + "-" +cityName + "-" + car_mark + "-" + model + "-" + year + "-" + auto_gear + "-" + kilo + "-" + aboutCar + "-" + priceFrom + "-" + priceTo);
-
-
-        if (cityName == null){
-
-            cityName = "";
-
-            RetrofitClient.getInstant().create(API.class).select_haraj_by_search_car(selectedDepartment, cityName,car_mark,
-                    model, year, auto_gear, kilo, aboutCar, priceFrom, priceTo).enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-
-                    GsonBuilder builder = new GsonBuilder();
-                    Gson gson = builder.create();
-
-                    try {
-                        assert response.body() != null;
-
-                        List<AdsResponse> adsResponses
-                                = Arrays.asList(gson.fromJson(response.body().string(), AdsResponse[].class));
-
-                        adsResponseList2.addAll(adsResponses);
-
-                        salleslistAdapter.setDataList(adsResponseList2);
-                        salleslistAdapter.notifyDataSetChanged();
-
-                        if (adsResponseList2.isEmpty()) {
-
-                            linCar.setVisibility(View.GONE);
-
-                            Toast.makeText(getActivity(), "لايوجد نتيجه للبحث", Toast.LENGTH_LONG).show();
-
-//                            etAutoGear.setText("");
-                            etEngin.setText("");
-                            etKilo.setText("");
-                            etModel.setText("");
-                            etOtherAboutCar.setText("");
-                            etPriceFrom.setText("");
-                            etPriceTo.setText("");
-                            etYear.setText("");
-
-
-                        } else {
-
-                            adsResponseList2.addAll(adsResponses);
-
-                            salleslistAdapter.setDataList(adsResponseList2);
-                            salleslistAdapter.notifyDataSetChanged();
-
-//                            etAutoGear.setText("");
-                            etEngin.setText("");
-                            etKilo.setText("");
-                            etModel.setText("");
-                            etOtherAboutCar.setText("");
-                            etPriceFrom.setText("");
-                            etPriceTo.setText("");
-                            etYear.setText("");
-
-
-                            linCar.setVisibility(View.GONE);
-
-                        }
-
-
-                    } catch (IOException e) {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        linCar.setVisibility(View.GONE);
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                    linCar.setVisibility(View.GONE);
-                }
-            });
-
-        }
-    }
+//    private void select_haraj_by_search_car(String cityName, String selectedDepartment) {
+//
+//
+//        adsResponseList2.clear();
+//
+////        String auto_gear = etAutoGear.getText().toString();
+//        String engin = etEngin.getText().toString();
+//        String kilo = etKilo.getText().toString();
+//        String model = etModel.getText().toString();
+//        String aboutCar = etOtherAboutCar.getText().toString();
+//        String priceFrom = etPriceFrom.getText().toString();
+//        String priceTo = etPriceTo.getText().toString();
+//        String year = etYear.getText().toString();
+//
+////        if (TextUtils.isEmpty(model)) {
+////            etModel.setError("ادخل موديل السياره");
+////        } else if (TextUtils.isEmpty(year)) {
+////            etYear.setError("ادخل السنة");
+////        } else if (TextUtils.isEmpty(kilo)) {
+////            etKilo.setError("ادخل عدد الكيلومترات");
+////        } else if (TextUtils.isEmpty(aboutCar)) {
+////            etOtherAboutCar.setError("ادخل كماليات السياره");
+////        } else if (TextUtils.isEmpty(engin)) {
+////            etEngin.setError("ادخل سعه المحرك");
+////        } else if (TextUtils.isEmpty(priceFrom)) {
+////            etPriceFrom.setError("ادخل السعر من");
+////        } else if (TextUtils.isEmpty(priceTo)) {
+////            etPriceTo.setError("ادخل السعر الي");
+////        } else {
+//
+//        Log.i("bhhbjhbh",selectedDepartment + "-" +cityName + "-" + car_mark + "-" + model + "-" + year + "-" + auto_gear + "-" + kilo + "-" + aboutCar + "-" + priceFrom + "-" + priceTo);
+//
+//
+//        if (cityName == null){
+//
+//            cityName = "";
+//
+//            RetrofitClient.getInstant().create(API.class).select_haraj_by_search_car(selectedDepartment, cityName,car_mark,
+//                    model, year, auto_gear, kilo, aboutCar, priceFrom, priceTo).enqueue(new Callback<ResponseBody>() {
+//                @Override
+//                public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+//
+//                    GsonBuilder builder = new GsonBuilder();
+//                    Gson gson = builder.create();
+//
+//                    try {
+//                        assert response.body() != null;
+//
+//                        List<AdsResponse> adsResponses
+//                                = Arrays.asList(gson.fromJson(response.body().string(), AdsResponse[].class));
+//
+//                        adsResponseList2.addAll(adsResponses);
+//
+//                        salleslistAdapter.setDataList(adsResponseList2);
+//                        salleslistAdapter.notifyDataSetChanged();
+//
+//                        if (adsResponseList2.isEmpty()) {
+//
+//                            linCar.setVisibility(View.GONE);
+//
+//                            Toast.makeText(getActivity(), "لايوجد نتيجه للبحث", Toast.LENGTH_LONG).show();
+//
+////                            etAutoGear.setText("");
+//                            etEngin.setText("");
+//                            etKilo.setText("");
+//                            etModel.setText("");
+//                            etOtherAboutCar.setText("");
+//                            etPriceFrom.setText("");
+//                            etPriceTo.setText("");
+//                            etYear.setText("");
+//
+//
+//                        } else {
+//
+//                            adsResponseList2.addAll(adsResponses);
+//
+//                            salleslistAdapter.setDataList(adsResponseList2);
+//                            salleslistAdapter.notifyDataSetChanged();
+//
+////                            etAutoGear.setText("");
+//                            etEngin.setText("");
+//                            etKilo.setText("");
+//                            etModel.setText("");
+//                            etOtherAboutCar.setText("");
+//                            etPriceFrom.setText("");
+//                            etPriceTo.setText("");
+//                            etYear.setText("");
+//
+//
+//                            linCar.setVisibility(View.GONE);
+//
+//                        }
+//
+//
+//                    } catch (IOException e) {
+//                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        linCar.setVisibility(View.GONE);
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//                @Override
+//                public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                    Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//                    linCar.setVisibility(View.GONE);
+//                }
+//            });
+//
+//        }
+//    }
 //    }
 
     public void swiptorefresch() {
@@ -910,7 +912,9 @@ public class HaragFragment extends Fragment {
                 // once the network request has completed successfully.
                 salesitems.clear();
 
-                JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj?");
+//                JSON_DATA_WEB_CALL("http://sevenapps.net/seven.asmx/wsnew.asmx/select_haraj?");
+
+                selectAll();
 
                 salleslistAdapter.notifyDataSetChanged();
 
@@ -1284,6 +1288,7 @@ public class HaragFragment extends Fragment {
 
 
     private void selectAll() {
+
         progressBar.setVisibility(View.VISIBLE);
 
         adsResponseList2.clear();
@@ -1333,6 +1338,7 @@ public class HaragFragment extends Fragment {
     }
 
     private void selectByCountry(String country) {
+
         progressBar.setVisibility(View.VISIBLE);
 
         adsResponseList2.clear();
@@ -1520,5 +1526,11 @@ public class HaragFragment extends Fragment {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+        selectAll();
+    }
 }
+

@@ -82,4 +82,6 @@
     <string name="New_add">New add</string>
     <string name="Profile">Profile</string>
     <string name="Home">Home</string>
+    <string name="cars">Cars</string>
+    <string name="departments">Departments</string>
 </resources>

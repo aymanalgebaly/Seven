@@ -187,6 +187,18 @@ public interface API {
     );
 
     @FormUrlEncoded
+    @POST("select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property")
+    Call<ResponseBody> select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property(
+            @Field("dropname") String dropname
+    );
+
+    @FormUrlEncoded
+    @POST("select_droblist_car_SubDep_model_year_kilo_other_car_auto_move")
+    Call<ResponseBody> select_droblist_car_SubDep_model_year_kilo_other_car_auto_move(
+            @Field("dropname") String dropname
+    );
+
+    @FormUrlEncoded
     @POST("edite_profile")
     Call<ResponseBody> edite_profile(
             @Field("id_member") String id_member,
@@ -198,6 +210,7 @@ public interface API {
     );
 
     @FormUrlEncoded
+    @Headers({"Content-Type: application/x-www-form-urlencoded"})
     @POST("select_haraj_by_search_car")
     Call<ResponseBody> select_haraj_by_search_car(
             @Field("Department") String Department,
