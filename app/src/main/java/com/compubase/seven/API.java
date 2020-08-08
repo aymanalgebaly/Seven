@@ -189,13 +189,16 @@ public interface API {
     @FormUrlEncoded
     @POST("select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property")
     Call<ResponseBody> select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property(
-            @Field("dropname") String dropname
+            @Field("dropname") String dropname,
+            @Field("lang") String lang
+
     );
 
     @FormUrlEncoded
     @POST("select_droblist_car_SubDep_model_year_kilo_other_car_auto_move")
     Call<ResponseBody> select_droblist_car_SubDep_model_year_kilo_other_car_auto_move(
-            @Field("dropname") String dropname
+            @Field("dropname") String dropname,
+            @Field("lang") String lang
     );
 
     @FormUrlEncoded

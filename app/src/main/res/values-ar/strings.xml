@@ -77,4 +77,6 @@
     <string name="New_add">اعلان جديد</string>
     <string name="Profile">الملف الشخصي</string>
     <string name="Home">الرئيسية</string>
+    <string name="cars">سيارات</string>
+    <string name="departments">عقارات</string>
 </resources>

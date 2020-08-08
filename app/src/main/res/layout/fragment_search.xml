@@ -74,6 +74,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="gone"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
         android:id="@+id/lin_department">
 
         <Spinner
@@ -204,7 +206,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:visibility="gone"
         android:id="@+id/lin_car">
 
 

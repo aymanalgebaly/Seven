@@ -77,4 +77,6 @@
     <string name="New_add">Yeni ekle</string>
     <string name="Profile">Profil</string>
     <string name="Home">Ev</string>
+    <string name="cars">arabalar</string>
+    <string name="departments">Bölümler</string>
 </resources>

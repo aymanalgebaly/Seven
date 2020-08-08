@@ -371,20 +371,54 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        if (string.equals("ar")){
 
-        supDep();
-        room();
-        floor();
-        area();
-        other_property();
-        lucx();
+            supDep("ar");
+            room("ar");
+            floor("ar");
+            area("ar");
+            other_property("ar");
+            lucx("ar");
 
 
-        model();
-        year();
-        kilo();
-        otherCar();
-        autoMove();
+            model("ar");
+            year("ar");
+            kilo("ar");
+            otherCar("ar");
+            autoMove("ar");
+        }else if (string.equals("en")){
+
+            supDep("en");
+            room("en");
+            floor("en");
+            area("en");
+            other_property("en");
+            lucx("en");
+
+
+            model("en");
+            year("en");
+            kilo("en");
+            otherCar("en");
+            autoMove("en");
+        }else {
+
+            supDep("tr");
+            room("tr");
+            floor("tr");
+            area("tr");
+            other_property("tr");
+            lucx("tr");
+
+
+            model("tr");
+            year("tr");
+            kilo("tr");
+            otherCar("tr");
+            autoMove("tr");
+        }
+
+
 
 
 
@@ -421,10 +455,10 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-    private void autoMove() {
+    private void autoMove(String ar) {
 
         RetrofitClient.getInstant().create(API.class)
-                .select_droblist_car_SubDep_model_year_kilo_other_car_auto_move("auto_move").enqueue(new Callback<ResponseBody>() {
+                .select_droblist_car_SubDep_model_year_kilo_other_car_auto_move("auto_move",ar).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -458,10 +492,10 @@ public class SearchFragment extends Fragment {
 
     }
 
-    private void otherCar() {
+    private void otherCar(String ar) {
 
         RetrofitClient.getInstant().create(API.class)
-                .select_droblist_car_SubDep_model_year_kilo_other_car_auto_move("other_car").enqueue(new Callback<ResponseBody>() {
+                .select_droblist_car_SubDep_model_year_kilo_other_car_auto_move("other_car",ar).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -495,10 +529,10 @@ public class SearchFragment extends Fragment {
 
     }
 
-    private void kilo() {
+    private void kilo(String ar) {
 
         RetrofitClient.getInstant().create(API.class)
-                .select_droblist_car_SubDep_model_year_kilo_other_car_auto_move("kilo").enqueue(new Callback<ResponseBody>() {
+                .select_droblist_car_SubDep_model_year_kilo_other_car_auto_move("kilo",ar).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -532,10 +566,10 @@ public class SearchFragment extends Fragment {
 
     }
 
-    private void year() {
+    private void year(String ar) {
 
         RetrofitClient.getInstant().create(API.class)
-                .select_droblist_car_SubDep_model_year_kilo_other_car_auto_move("year").enqueue(new Callback<ResponseBody>() {
+                .select_droblist_car_SubDep_model_year_kilo_other_car_auto_move("year",ar).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -569,10 +603,10 @@ public class SearchFragment extends Fragment {
 
     }
 
-    private void model() {
+    private void model(String ar) {
 
         RetrofitClient.getInstant().create(API.class)
-                .select_droblist_car_SubDep_model_year_kilo_other_car_auto_move("model").enqueue(new Callback<ResponseBody>() {
+                .select_droblist_car_SubDep_model_year_kilo_other_car_auto_move("model",ar).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -606,10 +640,10 @@ public class SearchFragment extends Fragment {
     }
 
 
-    private void lucx() {
+    private void lucx(String ar) {
 
         RetrofitClient.getInstant().create(API.class)
-                .select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property("type_lucx").enqueue(new Callback<ResponseBody>() {
+                .select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property("type_lucx",ar).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -642,10 +676,10 @@ public class SearchFragment extends Fragment {
         });
     }
 
-    private void other_property() {
+    private void other_property(String ar) {
 
         RetrofitClient.getInstant().create(API.class)
-                .select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property("other_property").enqueue(new Callback<ResponseBody>() {
+                .select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property("other_property",ar).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -678,10 +712,10 @@ public class SearchFragment extends Fragment {
         });
     }
 
-    private void area() {
+    private void area(String ar) {
 
         RetrofitClient.getInstant().create(API.class)
-                .select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property("area").enqueue(new Callback<ResponseBody>() {
+                .select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property("area",ar).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -715,10 +749,10 @@ public class SearchFragment extends Fragment {
         });
     }
 
-    private void floor() {
+    private void floor(String ar) {
 
         RetrofitClient.getInstant().create(API.class)
-                .select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property("floor").enqueue(new Callback<ResponseBody>() {
+                .select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property("floor",ar).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -751,10 +785,10 @@ public class SearchFragment extends Fragment {
         });
     }
 
-    private void room() {
+    private void room(String ar) {
 
         RetrofitClient.getInstant().create(API.class)
-                .select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property("room").enqueue(new Callback<ResponseBody>() {
+                .select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property("room",ar).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -787,9 +821,9 @@ public class SearchFragment extends Fragment {
         });
     }
 
-    private void supDep() {
+    private void supDep(String ar) {
         RetrofitClient.getInstant().create(API.class)
-                .select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property("SubDep").enqueue(new Callback<ResponseBody>() {
+                .select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property("SubDep",ar).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 

@@ -89,6 +89,8 @@
                     android:hint="@string/Password"
                     android:inputType="textPassword"
                     android:gravity="end"
+                    android:textDirection="ltr"
+                    android:layoutDirection="ltr"
                     android:layout_marginTop="15dp"
                     android:textSize="20sp"
                     android:padding="5dp"/>
