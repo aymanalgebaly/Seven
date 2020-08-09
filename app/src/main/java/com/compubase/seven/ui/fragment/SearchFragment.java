@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -80,9 +81,9 @@ public class SearchFragment extends Fragment {
     @BindView(R.id.et_departWithExtra)
     Spinner etDepartWithExtra;
     @BindView(R.id.et_area_from)
-    Spinner etAreaFrom;
+    EditText etAreaFrom;
     @BindView(R.id.et_area_to)
-    Spinner etAreaTo;
+    EditText etAreaTo;
     @BindView(R.id.et_price_from_pro)
     EditText etPriceFromPro;
     @BindView(R.id.et_price_to_pro)
@@ -248,29 +249,29 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        etAreaFrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                areaItemFrom = areas.get(i);
-            }
+//        etAreaFrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                areaItemFrom = areas.get(i);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        etAreaTo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                areaItemTo = areas.get(i);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+//        etAreaTo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                areaItemTo = areas.get(i);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
 
         etRoom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -376,11 +377,12 @@ public class SearchFragment extends Fragment {
             supDep("ar");
             room("ar");
             floor("ar");
-            area("ar");
+//            area("ar");
             other_property("ar");
             lucx("ar");
 
 
+            supDepCar("ar");
             model("ar");
             year("ar");
             kilo("ar");
@@ -391,11 +393,12 @@ public class SearchFragment extends Fragment {
             supDep("en");
             room("en");
             floor("en");
-            area("en");
+//            area("en");
             other_property("en");
             lucx("en");
 
 
+            supDepCar("en");
             model("en");
             year("en");
             kilo("en");
@@ -406,19 +409,18 @@ public class SearchFragment extends Fragment {
             supDep("tr");
             room("tr");
             floor("tr");
-            area("tr");
+//            area("tr");
             other_property("tr");
             lucx("tr");
 
 
+            supDepCar("tr");
             model("tr");
             year("tr");
             kilo("tr");
             otherCar("tr");
             autoMove("tr");
         }
-
-
 
 
 
@@ -712,42 +714,42 @@ public class SearchFragment extends Fragment {
         });
     }
 
-    private void area(String ar) {
-
-        RetrofitClient.getInstant().create(API.class)
-                .select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property("area",ar).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                GsonBuilder builder = new GsonBuilder();
-                Gson gson = builder.create();
-
-                try {
-                    assert response.body() != null;
-                    List<NewModel> newModels = Arrays.asList(gson.fromJson(response.body().string(), NewModel[].class));
-
-                    for (int i = 0; i < newModels.size(); i++) {
-
-                        String name = newModels.get(i).getName();
-
-                        areas.add(name);
-                    }
-
-                    SpinnerUtils.SetSpinnerAdapter(getContext(), etAreaTo, areas, R.layout.spinner_item_black);
-                    SpinnerUtils.SetSpinnerAdapter(getContext(), etAreaFrom, areas, R.layout.spinner_item_black);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
-    }
+//    private void area(String ar) {
+//
+//        RetrofitClient.getInstant().create(API.class)
+//                .select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property("area",ar).enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//
+//                GsonBuilder builder = new GsonBuilder();
+//                Gson gson = builder.create();
+//
+//                try {
+//                    assert response.body() != null;
+//                    List<NewModel> newModels = Arrays.asList(gson.fromJson(response.body().string(), NewModel[].class));
+//
+//                    for (int i = 0; i < newModels.size(); i++) {
+//
+//                        String name = newModels.get(i).getName();
+//
+//                        areas.add(name);
+//                    }
+//
+//                    SpinnerUtils.SetSpinnerAdapter(getContext(), etAreaTo, areas, R.layout.spinner_item_black);
+//                    SpinnerUtils.SetSpinnerAdapter(getContext(), etAreaFrom, areas, R.layout.spinner_item_black);
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 
     private void floor(String ar) {
 
@@ -824,6 +826,40 @@ public class SearchFragment extends Fragment {
     private void supDep(String ar) {
         RetrofitClient.getInstant().create(API.class)
                 .select_droblist_proparty_SubDep_room_floor_area_type_lucx_other_property("SubDep",ar).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                GsonBuilder builder = new GsonBuilder();
+                Gson gson = builder.create();
+
+                try {
+                    assert response.body() != null;
+                    List<NewModel> newModels = Arrays.asList(gson.fromJson(response.body().string(), NewModel[].class));
+
+                    for (int i = 0; i < newModels.size(); i++) {
+
+                        String name = newModels.get(i).getName();
+
+                        propertyList.add(name);
+                    }
+
+                    SpinnerUtils.SetSpinnerAdapter(getContext(), etPro, propertyList, R.layout.spinner_item_black);
+                    SpinnerUtils.SetSpinnerAdapter(getContext(), spMark, propertyList, R.layout.spinner_item_black);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    } private void supDepCar(String ar) {
+        RetrofitClient.getInstant().create(API.class)
+                .select_droblist_car_SubDep_model_year_kilo_other_car_auto_move("SubDep",ar).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
@@ -978,35 +1014,26 @@ public class SearchFragment extends Fragment {
 
         adsResponseList2.clear();
 
-//        String areaFrom = etAreaFrom.getText().toString();
+        String areaFrom = etAreaFrom.getText().toString();
 ////        String departWith = etDepartWith.getText().toString();
 //        String departWithExtra = etDepartWithExtra.getText().toString();
 //        String floor = etFloor.getText().toString();
 //        String room = etRoom.getText().toString();
-//        String areaTo = etAreaTo.getText().toString();
+        String areaTo = etAreaTo.getText().toString();
         String priceFromPro = etPriceFromPro.getText().toString();
         String priceToPro = etPriceToPro.getText().toString();
 //        String year = etYear.getText().toString();
 
-//        if (TextUtils.isEmpty(room)) {
-//            etRoom.setError("ادخل عدد الغرف");
-//        } else if (TextUtils.isEmpty(floor)) {
-//            etFloor.setError("ادخل الطابق");
-//        }
-////        else if (TextUtils.isEmpty(departWith)) {
-////            etDepartWith.setError("بفرش او بدون");
-////        }
-//        else if (TextUtils.isEmpty(departWithExtra)) {
-//            etDepartWithExtra.setError("ادخل كماليات");
-//        } else if (TextUtils.isEmpty(areaFrom)) {
-//            etAreaFrom.setError("المساحه من");
-//        } else if (TextUtils.isEmpty(areaTo)) {
-//            etAreaTo.setError("المساحه الي");
-//        } else if (TextUtils.isEmpty(priceFromPro)) {
-//            etPriceFromPro.setError("ادخل السعر من");
-//        } else if (TextUtils.isEmpty(priceToPro)) {
-//            etPriceToPro.setError("ادخل السعر الي");
-//        } else {
+
+        if (TextUtils.isEmpty(areaFrom)) {
+            etAreaFrom.setError("المساحه من");
+        } else if (TextUtils.isEmpty(areaTo)) {
+            etAreaTo.setError("المساحه الي");
+        } else if (TextUtils.isEmpty(priceFromPro)) {
+            etPriceFromPro.setError("ادخل السعر من");
+        } else if (TextUtils.isEmpty(priceToPro)) {
+            etPriceToPro.setError("ادخل السعر الي");
+        } else {
 
 //        if (cityName == null) {
 //
@@ -1089,7 +1116,7 @@ public class SearchFragment extends Fragment {
         });
 
     }
-//    }
+    }
 
 
     @Override
