@@ -1148,7 +1148,7 @@ public class SearchFragment extends Fragment {
                     // Perform action on key press
                     salesitems.clear();
 //                    JSON_DATA_WEB_CALL();
-
+                    
                     searchData();
 
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -1159,7 +1159,6 @@ public class SearchFragment extends Fragment {
                 return false;
             }
         });
-
 
     }
 
@@ -1174,6 +1173,8 @@ public class SearchFragment extends Fragment {
 
     private void searchData() {
 
+        linCar.setVisibility(View.GONE);
+        linDepartment.setVisibility(View.GONE);
 
         searchResponseList.clear();
         progressBar.setVisibility(View.VISIBLE);
